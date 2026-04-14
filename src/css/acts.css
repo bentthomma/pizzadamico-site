@@ -1,0 +1,351 @@
+/* ============================================
+   Akt 1 · Die Stunde Null
+   ============================================ */
+.akt-1 {
+  min-height: 100dvh;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+.akt-1 .akt-inner {
+  position: relative;
+  width: 100%;
+  min-height: inherit;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+.akt-1-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  filter: contrast(1.05);
+}
+.akt-1-veil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 20%, var(--c-brace) 85%);
+  pointer-events: none;
+}
+.akt-1-word {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(88px, 14vw, 220px);
+  line-height: 0.9;
+  letter-spacing: -4px;
+  font-variation-settings: 'opsz' 96, 'wdth' 75, 'wght' 700;
+  color: var(--c-farina);
+  opacity: 0;
+  transform: translateY(12px);
+}
+.akt-1-scroll-hint {
+  position: absolute;
+  bottom: var(--sp-4);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: var(--c-farina);
+  opacity: 0.6;
+  letter-spacing: 3px;
+}
+.akt-1-scroll-hint::after {
+  content: " ↓";
+  display: inline-block;
+  margin-left: 8px;
+  animation: scroll-hint 1.8s var(--e-out) infinite;
+}
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+/* ============================================
+   Akt 2 · Das Material
+   ============================================ */
+.akt-2 .akt-inner {
+  padding-top: var(--sp-7);
+  padding-bottom: var(--sp-7);
+}
+.akt-2-head {
+  margin-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--c-line);
+  padding-bottom: var(--sp-3);
+}
+.akt-2-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-7);
+}
+@media (min-width: 900px) {
+  .akt-2-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-6);
+  }
+}
+.akt-2-item {
+  margin: 0;
+  display: grid;
+  gap: var(--sp-3);
+}
+.akt-2-item img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  background: var(--c-semola);
+}
+.akt-2-title {
+  font-size: clamp(36px, 4.2vw, 62px);
+  line-height: 1.02;
+  margin: 0 0 var(--sp-1);
+  font-variation-settings: 'opsz' 96, 'wdth' 78, 'wght' 600;
+}
+.akt-2-item .lede {
+  max-width: 52ch;
+  margin: 0;
+  color: color-mix(in srgb, var(--c-fg) 86%, var(--c-bg));
+}
+
+/* ============================================
+   Akt 3 · Die 30 Stunden
+   ============================================ */
+.akt-3-pin {
+  height: 100dvh;
+  height: 100vh;
+  position: relative;
+  overflow: clip;
+}
+.akt-3-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100dvh;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--c-farina);
+}
+.akt-3-biga {
+  width: min(80vw, 900px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--c-line);
+  background: var(--c-semola);
+}
+.akt-3-readout {
+  position: absolute;
+  bottom: var(--sp-5);
+  left: var(--sp-viewport);
+  display: flex;
+  gap: var(--sp-3);
+  font-size: 14px;
+  letter-spacing: 2.5px;
+  font-variant-numeric: tabular-nums;
+}
+.akt-3-hour { font-weight: 500; }
+.akt-3-phase { opacity: 0.6; }
+.akt-3-bridge {
+  padding: var(--sp-7) var(--sp-viewport);
+  max-width: 1320px;
+  margin-inline: auto;
+}
+.akt-3-hands-grid {
+  margin-top: var(--sp-4);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+}
+@media (max-width: 720px) {
+  .akt-3-hands-grid { grid-template-columns: 1fr; }
+}
+.akt-3-hands-grid figure { margin: 0; }
+.akt-3-hands-grid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+/* ============================================
+   Akt 4 · Doppel-Back
+   ============================================ */
+.akt-4 .akt-inner {
+  padding-top: var(--sp-7);
+  padding-bottom: var(--sp-7);
+  display: grid;
+  gap: var(--sp-5);
+}
+.akt-4-title {
+  font-size: clamp(36px, 4.2vw, 62px);
+  max-width: 22ch;
+  margin: 0;
+}
+.akt-4-lede {
+  max-width: 58ch;
+}
+.akt-4-diagram {
+  margin: 0;
+  padding: var(--sp-4);
+  border: 1px solid var(--c-line);
+}
+.akt-4-diagram svg {
+  width: 100%;
+  height: auto;
+  color: var(--c-fg);
+}
+.akt-4-quote {
+  margin: 0;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--c-line);
+  display: grid;
+  gap: var(--sp-2);
+}
+.akt-4-quote p {
+  margin: 0;
+  font-variation-settings: 'opsz' 96, 'wdth' 82, 'wght' 500;
+  font-size: clamp(30px, 3.8vw, 56px);
+  line-height: 1.1;
+  max-width: 24ch;
+}
+.akt-4-quote cite { font-style: normal; }
+
+/* ============================================
+   Akt 5 · Nicht das Produkt
+   ============================================ */
+.akt-5 {
+  min-height: 100dvh;
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+}
+.akt-5-inner {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding: var(--sp-6) var(--sp-viewport);
+  display: grid;
+  gap: var(--sp-5);
+}
+.akt-5 .topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--c-line);
+  padding-bottom: var(--sp-2);
+}
+.akt-5-statement {
+  margin: 0;
+  max-width: 19ch;
+  font-variation-settings: 'opsz' 96, 'wdth' 78, 'wght' 680;
+  font-size: var(--fs-statement);
+  line-height: 1.03;
+  letter-spacing: -1.6px;
+  display: grid;
+  gap: 0.32em;
+}
+.akt-5-statement .s-line { display: block; }
+.akt-5-statement em {
+  font-style: normal;
+  font-variation-settings: 'opsz' 96, 'wdth' 75, 'wght' 800;
+}
+.akt-5-statement .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.2em);
+  will-change: opacity, transform;
+}
+.akt-5-credit { opacity: 0.7; }
+
+/* ============================================
+   Akt 6 · Feuer
+   ============================================ */
+.akt-6 {
+  position: relative;
+  min-height: 100dvh;
+  min-height: 100vh;
+  overflow: clip;
+}
+.akt-6-stage {
+  position: sticky;
+  top: 0;
+  min-height: 100dvh;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+.akt-6-fire {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+.akt-6-pizza {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  width: min(70vw, 620px);
+  opacity: 0;
+}
+.akt-6-pizza img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.akt-6-caption {
+  position: absolute;
+  bottom: var(--sp-5);
+  right: var(--sp-viewport);
+  z-index: 2;
+  color: var(--c-fuoco);
+  font-size: clamp(28px, 3.2vw, 48px);
+  font-variation-settings: 'opsz' 96, 'wdth' 80, 'wght' 700;
+}
+
+/* ============================================
+   Akt 7 · Münsingen
+   ============================================ */
+.akt-7 .akt-inner {
+  padding-top: var(--sp-7);
+  padding-bottom: var(--sp-6);
+  display: grid;
+  gap: var(--sp-5);
+}
+.akt-7-title {
+  font-size: clamp(38px, 4.2vw, 64px);
+  max-width: 22ch;
+  margin: 0;
+}
+.akt-7-map {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--c-brace);
+  border: 1px solid var(--c-line);
+}
+.akt-7-dates .akt-7-list {
+  list-style: none;
+  margin: var(--sp-2) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--c-line);
+}
+.akt-7-list li {
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--c-line);
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: var(--sp-3);
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+}
+.akt-7-list .d-date { font-family: var(--ff-mono); font-size: 13px; letter-spacing: 1.5px; }
+.akt-7-list .d-where { font-family: var(--ff-editorial); font-size: 16px; }
+.akt-7-list .d-time { font-family: var(--ff-mono); font-size: 12px; opacity: 0.6; letter-spacing: 1.5px; }
+.akt-7-contact {
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--c-line);
+  max-width: 55ch;
+}
+.akt-7-contact a { text-underline-offset: 4px; }
