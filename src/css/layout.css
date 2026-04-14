@@ -1,0 +1,37 @@
+/* Scroll-Root und Akt-Container */
+
+#scroll-root { width: 100%; overflow-x: clip; }
+
+.akt { width: 100%; position: relative; background: var(--c-bg); color: var(--c-fg); }
+
+.akt[data-theme="brace"] {
+  --c-bg: var(--c-brace);
+  --c-fg: var(--c-farina);
+  --c-line: color-mix(in srgb, var(--c-farina) 22%, transparent);
+}
+
+.akt[data-theme="farina"] {
+  --c-bg: var(--c-farina);
+  --c-fg: var(--c-inchiostro);
+  --c-line: color-mix(in srgb, var(--c-inchiostro) 18%, transparent);
+}
+
+.akt-inner {
+  max-width: 1320px;
+  margin-inline: auto;
+  padding: var(--sp-6) var(--sp-viewport);
+}
+
+/* Frame-Linien links/rechts (dezente editorial guides) */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: var(--c-line);
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: 1;
+}
+body::before { left: var(--sp-viewport); }
+body::after  { right: var(--sp-viewport); }
