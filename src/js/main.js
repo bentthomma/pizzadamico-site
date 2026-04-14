@@ -9,6 +9,7 @@ import { initPill } from './acts/pill.js';
 import { initModal } from './modal/modal.js';
 import { initDeepLink } from './modal/deeplink.js';
 import { initWizard } from './wizard/mount.js';
+import { initPricingView } from './wizard/pricing-view.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initScroll();
@@ -22,4 +23,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initModal();
   initDeepLink();
   initWizard();
+  initPricingView();
 });
