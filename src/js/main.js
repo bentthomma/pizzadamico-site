@@ -11,6 +11,8 @@ import { initDeepLink } from './modal/deeplink.js';
 import { initWizard } from './wizard/mount.js';
 import { initPricingView } from './wizard/pricing-view.js';
 import { attachPlaces, initAkt7Map } from './maps.js';
+import { submitWizard } from './submit.js';
+import { showResult } from './wizard/result-panel.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initScroll();
@@ -26,12 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initWizard();
   initPricingView();
 
-  // Wizard Step 3 mount hook — attach Places Autocomplete to the input
   document.addEventListener('wizard:step3-mounted', (e) => {
     attachPlaces(e.detail.inputEl).catch((err) => console.warn('[maps] autocomplete failed:', err));
   });
 
-  // Akt 7 Map — lazy-load when section scrolls into view
   const mapEl = document.getElementById('akt7-map');
   if (mapEl) {
     const mapObs = new IntersectionObserver((entries) => {
@@ -41,4 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { rootMargin: '200px' });
     mapObs.observe(mapEl);
   }
+
+  document.addEventListener('wizard:submit', async () => {
+    const next = document.getElementById('wizard-next');
+    if (next) { next.disabled = true; next.textContent = 'Sende…'; }
+    const res = await submitWizard();
+    showResult(res.ok, res.error);
+    if (next) { next.textContent = res.ok ? 'Gesendet' : 'Erneut senden'; next.disabled = !res.ok; }
+  });
 });
