@@ -8,6 +8,7 @@ import { initAkt7 } from './acts/akt7.js';
 import { initPill } from './acts/pill.js';
 import { initModal } from './modal/modal.js';
 import { initDeepLink } from './modal/deeplink.js';
+import { initWizard } from './wizard/mount.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initScroll();
@@ -20,4 +21,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initPill();
   initModal();
   initDeepLink();
+  initWizard();
 });
