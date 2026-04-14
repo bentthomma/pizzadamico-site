@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('../fonts/BricolageGrotesque-Variable.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Newsreader';
+  src: url('../fonts/Newsreader-Variable.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font-family: var(--ff-editorial);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: oldstyle-nums;
+  transition: background var(--t-soft) var(--e-out), color var(--t-soft) var(--e-out);
+}
+
+img, video { max-width: 100%; height: auto; display: block; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+.kicker {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-kicker);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+.display {
+  font-family: var(--ff-display);
+  font-variation-settings: 'opsz' 96, 'wdth' 78, 'wght' 600;
+  font-size: var(--fs-statement);
+  line-height: 1.03;
+  letter-spacing: -1.2px;
+}
+.lede {
+  font-family: var(--ff-editorial);
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  max-width: 60ch;
+  font-variation-settings: 'opsz' 18;
+}
+.meta {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.55;
+  font-variant-numeric: tabular-nums;
+}
+.editorial { hanging-punctuation: first last allow-end; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
