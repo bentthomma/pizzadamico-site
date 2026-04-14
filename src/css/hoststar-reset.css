@@ -1,0 +1,43 @@
+/* Hoststar-Override: blendet Builder-Wrapper aus, entfernt Default-Abstände.
+   Wird nur im Produktions-Head-Inject eingebunden (build-inject.js), nicht im Dev. */
+
+/* klassische HTML-Tags */
+header,
+footer,
+nav {
+  display: none !important;
+}
+
+/* häufige Builder-/Site-Namen */
+[id*="header"],
+[id*="Header"],
+[id*="footer"],
+[id*="Footer"],
+[class*="header"],
+[class*="Header"],
+[class*="footer"],
+[class*="Footer"],
+[class*="menu"],
+[class*="Menu"],
+[class*="navbar"],
+[class*="Navbar"],
+[class*="topbar"],
+[class*="Topbar"],
+[class*="site-header"],
+[class*="site-footer"] {
+  display: none !important;
+}
+
+/* oft bleibt oben/unten Abstand übrig */
+body,
+main,
+#main,
+.page,
+.site,
+#wrapper,
+#content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
