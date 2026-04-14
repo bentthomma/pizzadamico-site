@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pizza &amp; Pasta D'Amico</title>
+  <meta name="description" content="Neapolitanische Pizza aus dem Pferdeanhänger. Catering in der Schweiz. Schlossstrasse 15, Münsingen.">
+  <link rel="stylesheet" href="/src/css/tokens.css">
+  <link rel="stylesheet" href="/src/css/base.css">
+  <link rel="stylesheet" href="/src/css/layout.css">
+  <link rel="stylesheet" href="/src/css/acts.css">
+  <link rel="stylesheet" href="/src/css/modal.css">
+  <link rel="stylesheet" href="/src/css/pill.css">
+  <link rel="preload" href="/src/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+  <main id="scroll-root">
+
+    <section class="akt akt-1" data-akt="1" data-theme="brace">
+      <div class="akt-inner">
+        <video class="akt-1-video" playsinline muted loop preload="metadata"
+               poster="/src/media/akt1-ambient-poster.jpg">
+          <source src="/src/media/akt1-ambient.webm" type="video/webm">
+          <source src="/src/media/akt1-ambient.mp4" type="video/mp4">
+        </video>
+        <div class="akt-1-veil"></div>
+        <h1 class="akt-1-word display">Biga.</h1>
+        <div class="akt-1-scroll-hint meta"><span lang="it">scorri</span></div>
+      </div>
+    </section>
+
+    <section class="akt akt-2" data-akt="2" data-theme="farina">
+      <div class="akt-inner">
+        <div class="akt-2-head"><div class="kicker"><span lang="it">Atto II · Materia</span></div></div>
+        <div class="akt-2-grid">
+          <figure class="akt-2-item">
+            <img src="/src/images/caputo-rossa.jpg" alt="Caputo Rossa Type 00 Mehlsack aus Neapel" width="800" height="1000">
+            <figcaption>
+              <h2 class="display akt-2-title">Mehl aus Neapel.</h2>
+              <p class="lede editorial">Caputo Rossa, gemahlen aus süditalienischem Weichweizen, Type 00. Eine Tonne reicht für vier Wochen Betrieb.</p>
+              <p class="meta">50 kg · Molino Caputo · Napoli</p>
+            </figcaption>
+          </figure>
+          <figure class="akt-2-item">
+            <img src="/src/images/fior-di-latte.jpg" alt="Fior di Latte Büffelmozzarella" width="800" height="1000">
+            <figcaption>
+              <h2 class="display akt-2-title">Milch aus Kampanien.</h2>
+              <p class="lede editorial">Fior di Latte, täglich geliefert, in Lake. Kein Reifegrad-Kompromiss.</p>
+              <p class="meta">250 g Kugeln · Kampanien</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="akt akt-3" data-akt="3" data-theme="farina">
+      <div class="akt-3-pin" id="akt3-pin">
+        <div class="akt-3-stage">
+          <video class="akt-3-biga" playsinline muted preload="auto"
+                 poster="/src/media/akt3-biga-poster.jpg">
+            <source src="/src/media/akt3-biga-30h.webm" type="video/webm">
+            <source src="/src/media/akt3-biga-30h.mp4" type="video/mp4">
+          </video>
+          <div class="akt-3-readout meta">
+            <span class="akt-3-hour" data-bind="biga-hour">00 h</span>
+            <span class="akt-3-phase" data-bind="biga-phase">Ansatz</span>
+          </div>
+        </div>
+      </div>
+      <div class="akt-3-bridge">
+        <div class="kicker"><span lang="it">Le Mani</span> · Die Hände</div>
+        <div class="akt-3-hands-grid">
+          <figure><img src="/src/images/hand-1.jpg" alt="Hände formen den Teig" width="600" height="800"></figure>
+          <figure><img src="/src/images/hand-2.jpg" alt="Teig wird gedehnt" width="600" height="800"></figure>
+          <figure><img src="/src/images/hand-3.jpg" alt="Makro Teigoberfläche" width="600" height="800"></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="akt akt-4" data-akt="4" data-theme="farina">
+      <div class="akt-inner">
+        <div class="kicker"><span lang="it">Atto IV · Doppio Forno</span></div>
+        <h2 class="display akt-4-title">Das einzige Doppel-Back-System in der Schweiz.</h2>
+        <p class="lede editorial akt-4-lede">Zwei Back-Phasen, getrennt durch einen Ruhemoment. Außen knusprig, innen luftig, zart.</p>
+        <figure class="akt-4-diagram">
+          <svg viewBox="0 0 600 300" role="img" aria-label="Doppel-Back Temperaturkurve">
+            <rect x="0" y="0" width="600" height="300" fill="none" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+            <text x="10" y="20" class="meta" fill="currentColor">485°C</text>
+            <text x="10" y="280" class="meta" fill="currentColor">0s · 60s · 90s</text>
+          </svg>
+        </figure>
+        <blockquote class="akt-4-quote">
+          <p class="display">„Der Teig weiss, wann er fertig ist. Wir müssen es nur erkennen."</p>
+          <cite class="meta">Pietro D'Amico · Pizzaiolo · Münsingen</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="akt akt-5" data-akt="5" data-theme="farina">
+      <div class="akt-5-inner">
+        <div class="topline">
+          <div class="kicker"><span lang="it">Atto V · Posizione</span></div>
+          <div class="meta akt-5-count">05 / 07</div>
+        </div>
+        <blockquote class="akt-5-statement display">
+          <span class="s-line">Ich backe seit dreissig Jahren.</span>
+          <span class="s-line">Ich habe nicht gelernt, schneller zu sein —</span>
+          <span class="s-line"><em>nur besser.</em></span>
+        </blockquote>
+        <cite class="akt-5-credit meta">Pietro D'Amico · Pizzaiolo · Schlossstrasse 15, Münsingen</cite>
+      </div>
+    </section>
+
+    <section class="akt akt-6" data-akt="6" data-theme="brace">
+      <div class="akt-6-stage">
+        <video class="akt-6-fire" playsinline muted preload="metadata"
+               poster="/src/media/akt6-fire-poster.jpg">
+          <source src="/src/media/akt6-fire.webm" type="video/webm">
+          <source src="/src/media/akt6-fire.mp4" type="video/mp4">
+        </video>
+        <figure class="akt-6-pizza"><img src="/src/images/akt6-pizza-final.jpg" alt="Margherita aus dem Doppel-Back-Ofen" width="800" height="800"></figure>
+        <div class="akt-6-caption display">Eine Konsequenz.</div>
+      </div>
+    </section>
+
+    <section class="akt akt-7" data-akt="7" data-theme="farina">
+      <div class="akt-inner">
+        <div class="kicker"><span lang="it">Atto VII · Ritorno</span></div>
+        <h2 class="display akt-7-title">Du weisst jetzt, was kommt.</h2>
+        <div class="akt-7-map" id="akt7-map" aria-label="Karte Schlossstrasse 15, Münsingen"></div>
+        <div class="akt-7-dates">
+          <h3 class="kicker"><span lang="it">Prossimi appuntamenti</span></h3>
+          <ul class="akt-7-list" id="akt7-dates"></ul>
+        </div>
+        <div class="akt-7-contact editorial">
+          <p>Wenn du willst, dass wir an deinem Tag dabei sind — ruf Pietro an.</p>
+          <p class="meta">
+            <a href="tel:+41763313259">076 331 32 59</a>
+            &nbsp;·&nbsp;
+            <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="pill" id="cta-pill" data-state="hidden" aria-label="Catering anfragen">
+    <span class="pill-dot" aria-hidden="true"></span>
+    <span class="pill-label">Catering anfragen</span>
+  </button>
+
+  <aside class="modal" id="catering-modal" aria-hidden="true" aria-modal="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-backdrop" data-modal-close></div>
+    <div class="modal-shell">
+      <header class="modal-head">
+        <h2 id="modal-title" class="display">Dein Event. Unsere Pizza.</h2>
+        <button class="modal-close" data-modal-close aria-label="Schließen">×</button>
+      </header>
+      <div class="modal-body">
+        <nav class="wizard-nav" aria-label="Wizard-Fortschritt">
+          <ol class="wizard-steps" id="wizard-steps"></ol>
+        </nav>
+        <div class="wizard-main">
+          <section class="wizard-stage" id="wizard-stage"></section>
+        </div>
+        <aside class="wizard-pricing" id="wizard-pricing" aria-live="polite"></aside>
+      </div>
+      <footer class="modal-foot">
+        <button class="wizard-prev" id="wizard-prev">← Zurück</button>
+        <button class="wizard-next" id="wizard-next">Weiter →</button>
+      </footer>
+    </div>
+  </aside>
+
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>
