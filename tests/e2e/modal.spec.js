@@ -13,10 +13,10 @@ test.describe('catering modal', () => {
     await expect(page.locator('#catering-modal')).toHaveAttribute('aria-hidden', 'true');
   });
 
-  test('closes on backdrop click', async ({ page }) => {
+  test('closes on × button', async ({ page }) => {
     await page.goto('/?catering=1');
     await expect(page.locator('#catering-modal')).toHaveAttribute('aria-hidden', 'false');
-    await page.locator('.modal-backdrop').click();
+    await page.locator('.modal-close').click();
     await expect(page.locator('#catering-modal')).toHaveAttribute('aria-hidden', 'true');
   });
 });
