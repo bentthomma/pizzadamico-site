@@ -9,3 +9,5 @@ Thumbs.db
 coverage/
 playwright-report/
 test-results/
+api/vendor/
+api/composer.lock
