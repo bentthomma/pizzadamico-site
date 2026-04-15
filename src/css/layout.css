@@ -1,7 +1,7 @@
 /* Scroll-Root und Akt-Container · CSS Scroll-Snap Section-Paging */
 
 html {
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }
 /* Disable mandatory snap on reduced-motion + when a modal is open (content inside scrolls) */

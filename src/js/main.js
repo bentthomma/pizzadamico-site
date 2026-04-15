@@ -7,13 +7,22 @@ import { initContactForm } from './contact-form.js';
 import { initSiteModal } from './site-modal.js';
 import { initReveal } from './reveal.js';
 
-// Always start at top on (re)load — disable browser's scroll-restoration
+// Force scroll to top on every load/reload — strict
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+// Clear URL fragment to avoid browser scrolling to hash-section on reload
+if (window.location.hash) {
+  history.replaceState(null, '', window.location.pathname + window.location.search);
+}
+window.scrollTo(0, 0);
 window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+window.addEventListener('pageshow', (e) => { if (e.persisted) window.scrollTo(0, 0); });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Force top on init (covers cache/BFCache reloads too)
-  requestAnimationFrame(() => window.scrollTo(0, 0));
+  // Multiple rAFs · force top even after layout/fonts
+  requestAnimationFrame(() => {
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+  });
   initScroll();
   initSiteHeader();
   initAkt1Yt();
@@ -22,4 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initSiteModal();
   initContactForm();
   initReveal();
+});
+
+// One more safety · after all assets loaded
+window.addEventListener('load', () => {
+  requestAnimationFrame(() => window.scrollTo(0, 0));
 });
