@@ -6,7 +6,13 @@ import { initAkt7 } from './acts/akt7.js';
 import { initAkt7Map } from './maps.js';
 import { initSiteHeader } from './site-header.js';
 
+// Always start at top on (re)load — disable browser's scroll-restoration
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Force top on init (covers cache/BFCache reloads too)
+  requestAnimationFrame(() => window.scrollTo(0, 0));
   initScroll();
   initSiteHeader();
   initAkt1Yt();
