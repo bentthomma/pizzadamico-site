@@ -198,6 +198,32 @@
   display: grid;
   gap: 6px;
 }
+
+/* SVG line from image to caption · animated on section enter */
+.akt-2-panel-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+.akt-2-panel-svg .panel-dot {
+  fill: var(--c-pane);
+  opacity: 0;
+  transition: opacity 400ms var(--e-out) 200ms;
+}
+.akt-2-panel-svg .panel-line {
+  stroke: var(--c-pane);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  fill: none;
+  transition: stroke-dashoffset 900ms var(--e-out) 400ms;
+}
+.akt-2-panel.reveal-in .panel-dot { opacity: 1; }
+.akt-2-panel.reveal-in .panel-line { stroke-dashoffset: 0; }
 .akt-2-panel-kicker {
   color: var(--c-farina);
   opacity: 0.85;
@@ -590,7 +616,7 @@
   position: relative;
   height: 100dvh;
   height: 100vh;
-  aspect-ratio: 1.2 / 1;
+  aspect-ratio: 16 / 9;
   max-width: 100vw;
   margin: 0;
   overflow: visible;
@@ -768,24 +794,78 @@
   color: var(--c-inchiostro);
 }
 
-/* Mobile: kompakter, Details-Prose versteckt (redundant mit Menu), Gradient-Hintergrund */
+/* Mobile: cinematic static reveal · warmer Atmosphäre + stronger hierarchy */
 @media (max-width: 899px) {
   .akt-5 {
-    background: linear-gradient(135deg, var(--c-farina) 0%,
-                color-mix(in srgb, var(--c-pane) 18%, var(--c-farina)) 100%);
     overflow: hidden;
     position: relative;
+    background:
+      radial-gradient(ellipse 140% 60% at 50% -10%,
+        color-mix(in srgb, var(--c-brace) 55%, transparent) 0%,
+        transparent 55%),
+      radial-gradient(ellipse 80% 50% at 85% 95%,
+        color-mix(in srgb, var(--c-fuoco) 14%, transparent) 0%,
+        transparent 65%),
+      linear-gradient(180deg,
+        color-mix(in srgb, var(--c-brace) 18%, var(--c-farina)) 0%,
+        var(--c-farina) 28%,
+        var(--c-farina) 100%);
+    align-content: start;
   }
   .akt-5::before {
-    content: ""; position: absolute; top: -15%; right: -30%;
-    width: 80vw; aspect-ratio: 1; border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--c-pane) 22%, transparent) 0%, transparent 60%);
-    pointer-events: none; z-index: 0;
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0 0.04  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+    opacity: 0.15;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+    width: auto; aspect-ratio: auto;
+    border-radius: 0;
   }
-  .akt-5-inner { padding-block: var(--sp-akt-y); gap: var(--sp-head-body); position: relative; z-index: 1; }
-  .akt-5-statement-block { padding-top: var(--sp-2); gap: var(--sp-1); }
-  .akt-5-statement { font-size: clamp(40px, 9vw, 56px); }
+  .akt-5-inner {
+    padding-block: var(--sp-5) var(--sp-4);
+    gap: var(--sp-4);
+    align-content: start;
+    position: relative;
+    z-index: 1;
+  }
+  /* Title-Spezifitäts-Fix · Mobile */
+  .akt-5 .akt-head > .akt-5-title,
+  .akt-5 .akt-title.akt-5-title {
+    font-size: clamp(44px, 11.5vw, 60px);
+    line-height: 0.98;
+    letter-spacing: -1.6px;
+    font-variation-settings: 'opsz' 96, 'wdth' 74, 'wght' 680;
+    max-width: 14ch;
+  }
+  .akt-5-statement-block {
+    padding: var(--sp-3) 0 var(--sp-2);
+    gap: var(--sp-2);
+    border-top: 1px solid color-mix(in srgb, var(--c-brace) 35%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--c-brace) 35%, transparent);
+  }
+  .akt-5-statement {
+    font-size: clamp(46px, 11vw, 62px);
+    line-height: 0.95;
+    letter-spacing: -2px;
+    font-variation-settings: 'opsz' 96, 'wdth' 76, 'wght' 720;
+  }
+  .akt-5-statement em {
+    border-bottom-width: 4px;
+    border-bottom-color: var(--c-fuoco);
+    padding-bottom: 4px;
+  }
   .akt-5-details { display: none; }
+  .akt-5 .site-modal-trigger {
+    margin-top: var(--sp-2);
+    padding: 18px 28px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    width: 100%;
+    justify-content: space-between;
+    border: 1px solid color-mix(in srgb, var(--c-brace) 45%, transparent);
+  }
 }
 
 /* Restaurant-Menu-Tafel · Preise mit Leader-Dots */
@@ -1153,23 +1233,107 @@
   outline: none;
 }
 
-/* Mobile: Form-Priority, TWINT kompakter */
+/* Mobile: Form-Priority · dunkler primary CTA · TWINT eigene editorial card */
 @media (max-width: 899px) {
-  .akt-6-inner { gap: var(--sp-3); padding-block: var(--sp-akt-y); }
+  .akt-6 {
+    align-content: start;
+    position: relative;
+    overflow: hidden;
+  }
+  .akt-6::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 90% 50% at 20% 105%,
+        color-mix(in srgb, var(--c-brace) 60%, transparent) 0%,
+        transparent 60%),
+      radial-gradient(ellipse 70% 40% at 95% -10%,
+        color-mix(in srgb, var(--c-pane) 32%, transparent) 0%,
+        transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .akt-6-inner {
+    gap: var(--sp-4);
+    padding-block: var(--sp-5) var(--sp-6);
+    position: relative;
+    z-index: 1;
+  }
   .akt-6-form-col { gap: var(--sp-2); }
-  .akt-6-title { font-size: clamp(44px, 12vw, 64px); line-height: 1; letter-spacing: -2px; }
+  /* Title-Spezifitäts-Fix · Mobile */
+  .akt-6 .akt-head > .akt-6-title,
+  .akt-6 .akt-title.akt-6-title {
+    font-size: clamp(52px, 13.5vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -2.4px;
+    font-variation-settings: 'opsz' 96, 'wdth' 72, 'wght' 720;
+  }
   .akt-6-lede { font-size: 15px; line-height: 1.45; }
-  .akt-6 .site-modal-trigger { padding: 16px 32px; font-size: 12px; }
+  /* Primary CTA: dunkel, dominant */
+  .akt-6 .site-modal-trigger {
+    background: var(--c-inchiostro);
+    color: var(--c-farina);
+    border-color: var(--c-inchiostro);
+    width: 100%;
+    padding: 20px 28px;
+    justify-content: space-between;
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+  .akt-6 .site-modal-trigger:hover,
+  .akt-6 .site-modal-trigger:focus-visible {
+    background: var(--c-fuoco);
+    border-color: var(--c-fuoco);
+    color: var(--c-farina);
+  }
   .contact-form { gap: var(--sp-1); }
   .contact-form input, .contact-form textarea { padding: 9px 12px; font-size: 15px; }
   .contact-form textarea { min-height: 60px; }
   .contact-submit { padding: 10px 20px; }
-  .akt-6-twint { padding: var(--sp-2); gap: 6px; }
-  .akt-6-twint-qr { max-width: 180px; padding: 8px; }
-  .akt-6-twint-note { font-size: 11px; line-height: 1.35; }
-  .akt-6-twint-applink { font-size: 10px; padding: 10px 16px; }
-  .akt-6-direct { padding-top: 6px; }
-  .akt-6-direct a { font-size: 13px; letter-spacing: 1.5px; }
+  /* TWINT als eigenständige editorial card */
+  .akt-6-twint {
+    padding: var(--sp-3) var(--sp-2);
+    background: color-mix(in srgb, var(--c-brace) 4%, var(--c-farina));
+    border: 1px solid color-mix(in srgb, var(--c-brace) 16%, transparent);
+    border-radius: 2px;
+    gap: var(--sp-2);
+  }
+  .akt-6-twint-kicker {
+    opacity: 1;
+    color: var(--c-fuoco);
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    font-size: 10px;
+  }
+  .akt-6-twint-qr {
+    max-width: 100%;
+    background: #fff;
+    padding: 12px;
+    border: 1px solid color-mix(in srgb, var(--c-brace) 18%, transparent);
+    justify-self: start;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    width: 220px;
+  }
+  .akt-6-twint-qr img {
+    width: auto; height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    display: block;
+  }
+  .akt-6-twint-note { font-size: 13px; line-height: 1.5; opacity: 0.85; max-width: 38ch; }
+  .akt-6-twint-applink {
+    padding: 8px 0;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    border-bottom: 1px solid currentColor;
+  }
+  .akt-6-direct {
+    padding-top: var(--sp-1);
+    font-size: 10.5px;
+    opacity: 0.75;
+  }
+  .akt-6-direct a { font-size: 15px; letter-spacing: -0.2px; }
 }
 
 /* ============================================
