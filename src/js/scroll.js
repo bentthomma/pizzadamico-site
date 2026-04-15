@@ -83,8 +83,10 @@ export function initScroll() {
   footer = document.querySelector('.site-footer');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const useLenis = !reduceMotion && !isTouch;  // Lenis only on desktop · mobile uses native scroll
 
-  if (!reduceMotion) {
+  if (useLenis) {
     // Lenis instance — butter-smooth momentum scroll
     lenis = new Lenis({
       duration: 1.1,

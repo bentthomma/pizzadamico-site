@@ -143,33 +143,23 @@
 }
 
 /* ============================================
-   Akt 2 · Unsere Pizza · Diptych
+   Akt 2 · Diptych · pure black canvas
    ============================================ */
 .akt-2 {
-  display: grid;
-  grid-template-rows: auto 1fr;
+  display: block;
   padding: 0;
   overflow: hidden;
   height: 100dvh;
   height: 100vh;
   min-height: 100dvh;
   min-height: 100vh;
-}
-.akt-2-header-zone {
-  padding-block: var(--sp-4);
-}
-.akt-2 .akt-inner {
-  padding-block: 0;
-  display: grid;
-  gap: var(--sp-head-body);
-  align-content: center;
+  background: #000;
 }
 .akt-2-diptych {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--c-inchiostro);
-  min-height: 0;
+  gap: 1px;
+  background: #000;
   height: 100%;
 }
 .akt-2-panel {
@@ -240,7 +230,6 @@
 
 /* Mobile: Diptych stacked vertikal statt side-by-side */
 @media (max-width: 899px) {
-  .akt-2-header-zone { padding-block: var(--sp-3); }
   .akt-2-diptych { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
   .akt-2-panel figcaption { bottom: var(--sp-2); left: var(--sp-2); right: var(--sp-2); }
 }

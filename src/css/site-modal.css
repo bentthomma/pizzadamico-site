@@ -75,21 +75,27 @@
   display: block;
   position: absolute;
   inset: 0;
-  background: color-mix(in srgb, var(--c-inchiostro) 62%, transparent);
+  background: color-mix(in srgb, var(--c-inchiostro) 92%, transparent);
 }
 .site-modal.site-modal-overlay .site-modal-shell {
   display: grid;
-  gap: var(--sp-2);
+  gap: var(--sp-3);
   position: relative;
   background: var(--c-farina);
   color: var(--c-inchiostro);
-  padding: var(--sp-5) var(--sp-4) var(--sp-4);
-  border-radius: 4px;
-  max-width: min(92vw, 640px);
+  padding: var(--sp-6) var(--sp-5) var(--sp-5);
+  border-radius: 2px;
+  width: min(94vw, 920px);
   max-height: 92dvh;
   overflow-y: auto;
   transform: translateY(12px);
   transition: transform var(--t-med) var(--e-out);
+}
+@media (max-width: 899px) {
+  .site-modal.site-modal-overlay .site-modal-shell {
+    width: min(94vw, 540px);
+    padding: var(--sp-4) var(--sp-3) var(--sp-3);
+  }
 }
 .site-modal.site-modal-overlay[aria-hidden="false"] .site-modal-shell {
   transform: translateY(0);
@@ -158,9 +164,7 @@
     display: block;
     position: absolute;
     inset: 0;
-    background: color-mix(in srgb, var(--c-inchiostro) 62%, transparent);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: color-mix(in srgb, var(--c-inchiostro) 92%, transparent);
   }
   .site-modal-shell {
     display: grid;
