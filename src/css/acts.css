@@ -30,16 +30,35 @@
   background: radial-gradient(ellipse at center, transparent 20%, var(--c-brace) 85%);
   pointer-events: none;
 }
-.akt-1-word {
+.akt-1-hero {
   position: relative;
   z-index: 2;
-  font-size: clamp(88px, 14vw, 220px);
-  line-height: 0.9;
-  letter-spacing: -4px;
-  font-variation-settings: 'opsz' 96, 'wdth' 75, 'wght' 700;
+  display: grid;
+  place-items: center;
+  gap: var(--sp-2);
+  padding: 0 var(--sp-viewport);
+  text-align: center;
   color: var(--c-farina);
-  opacity: 0;
-  transform: translateY(12px);
+}
+.akt-1-kicker {
+  color: var(--c-farina);
+  opacity: 0.6;
+  letter-spacing: 3.5px;
+}
+.akt-1-brand {
+  font-size: clamp(44px, 7vw, 112px);
+  line-height: 0.95;
+  letter-spacing: -2px;
+  font-variation-settings: 'opsz' 96, 'wdth' 85, 'wght' 650;
+  color: var(--c-farina);
+  margin: 0;
+  max-width: 14ch;
+}
+.akt-1-sub {
+  color: var(--c-pane);
+  opacity: 0.85;
+  letter-spacing: 3px;
+  margin-top: var(--sp-1);
 }
 .akt-1-scroll-hint {
   position: absolute;

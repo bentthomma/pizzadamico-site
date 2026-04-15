@@ -1,0 +1,88 @@
+/* Minimal site-header · override Hoststar-Reset */
+.site-header {
+  display: flex !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px var(--sp-viewport);
+
+  background: transparent;
+  color: var(--c-farina);
+  pointer-events: none;
+  transition: background var(--t-med) var(--e-out),
+              color var(--t-med) var(--e-out),
+              backdrop-filter var(--t-med) var(--e-out);
+}
+
+.site-header[data-theme="farina"] {
+  color: var(--c-inchiostro);
+  background: color-mix(in srgb, var(--c-farina) 78%, transparent);
+  backdrop-filter: saturate(1.1) blur(8px);
+  -webkit-backdrop-filter: saturate(1.1) blur(8px);
+  border-bottom: 1px solid color-mix(in srgb, var(--c-inchiostro) 10%, transparent);
+}
+
+.site-brand {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-brand-mark {
+  font-family: var(--ff-display);
+  font-variation-settings: 'opsz' 48, 'wdth' 85, 'wght' 650;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  line-height: 1;
+}
+
+.site-brand-sub {
+  opacity: 0.7;
+  letter-spacing: 2.5px;
+  font-size: 10px;
+}
+
+.site-contact {
+  pointer-events: auto;
+  text-decoration: none;
+  color: inherit;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  opacity: 0.75;
+  letter-spacing: 2px;
+  transition: opacity var(--t-fast), background var(--t-fast), color var(--t-fast);
+}
+
+.site-contact:hover,
+.site-contact:focus-visible {
+  opacity: 1;
+  background: currentColor;
+  outline: none;
+}
+
+.site-header[data-theme="farina"] .site-contact:hover,
+.site-header[data-theme="farina"] .site-contact:focus-visible {
+  color: var(--c-farina);
+}
+
+.site-header:not([data-theme="farina"]) .site-contact:hover,
+.site-header:not([data-theme="farina"]) .site-contact:focus-visible {
+  color: var(--c-inchiostro);
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    padding: 14px var(--sp-viewport);
+  }
+  .site-brand-sub { display: none; }
+  .site-contact { padding: 5px 10px; font-size: 10px; }
+}

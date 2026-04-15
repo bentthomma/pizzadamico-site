@@ -14,9 +14,11 @@ import { attachPlaces, initAkt7Map } from './maps.js';
 import { submitReservation } from './submit.js';
 import { showResult } from './wizard/result-panel.js';
 import { setField } from './wizard/state.js';
+import { initSiteHeader } from './site-header.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initScroll();
+  initSiteHeader();
   initAkt1();
   initAkt3Biga();
   initAkt4();

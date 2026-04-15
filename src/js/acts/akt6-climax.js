@@ -25,10 +25,6 @@ export function initAkt6Climax() {
     .fromTo(pizza, { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1, duration: 0.7 }, 0.35)
     .fromTo(caption, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.5 }, 0.7);
 
-  if (fire && fire.tagName === 'VIDEO') {
-    ScrollTrigger.create({
-      trigger: section, start: 'top top', end: '+=200%',
-      onUpdate: (st) => { if (fire.duration && isFinite(fire.duration)) fire.currentTime = st.progress * fire.duration; },
-    });
-  }
+  // Fire loops independently (autoplay + loop in HTML). No scroll-scrub on fire
+  // so it stays alive during the pin. JS only animates pizza + caption reveals.
 }

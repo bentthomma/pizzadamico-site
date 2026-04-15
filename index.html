@@ -11,21 +11,33 @@
   <link rel="stylesheet" href="/src/css/acts.css">
   <link rel="stylesheet" href="/src/css/modal.css">
   <link rel="stylesheet" href="/src/css/pill.css">
+  <link rel="stylesheet" href="/src/css/site-header.css">
   <link rel="preload" href="/src/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/src/fonts/Newsreader-Variable.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
+  <header class="site-header">
+    <a href="#top" class="site-brand" aria-label="Pizza &amp; Pasta D'Amico — Home">
+      <span class="site-brand-mark">D'Amico</span>
+      <span class="site-brand-sub meta"><span lang="it">Pizza &amp; Pasta</span></span>
+    </a>
+    <a class="site-contact meta" href="tel:+41763313259">076 331 32 59</a>
+  </header>
+
   <main id="scroll-root">
 
     <section class="akt akt-1" data-akt="1" data-theme="brace">
       <div class="akt-inner">
         <video class="akt-1-video" autoplay playsinline muted loop preload="auto"
                poster="/src/media/akt1-ambient-poster.jpg">
-          <source src="/src/media/akt1-ambient.webm" type="video/webm">
           <source src="/src/media/akt1-ambient.mp4" type="video/mp4">
         </video>
         <div class="akt-1-veil"></div>
-        <h1 class="akt-1-word display">Biga.</h1>
+        <div class="akt-1-hero">
+          <div class="akt-1-kicker meta"><span lang="it">Napoli</span> · Schlossstrasse 15, Münsingen</div>
+          <h1 class="akt-1-brand display">Pizza &amp; Pasta D'Amico</h1>
+          <div class="akt-1-sub meta">Biga · 30 Stunden · Doppel-Back</div>
+        </div>
         <div class="akt-1-scroll-hint meta"><span lang="it">scorri</span></div>
       </div>
     </section>
@@ -67,7 +79,6 @@
         <div class="akt-3-stage">
           <video class="akt-3-biga" playsinline muted preload="auto"
                  poster="/src/media/akt3-biga-poster.jpg">
-            <source src="/src/media/akt3-biga-30h.webm" type="video/webm">
             <source src="/src/media/akt3-biga-30h.mp4" type="video/mp4">
           </video>
           <div class="akt-3-readout meta">
@@ -163,9 +174,8 @@
 
     <section class="akt akt-6" data-akt="6" data-theme="brace">
       <div class="akt-6-stage">
-        <video class="akt-6-fire" playsinline muted preload="metadata"
+        <video class="akt-6-fire" autoplay playsinline muted loop preload="auto"
                poster="/src/media/akt6-fire-poster.jpg">
-          <source src="/src/media/akt6-fire.webm" type="video/webm">
           <source src="/src/media/akt6-fire.mp4" type="video/mp4">
         </video>
         <figure class="akt-6-pizza"><picture>
