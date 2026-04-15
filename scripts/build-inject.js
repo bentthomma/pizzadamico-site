@@ -5,7 +5,9 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const DIST = path.join(ROOT, 'dist');
 const VITE_DIST = path.join(DIST, 'vite');
-const BASE = process.env.ASSET_BASE || 'https://pizzadamico.ch';
+// jsDelivr CDN serves assets committed to github.com/bentthomma/pizzadamico-site@main/dist/static/
+// Override via env ASSET_BASE if hosting assets elsewhere (e.g. direct on pizzadamico.ch).
+const BASE = process.env.ASSET_BASE || 'https://cdn.jsdelivr.net/gh/bentthomma/pizzadamico-site@main/dist/static';
 
 async function main() {
   // 1. Vite production build into dist/vite/
