@@ -11,8 +11,9 @@ import { initDeepLink } from './modal/deeplink.js';
 import { initWizard } from './wizard/mount.js';
 import { initPricingView } from './wizard/pricing-view.js';
 import { attachPlaces, initAkt7Map } from './maps.js';
-import { submitWizard } from './submit.js';
+import { submitReservation } from './submit.js';
 import { showResult } from './wizard/result-panel.js';
+import { setField } from './wizard/state.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initScroll();
@@ -45,8 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('wizard:submit', async () => {
     const next = document.getElementById('wizard-next');
     if (next) { next.disabled = true; next.textContent = 'Sende…'; }
-    const res = await submitWizard();
-    showResult(res.ok, res.error);
-    if (next) { next.textContent = res.ok ? 'Gesendet' : 'Erneut senden'; next.disabled = !res.ok; }
+    const res = await submitReservation();
+    showResult(res);
+    if (next) {
+      next.disabled = !!res.ok;
+      next.textContent = res.ok ? 'Gesendet' : 'Erneut senden';
+    }
+  });
+
+  document.addEventListener('wizard:goto-step', (e) => {
+    setField('step', e.detail.step);
   });
 });
