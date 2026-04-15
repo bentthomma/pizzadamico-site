@@ -1,5 +1,6 @@
 import { initScroll } from './scroll.js';
 import { initAkt1 } from './acts/akt1.js';
+import { initAkt1Yt } from './acts/akt1-yt.js';
 import { initAkt3Biga } from './acts/akt3-biga.js';
 import { initAkt4 } from './acts/akt4.js';
 import { initAkt5Pietro } from './acts/akt5-pietro.js';
@@ -19,6 +20,7 @@ import { initSiteHeader } from './site-header.js';
 document.addEventListener('DOMContentLoaded', () => {
   initScroll();
   initSiteHeader();
+  initAkt1Yt();
   initAkt1();
   initAkt3Biga();
   initAkt4();
