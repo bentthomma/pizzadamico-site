@@ -171,7 +171,7 @@
    Akt 4 · Doppel-Back
    ============================================ */
 .akt-4 .akt-inner {
-  padding-top: var(--sp-7);
+  padding-top: calc(var(--sp-7) + var(--sp-3));
   padding-bottom: var(--sp-7);
   display: grid;
   gap: var(--sp-5);
