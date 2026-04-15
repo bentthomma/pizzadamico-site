@@ -257,15 +257,6 @@
   font-size: 17px;
   line-height: 1.6;
   font-variation-settings: 'opsz' 20, 'wght' 450;
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.ingredients-list li > .meta {
-  font-size: 10px;
-  opacity: 0.55;
-  letter-spacing: 1.5px;
 }
 .ingredients-note {
   margin-top: var(--sp-3);
