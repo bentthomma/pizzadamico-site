@@ -190,13 +190,29 @@
 }
 .akt-2-panel figcaption {
   position: absolute;
-  bottom: var(--sp-3);
-  left: var(--sp-3);
-  right: var(--sp-3);
   z-index: 2;
   color: var(--c-farina);
   display: grid;
   gap: 6px;
+  max-width: 22ch;
+}
+/* Teig: caption nach rechts unten — freistehend, pointiert von Mitte */
+.akt-2-panel-teig figcaption {
+  right: 8%;
+  bottom: 14%;
+  left: auto;
+  text-align: right;
+  justify-items: end;
+}
+/* Pizzaboden: caption oben mittig — freistehend */
+.akt-2-panel-boden figcaption {
+  top: 6%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translateX(-50%);
+  text-align: center;
+  justify-items: center;
 }
 
 /* SVG line from image to caption · animated on section enter */
@@ -614,22 +630,17 @@
 }
 .akt-3-labeled-hero {
   position: relative;
+  width: 100vw;
   height: 100dvh;
   height: 100vh;
-  aspect-ratio: 16 / 9;
-  max-width: 100vw;
   margin: 0;
   overflow: visible;
-}
-@media (max-width: 899px) {
-  .akt-3-labeled-hero {
-    aspect-ratio: 0.6 / 1;
-  }
 }
 .akt-3-labeled-hero picture,
 .akt-3-labeled-hero img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
   display: block;
 }
 .labels-svg {
@@ -794,35 +805,9 @@
   color: var(--c-inchiostro);
 }
 
-/* Mobile: cinematic static reveal · warmer Atmosphäre + stronger hierarchy */
+/* Mobile: cinematic static reveal · dark stone bg inherited von main rule oben */
 @media (max-width: 899px) {
-  .akt-5 {
-    overflow: hidden;
-    position: relative;
-    background:
-      radial-gradient(ellipse 140% 60% at 50% -10%,
-        color-mix(in srgb, var(--c-brace) 55%, transparent) 0%,
-        transparent 55%),
-      radial-gradient(ellipse 80% 50% at 85% 95%,
-        color-mix(in srgb, var(--c-fuoco) 14%, transparent) 0%,
-        transparent 65%),
-      linear-gradient(180deg,
-        color-mix(in srgb, var(--c-brace) 18%, var(--c-farina)) 0%,
-        var(--c-farina) 28%,
-        var(--c-farina) 100%);
-    align-content: start;
-  }
-  .akt-5::before {
-    content: "";
-    position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0 0.04  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
-    opacity: 0.15;
-    mix-blend-mode: multiply;
-    pointer-events: none;
-    z-index: 0;
-    width: auto; aspect-ratio: auto;
-    border-radius: 0;
-  }
+  .akt-5 { align-content: start; }
   .akt-5-inner {
     padding-block: var(--sp-5) var(--sp-4);
     gap: var(--sp-4);
@@ -842,8 +827,8 @@
   .akt-5-statement-block {
     padding: var(--sp-3) 0 var(--sp-2);
     gap: var(--sp-2);
-    border-top: 1px solid color-mix(in srgb, var(--c-brace) 35%, transparent);
-    border-bottom: 1px solid color-mix(in srgb, var(--c-brace) 35%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--c-farina) 25%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--c-farina) 25%, transparent);
   }
   .akt-5-statement {
     font-size: clamp(46px, 11vw, 62px);
@@ -853,7 +838,7 @@
   }
   .akt-5-statement em {
     border-bottom-width: 4px;
-    border-bottom-color: var(--c-fuoco);
+    border-bottom-color: var(--c-pane);
     padding-bottom: 4px;
   }
   .akt-5-details { display: none; }
@@ -864,7 +849,7 @@
     letter-spacing: 3px;
     width: 100%;
     justify-content: space-between;
-    border: 1px solid color-mix(in srgb, var(--c-brace) 45%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c-farina) 35%, transparent);
   }
 }
 
@@ -1163,16 +1148,16 @@
 }
 .akt-6-twint-qr {
   display: block;
-  background: transparent;
-  padding: 0;
-  max-width: 260px;
+  background: var(--c-farina);
+  padding: 14px;
+  max-width: 340px;
   margin: 0;
+  border-radius: 2px;
 }
 .akt-6-twint-qr img {
   width: 100%;
   height: auto;
   display: block;
-  border: 1px solid color-mix(in srgb, var(--c-inchiostro) 10%, transparent);
 }
 .akt-6-twint-note {
   font-family: var(--ff-editorial);
@@ -1240,19 +1225,6 @@
     position: relative;
     overflow: hidden;
   }
-  .akt-6::before {
-    content: "";
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 90% 50% at 20% 105%,
-        color-mix(in srgb, var(--c-brace) 60%, transparent) 0%,
-        transparent 60%),
-      radial-gradient(ellipse 70% 40% at 95% -10%,
-        color-mix(in srgb, var(--c-pane) 32%, transparent) 0%,
-        transparent 55%);
-    pointer-events: none;
-    z-index: 0;
-  }
   .akt-6-inner {
     gap: var(--sp-4);
     padding-block: var(--sp-5) var(--sp-6);
@@ -1307,18 +1279,15 @@
   }
   .akt-6-twint-qr {
     max-width: 100%;
-    background: #fff;
+    background: var(--c-farina);
     padding: 12px;
-    border: 1px solid color-mix(in srgb, var(--c-brace) 18%, transparent);
     justify-self: start;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    width: 220px;
+    width: 260px;
+    border-radius: 2px;
   }
   .akt-6-twint-qr img {
-    width: auto; height: 100%;
-    object-fit: cover;
-    object-position: left center;
+    width: 100%;
+    height: auto;
     display: block;
   }
   .akt-6-twint-note { font-size: 13px; line-height: 1.5; opacity: 0.85; max-width: 38ch; }
@@ -1460,6 +1429,99 @@
   outline: none;
   transform: translateY(-1px);
 }
+
+/* ============================================
+   Akt 5 + 6 · Dark Stone Premium Kitchen Atmosphäre
+   Brace theme liefert --c-bg brace + --c-fg farina via layout.css
+   Hier setzen wir dark-stone texture + farben-overrides
+   ============================================ */
+.akt-5, .akt-6 {
+  background:
+    radial-gradient(ellipse 100% 70% at 50% 30%,
+      color-mix(in srgb, var(--c-brace) 78%, var(--c-inchiostro)) 0%,
+      var(--c-inchiostro) 90%),
+    var(--c-inchiostro);
+  position: relative;
+  color: var(--c-farina);
+}
+/* Subtle noise/stone texture over dark bg */
+.akt-5::after,
+.akt-6::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.8  0 0 0 0 0.65  0 0 0 0.2 0'/></filter><rect width='100%25' height='100%25' filter='url(%23s)' opacity='0.9'/></svg>");
+  opacity: 0.25;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
+}
+.akt-5 > *, .akt-6 > * { position: relative; z-index: 1; }
+
+/* Text colors on dark */
+.akt-5 .akt-title, .akt-6 .akt-title,
+.akt-5-statement,
+.akt-6-title,
+.akt-5 .kicker, .akt-6 .kicker { color: var(--c-farina); }
+.akt-5 .akt-lede, .akt-6 .akt-lede,
+.akt-5-details, .akt-6-lede { color: color-mix(in srgb, var(--c-farina) 85%, transparent); }
+
+/* Statement em on dark: pane underline statt fuoco */
+.akt-5-statement em {
+  color: var(--c-farina);
+  border-bottom-color: var(--c-pane);
+}
+
+/* Form inputs on dark */
+.akt-6 .contact-form input,
+.akt-6 .contact-form textarea {
+  background: color-mix(in srgb, var(--c-inchiostro) 40%, transparent);
+  border-color: color-mix(in srgb, var(--c-farina) 25%, transparent);
+  color: var(--c-farina);
+}
+.akt-6 .contact-form input:focus,
+.akt-6 .contact-form textarea:focus { border-color: var(--c-farina); }
+.akt-6 .form-label { color: color-mix(in srgb, var(--c-farina) 70%, transparent); }
+.akt-6 .contact-form input::placeholder,
+.akt-6 .contact-form textarea::placeholder { color: color-mix(in srgb, var(--c-farina) 35%, transparent); }
+.akt-6 .contact-submit {
+  background: var(--c-farina);
+  color: var(--c-inchiostro);
+}
+.akt-6 .contact-submit:hover,
+.akt-6 .contact-submit:focus-visible {
+  background: var(--c-pane);
+  color: var(--c-inchiostro);
+}
+
+/* TWINT-Box on dark */
+.akt-6-twint {
+  background: color-mix(in srgb, var(--c-farina) 5%, transparent);
+  border-color: color-mix(in srgb, var(--c-farina) 20%, transparent);
+}
+.akt-6-twint-kicker { color: var(--c-pane); }
+.akt-6-twint-note { color: color-mix(in srgb, var(--c-farina) 80%, transparent); }
+.akt-6-twint-applink { color: var(--c-farina); }
+.akt-6-direct { color: color-mix(in srgb, var(--c-farina) 60%, transparent); }
+.akt-6-direct a { color: var(--c-farina); }
+
+/* Modal-trigger button on dark bg */
+.akt-5 .site-modal-trigger,
+.akt-6 .site-modal-trigger {
+  border-color: color-mix(in srgb, var(--c-farina) 40%, transparent);
+  color: var(--c-farina);
+}
+.akt-5 .site-modal-trigger:hover,
+.akt-5 .site-modal-trigger:focus-visible,
+.akt-6 .site-modal-trigger:hover,
+.akt-6 .site-modal-trigger:focus-visible {
+  background: var(--c-farina);
+  color: var(--c-inchiostro);
+  border-color: var(--c-farina);
+}
+
+/* Akt 5 included-list on dark */
+.akt-5-included-list li { color: var(--c-farina); }
+.akt-5-formula { background: color-mix(in srgb, var(--c-farina) 8%, transparent); }
 
 /* ============================================
    Desktop-Merge · Akt 5 + Akt 6 (≥ 900px)

@@ -72,22 +72,22 @@
     <!-- Akt 2 · Diptych only · pure black canvas matches dark images -->
     <section class="akt akt-2" id="akt-2" data-akt="2" data-theme="brace" data-nav-label="Pizza">
       <div class="akt-2-diptych">
-        <figure class="akt-2-panel reveal-image">
+        <figure class="akt-2-panel akt-2-panel-teig reveal-image">
           <picture>
             <source srcset="/src/images/pizza-teig.avif" type="image/avif">
             <source srcset="/src/images/pizza-teig.webp" type="image/webp">
             <img src="/src/images/pizza-teig.jpg" alt="Biga-Teig vor der Verarbeitung" width="800" height="1000" fetchpriority="high">
           </picture>
           <svg class="akt-2-panel-svg" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50" cy="45" r="0.6" class="panel-dot"/>
-            <line x1="50" y1="45" x2="15" y2="85" pathLength="1" vector-effect="non-scaling-stroke" class="panel-line"/>
+            <circle cx="50" cy="48" r="0.6" class="panel-dot"/>
+            <line x1="50" y1="48" x2="78" y2="78" pathLength="1" vector-effect="non-scaling-stroke" class="panel-line"/>
           </svg>
           <figcaption>
             <div class="kicker akt-2-panel-kicker">Der Teig</div>
             <p class="akt-2-panel-text">30 Stunden Reifung · Biga-Vorteig · Caputo Rossa Type 00</p>
           </figcaption>
         </figure>
-        <figure class="akt-2-panel reveal-image">
+        <figure class="akt-2-panel akt-2-panel-boden reveal-image">
           <picture>
             <source srcset="/src/images/pizza-boden.avif" type="image/avif">
             <source srcset="/src/images/pizza-boden.webp" type="image/webp">
@@ -95,7 +95,7 @@
           </picture>
           <svg class="akt-2-panel-svg" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="55" r="0.6" class="panel-dot"/>
-            <line x1="50" y1="55" x2="15" y2="85" pathLength="1" vector-effect="non-scaling-stroke" class="panel-line"/>
+            <line x1="50" y1="55" x2="50" y2="15" pathLength="1" vector-effect="non-scaling-stroke" class="panel-line"/>
           </svg>
           <figcaption>
             <div class="kicker akt-2-panel-kicker">Der Pizzaboden</div>
@@ -109,7 +109,7 @@
     <section class="akt akt-3" id="akt-3" data-akt="3" data-theme="brace" data-nav-label="Zutaten">
       <figure class="akt-3-labeled-hero" id="akt-3-labeled">
         <picture>
-          <source media="(max-width: 899px)" srcset="/src/images/zutaten-labeled-mobile.png">
+          <source media="(max-width: 899px)" srcset="/src/images/zutaten-labeled-mobile-9-16.png">
           <img src="/src/images/zutaten-labeled-desktop-16-9.png" alt="Alle Zutaten auf einem Holztisch">
         </picture>
         <svg class="labels-svg" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true"></svg>
@@ -143,8 +143,8 @@
     </section>
 
 
-    <!-- Akt 5 · Catering · Info + Preise -->
-    <section class="akt akt-5" id="akt-5" data-akt="5" data-theme="farina" data-nav-label="Catering">
+    <!-- Akt 5 · Catering · dark premium kitchen -->
+    <section class="akt akt-5" id="akt-5" data-akt="5" data-theme="brace" data-nav-label="Catering">
       <div class="akt-inner akt-5-inner">
         <div class="akt-5-main">
           <div class="akt-head akt-5-intro">
@@ -227,8 +227,8 @@
       </div>
     </section>
 
-    <!-- Akt 6 · Kontakt + TWINT -->
-    <section class="akt akt-6" id="akt-6" data-akt="6" data-theme="farina" data-nav-label="Kontakt">
+    <!-- Akt 6 · Kontakt + TWINT · dark premium kitchen -->
+    <section class="akt akt-6" id="akt-6" data-akt="6" data-theme="brace" data-nav-label="Kontakt">
       <div class="akt-inner akt-6-inner">
         <div class="akt-6-form-col">
           <div class="akt-head">
@@ -276,7 +276,7 @@
         <aside class="akt-6-twint reveal">
           <div class="kicker akt-6-twint-kicker">Anzahlung per TWINT</div>
           <picture class="akt-6-twint-qr">
-            <img src="/src/images/twint-qr.png" alt="TWINT QR-Code · Anzahlung CHF 250 an Pizza D'Amico" width="600" height="300">
+            <img src="/src/images/twint-qr-cropped.png" alt="TWINT QR-Code · Anzahlung an Pizza D'Amico" width="520" height="660">
           </picture>
           <p class="meta akt-6-twint-note">Scannen · Betrag eingeben · bestätigen. Die Reservation wird nach Eingang definitiv bestätigt.</p>
           <a class="akt-6-twint-applink" href="https://go.twint.ch/1/e/tw?tw=acq.erLxqXuzQa2zND3B2wKBNM3KxDVpHFhbX6N8FjLRvWMv8epCovCoo1PWmZRIX7c0" target="_blank" rel="noopener">
