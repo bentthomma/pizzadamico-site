@@ -9,6 +9,7 @@ Thumbs.db
 coverage/
 playwright-report/
 test-results/
+tests/e2e/screenshots/
 api/vendor/
 api/composer.lock
 private/config.php
