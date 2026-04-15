@@ -11,3 +11,7 @@ playwright-report/
 test-results/
 api/vendor/
 api/composer.lock
+private/config.php
+private/*.db
+private/*.db-wal
+private/*.db-shm
