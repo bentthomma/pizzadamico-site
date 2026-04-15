@@ -1,5 +1,10 @@
 node_modules/
-dist/
+dist/*
+!dist/static
+dist/static/*
+!dist/static/assets
+!dist/head-inject.html
+!dist/body-inject.html
 .env.local
 .env.*.local
 *.log
