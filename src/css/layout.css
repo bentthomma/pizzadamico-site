@@ -13,6 +13,14 @@
   align-content: center;
 }
 
+/* Mobile: per-Akt align overrides damit Content nicht schwebend wirkt */
+@media (max-width: 899px) {
+  .akt { align-content: center; }
+  .akt-1 { align-content: center; }
+  .akt-3 { align-content: center; }
+  .akt-4 { align-content: end; }
+}
+
 .akt[data-theme="brace"] {
   --c-bg: var(--c-brace);
   --c-fg: var(--c-farina);

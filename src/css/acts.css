@@ -582,15 +582,33 @@
   margin-top: var(--sp-2);
 }
 
-/* Mobile: Zutaten kompakter — kleinere Font, engere Gaps */
+/* Mobile: Akt 3 full-bleed Zutaten-Hero-Pattern */
 @media (max-width: 899px) {
-  .akt-3-inner { gap: var(--sp-head-body); padding-block: var(--sp-akt-y); }
-  .akt-3-hero picture, .akt-3-hero img { aspect-ratio: 16/9; }
-  .akt-3-content .ingredients-grid { gap: var(--sp-2); margin-top: 4px; }
-  .ingredients-cat { font-size: 10px; letter-spacing: 1.5px; min-height: 2.4em; padding-bottom: 4px; margin-bottom: 8px; }
-  .ingredients-list li { font-size: 13.5px; line-height: 1.4; }
-  .ingredients-list { gap: 0; }
-  .ingredients-base { padding-right: 0; }
+  .akt-3 { overflow: hidden; position: relative; padding: 0; }
+  .akt-3-inner { display: block; padding: 0; gap: 0; max-width: none; }
+  .akt-3-hero { position: absolute; inset: 0; margin: 0; z-index: 0; }
+  .akt-3-hero picture, .akt-3-hero img {
+    width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; display: block;
+  }
+  .akt-3::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background: linear-gradient(to top, var(--c-inchiostro) 0%, color-mix(in srgb, var(--c-inchiostro) 40%, transparent) 55%, transparent 80%);
+  }
+  .akt-3-content {
+    position: absolute; bottom: var(--sp-4); left: var(--sp-viewport); right: var(--sp-viewport);
+    z-index: 2; color: var(--c-farina); display: grid; gap: var(--sp-1);
+  }
+  .akt-3-content .kicker { color: var(--c-farina); opacity: 0.75; }
+  .akt-3-title { color: var(--c-farina); max-width: 100%; }
+  .akt-3 .site-modal-trigger {
+    color: var(--c-farina);
+    border-color: color-mix(in srgb, var(--c-farina) 60%, transparent);
+    margin-top: var(--sp-2);
+  }
+  .akt-3 .site-modal-trigger:hover,
+  .akt-3 .site-modal-trigger:focus-visible {
+    background: var(--c-farina); color: var(--c-inchiostro);
+  }
 }
 
 /* ============================================
@@ -660,10 +678,23 @@
   color: var(--c-inchiostro);
 }
 
-/* Mobile: kompakter, Details-Prose versteckt (redundant mit Menu) */
+/* Mobile: kompakter, Details-Prose versteckt (redundant mit Menu), Gradient-Hintergrund */
 @media (max-width: 899px) {
-  .akt-5-inner { padding-block: var(--sp-akt-y); gap: var(--sp-head-body); }
+  .akt-5 {
+    background: linear-gradient(135deg, var(--c-farina) 0%,
+                color-mix(in srgb, var(--c-pane) 18%, var(--c-farina)) 100%);
+    overflow: hidden;
+    position: relative;
+  }
+  .akt-5::before {
+    content: ""; position: absolute; top: -15%; right: -30%;
+    width: 80vw; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--c-fuoco) 14%, transparent) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+  .akt-5-inner { padding-block: var(--sp-akt-y); gap: var(--sp-head-body); position: relative; z-index: 1; }
   .akt-5-statement-block { padding-top: var(--sp-2); gap: var(--sp-1); }
+  .akt-5-statement { font-size: clamp(40px, 9vw, 56px); }
   .akt-5-details { display: none; }
 }
 
@@ -1003,19 +1034,22 @@
   outline: none;
 }
 
-/* Mobile: Form + TWINT kompakter */
+/* Mobile: Form-Priority, TWINT kompakter */
 @media (max-width: 899px) {
   .akt-6-inner { gap: var(--sp-head-body); padding-block: var(--sp-akt-y); }
   .akt-6-form-col { gap: var(--sp-head-body); }
+  .akt-6-title { font-size: clamp(40px, 10vw, 56px); line-height: 1; }
+  .akt-6 .site-modal-trigger { padding: 14px 28px; font-size: 12px; }
   .contact-form { gap: var(--sp-1); }
   .contact-form input, .contact-form textarea { padding: 9px 12px; font-size: 15px; }
-  .contact-form textarea { min-height: 70px; }
+  .contact-form textarea { min-height: 60px; }
   .contact-submit { padding: 10px 20px; }
-  .akt-6-twint { padding: var(--sp-2); gap: var(--sp-1); }
-  .akt-6-twint-qr { max-width: 240px; padding: 10px; }
-  .akt-6-twint-note { font-size: 12px; line-height: 1.4; }
-  .akt-6-direct { padding-top: 8px; }
-  .akt-6-direct a { font-size: 14px; letter-spacing: 1.5px; }
+  .akt-6-twint { padding: var(--sp-2); gap: 6px; }
+  .akt-6-twint-qr { max-width: 200px; padding: 8px; }
+  .akt-6-twint-note { font-size: 11px; line-height: 1.35; }
+  .akt-6-twint-applink { font-size: 10px; padding: 10px 16px; }
+  .akt-6-direct { padding-top: 6px; }
+  .akt-6-direct a { font-size: 13px; letter-spacing: 1.5px; }
 }
 
 /* ============================================

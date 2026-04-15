@@ -5,6 +5,7 @@ import { initAkt4 } from './acts/akt4.js';
 import { initSiteHeader } from './site-header.js';
 import { initContactForm } from './contact-form.js';
 import { initSiteModal } from './site-modal.js';
+import { initReveal } from './reveal.js';
 
 // Always start at top on (re)load — disable browser's scroll-restoration
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -20,4 +21,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initAkt4();
   initSiteModal();
   initContactForm();
+  initReveal();
 });

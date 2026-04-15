@@ -140,6 +140,67 @@
   }
 }
 
+/* Popup-Content Kompaktierung auf Mobile · no-scroll Ziel */
+@media (max-width: 899px) {
+  /* Zutaten: Listen → Chips/Pills */
+  .site-modal .ingredients-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-2);
+    margin-top: 0;
+  }
+  .site-modal .ingredients-col { padding-right: 0; }
+  .site-modal .ingredients-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .site-modal .ingredients-list li {
+    padding: 4px 10px;
+    border: 1px solid color-mix(in srgb, var(--c-inchiostro) 20%, transparent);
+    border-radius: 999px;
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    font-variation-settings: normal;
+  }
+  .site-modal .ingredients-cat {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin: 0 0 4px;
+    padding-bottom: 0;
+    border-bottom: 0;
+    min-height: auto;
+    color: var(--c-pane);
+    opacity: 1;
+  }
+
+  /* Catering: Menu compact */
+  .site-modal .akt-5-menu { gap: 0; padding-top: var(--sp-1); border-top: 0; }
+  .site-modal .akt-5-menu .menu-line { padding: 3px 0; }
+  .site-modal .akt-5-menu .menu-label { font-size: 14px; }
+  .site-modal .akt-5-menu .menu-sub { display: none; }
+  .site-modal .akt-5-menu .menu-price { font-size: 15px; }
+  .site-modal .akt-5-menu .menu-unit { font-size: 10px; }
+  .site-modal .akt-5-formula { padding: 10px 14px; gap: 4px 12px; }
+  .site-modal .akt-5-formula-expr { font-size: 13px; }
+  .site-modal .akt-5-tax { font-size: 11px; line-height: 1.3; padding-top: var(--sp-1); }
+  .site-modal .akt-5-included { font-size: 10px; letter-spacing: 1.5px; padding-top: var(--sp-1); }
+
+  /* Kontakt: Form compact */
+  .site-modal .contact-form { gap: var(--sp-1); }
+  .site-modal .contact-form textarea { min-height: 60px; }
+
+  /* Shell padding tighter */
+  .site-modal-shell { padding: var(--sp-3) var(--sp-3) var(--sp-2); }
+  .site-modal-close { margin-top: calc(var(--sp-3) * -1); margin-right: calc(var(--sp-3) * -1); }
+  .site-modal-head { margin-top: calc(var(--sp-2) * -1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-modal, .site-modal-shell { transition: none; }
 }
