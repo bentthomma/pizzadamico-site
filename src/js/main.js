@@ -61,4 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('wizard:goto-step', (e) => {
     setField('step', e.detail.step);
   });
+
+  // Hero CTA opens catering modal
+  const heroCta = document.getElementById('akt1-cta');
+  if (heroCta) {
+    heroCta.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('modal:open', { detail: { source: 'hero-cta' } }));
+    });
+  }
 });

@@ -14,9 +14,21 @@
   background: transparent;
   color: var(--c-farina);
   pointer-events: none;
-  transition: background var(--t-med) var(--e-out),
+  transition: opacity var(--t-med) var(--e-out),
+              transform var(--t-med) var(--e-out),
+              background var(--t-med) var(--e-out),
               color var(--t-med) var(--e-out),
               backdrop-filter var(--t-med) var(--e-out);
+}
+
+.site-header[data-hidden="true"] {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+.site-header[data-hidden="true"] .site-brand,
+.site-header[data-hidden="true"] .site-contact {
+  pointer-events: none;
 }
 
 .site-header[data-theme="farina"] {

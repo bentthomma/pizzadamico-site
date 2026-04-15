@@ -8,18 +8,23 @@ export function initSiteHeader() {
   const akte = qsa('.akt');
   if (akte.length === 0) return;
 
-  // Per-Akt ScrollTrigger sets header theme matching the akt currently crossing top of viewport
   for (const akt of akte) {
     const theme = akt.dataset.theme || 'farina';
+    const aktNum = akt.dataset.akt;
     ScrollTrigger.create({
       trigger: akt,
-      start: 'top 64px',       // header is ~64px tall, switch when akt crosses under it
+      start: 'top 64px',
       end: 'bottom 64px',
-      onEnter:     () => { header.dataset.theme = theme; },
-      onEnterBack: () => { header.dataset.theme = theme; },
+      onEnter:     () => applyAkt(aktNum, theme),
+      onEnterBack: () => applyAkt(aktNum, theme),
     });
   }
 
-  // Initial state — the first akt's theme
-  header.dataset.theme = akte[0].dataset.theme || 'brace';
+  // Initial state — Akt 1 is hero, header hidden
+  applyAkt(akte[0].dataset.akt, akte[0].dataset.theme || 'brace');
+
+  function applyAkt(aktNum, theme) {
+    header.dataset.theme = theme;
+    header.dataset.hidden = aktNum === '1' ? 'true' : 'false';
+  }
 }

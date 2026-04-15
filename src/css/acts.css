@@ -6,6 +6,8 @@
   min-height: 100vh;
   display: grid;
   place-items: center;
+  position: relative;
+  overflow: hidden;
 }
 .akt-1 .akt-inner {
   position: relative;
@@ -30,12 +32,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 177.78vh;       /* 16:9 based on viewport height */
-  min-width: 100vw;
-  height: 56.25vw;       /* 16:9 based on viewport width */
-  min-height: 100vh;
+  width: max(100vw, 177.78vh);
+  height: max(100vh, 56.25vw);
   border: 0;
   pointer-events: none;
+  display: block;
 }
 .akt-1-veil {
   position: absolute;
@@ -72,6 +73,43 @@
   opacity: 0.85;
   letter-spacing: 3px;
   margin-top: var(--sp-1);
+}
+.akt-1-cta {
+  margin-top: var(--sp-4);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--c-farina);
+  background: color-mix(in srgb, var(--c-farina) 8%, transparent);
+  color: var(--c-farina);
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background var(--t-fast) var(--e-out),
+              color var(--t-fast) var(--e-out),
+              transform var(--t-fast) var(--e-out),
+              border-color var(--t-fast) var(--e-out);
+}
+.akt-1-cta:hover,
+.akt-1-cta:focus-visible {
+  background: var(--c-farina);
+  color: var(--c-inchiostro);
+  outline: none;
+  transform: translateY(-1px);
+}
+.akt-1-cta-arrow {
+  display: inline-block;
+  transition: transform var(--t-fast) var(--e-out);
+}
+.akt-1-cta:hover .akt-1-cta-arrow,
+.akt-1-cta:focus-visible .akt-1-cta-arrow {
+  transform: translateX(3px);
 }
 .akt-1-scroll-hint {
   position: absolute;

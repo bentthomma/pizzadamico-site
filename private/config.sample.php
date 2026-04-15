@@ -24,7 +24,7 @@ return [
   'smtp_pass' => '',
 
   'mail_from_addr'  => 'no-reply@pizzadamico.ch',
-  'mail_from_name'  => "Pizza & Pasta D'Amico",
+  'mail_from_name'  => "Pizza D'Amico",
   'mail_pietro'     => 'damicopietro69@hotmail.it',
 
   'buffer_minutes'  => 30,
@@ -36,5 +36,5 @@ return [
   'rate_limit_check_per_hour'  => 30,
 
   'site_origin'     => 'https://pizzadamico.ch',
-  'site_name'       => "Pizza & Pasta D'Amico",
+  'site_name'       => "Pizza D'Amico",
 ];

@@ -28,5 +28,6 @@ export function initAkt1() {
     y: -60,
     opacity: 0,
     ease: 'none',
+    immediateRender: false,
   });
 }

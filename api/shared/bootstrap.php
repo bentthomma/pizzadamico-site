@@ -36,7 +36,7 @@ function html_out(string $body, int $status = 200): void {
     . '.meta{font-family:ui-monospace,monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.6;margin-top:2rem}'
     . '</style></head><body>'
     . $body
-    . '<p class="meta">Pizza &amp; Pasta D\'Amico</p>'
+    . '<p class="meta">Pizza D\'Amico</p>'
     . '</body></html>';
   exit;
 }
