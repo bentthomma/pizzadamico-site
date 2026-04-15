@@ -22,8 +22,7 @@
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  opacity: 0.62;
-  filter: contrast(1.05) saturate(0.92);
+  opacity: 1;
   background: var(--c-brace);
 }
 .akt-1-yt-wrap iframe,
@@ -43,14 +42,17 @@
 .akt-1-veil {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 20%, var(--c-brace) 85%);
+  background:
+    radial-gradient(ellipse at center, transparent 30%, color-mix(in srgb, var(--c-brace) 55%, transparent) 85%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--c-brace) 30%, transparent) 0%, transparent 30%, transparent 70%, color-mix(in srgb, var(--c-brace) 60%, transparent) 100%);
   pointer-events: none;
 }
 @media (max-width: 720px) {
   .akt-1-veil {
-    background: radial-gradient(ellipse at center, transparent 45%, color-mix(in srgb, var(--c-brace) 72%, transparent) 95%);
+    background:
+      radial-gradient(ellipse at center, transparent 35%, color-mix(in srgb, var(--c-brace) 45%, transparent) 90%),
+      linear-gradient(to bottom, color-mix(in srgb, var(--c-brace) 40%, transparent) 0%, transparent 30%, transparent 65%, color-mix(in srgb, var(--c-brace) 70%, transparent) 100%);
   }
-  .akt-1-yt-wrap { opacity: 0.72; }
 }
 .akt-1-hero {
   position: relative;
@@ -141,13 +143,85 @@
 }
 
 /* ============================================
-   Akt 2 · Unsere Pizza + Die Zutaten
+   Akt 2 · Unsere Pizza · Diptych
    ============================================ */
+.akt-2 {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 0;
+  overflow: hidden;
+  height: 100dvh;
+  height: 100vh;
+  min-height: 100dvh;
+  min-height: 100vh;
+}
+.akt-2-header-zone {
+  padding-block: var(--sp-4);
+}
 .akt-2 .akt-inner {
-  padding-block: var(--sp-akt-y);
+  padding-block: 0;
   display: grid;
   gap: var(--sp-head-body);
   align-content: center;
+}
+.akt-2-diptych {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--c-inchiostro);
+  min-height: 0;
+  height: 100%;
+}
+.akt-2-panel {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: auto;
+  min-height: 0;
+  min-width: 0;
+}
+.akt-2-panel picture,
+.akt-2-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.akt-2-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    color-mix(in srgb, var(--c-inchiostro) 85%, transparent) 0%,
+    color-mix(in srgb, var(--c-inchiostro) 40%, transparent) 30%,
+    transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+.akt-2-panel figcaption {
+  position: absolute;
+  bottom: var(--sp-3);
+  left: var(--sp-3);
+  right: var(--sp-3);
+  z-index: 2;
+  color: var(--c-farina);
+  display: grid;
+  gap: 6px;
+}
+.akt-2-panel-kicker {
+  color: var(--c-farina);
+  opacity: 0.85;
+  letter-spacing: 3px;
+  font-size: 11px;
+}
+.akt-2-panel-text {
+  font-family: var(--ff-editorial);
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.45;
+  margin: 0;
+  max-width: 40ch;
+  color: var(--c-farina);
+  opacity: 0.9;
 }
 .akt-2-part {
   display: grid;
@@ -164,54 +238,11 @@
   margin: 0;
 }
 
-/* Teil 1 · Unsere Pizza */
-.akt-2-pizza-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-3);
-  margin-top: var(--sp-2);
-}
-@media (min-width: 900px) {
-  .akt-2-pizza-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--sp-4);
-  }
-}
-.akt-2-media {
-  margin: 0;
-  display: grid;
-  gap: var(--sp-2);
-}
-.akt-2-media img,
-.akt-2-media picture {
-  width: 100%;
-  aspect-ratio: 4/3;
-  max-height: 48vh;
-  object-fit: cover;
-  background: var(--c-semola);
-  display: block;
-}
+/* Mobile: Diptych stacked vertikal statt side-by-side */
 @media (max-width: 899px) {
-  .akt-2 .akt-inner { padding-block: var(--sp-3); gap: var(--sp-3); }
-  .akt-2-pizza-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-top: var(--sp-1); }
-  .akt-2-media { gap: 8px; }
-  .akt-2-media img, .akt-2-media picture { aspect-ratio: 4/5; max-height: 48vh; }
-  .akt-2-sub { font-size: clamp(18px, 5.5vw, 26px); margin: 0; }
-  .akt-2-media .lede { font-size: 12.5px; line-height: 1.4; }
-  .akt-2-media figcaption { display: grid; gap: 4px; }
-}
-.akt-2-sub {
-  font-size: clamp(26px, 3vw, 44px);
-  line-height: 1.05;
-  margin: 0 0 var(--sp-1);
-  font-variation-settings: 'opsz' 96, 'wdth' 82, 'wght' 600;
-}
-.akt-2-media .lede {
-  max-width: 48ch;
-  margin: 0;
-  font-size: clamp(16px, 1.15vw, 18px);
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--c-fg) 86%, var(--c-bg));
+  .akt-2-header-zone { padding-block: var(--sp-3); }
+  .akt-2-diptych { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  .akt-2-panel figcaption { bottom: var(--sp-2); left: var(--sp-2); right: var(--sp-2); }
 }
 
 /* Teil 2 · Die Zutaten */
@@ -596,15 +627,15 @@
     background: linear-gradient(to top, var(--c-inchiostro) 0%, color-mix(in srgb, var(--c-inchiostro) 40%, transparent) 55%, transparent 80%);
   }
   .akt-3-content {
-    position: absolute; bottom: var(--sp-4); left: var(--sp-viewport); right: var(--sp-viewport);
-    z-index: 2; color: var(--c-farina); display: grid; gap: var(--sp-1);
+    position: absolute; bottom: var(--sp-5); left: var(--sp-viewport); right: var(--sp-viewport);
+    z-index: 2; color: var(--c-farina); display: grid; gap: var(--sp-2);
   }
   .akt-3-content .kicker { color: var(--c-farina); opacity: 0.75; }
   .akt-3-title { color: var(--c-farina); max-width: 100%; }
   .akt-3 .site-modal-trigger {
     color: var(--c-farina);
     border-color: color-mix(in srgb, var(--c-farina) 60%, transparent);
-    margin-top: var(--sp-2);
+    justify-self: start;
   }
   .akt-3 .site-modal-trigger:hover,
   .akt-3 .site-modal-trigger:focus-visible {
@@ -633,7 +664,7 @@
     grid-column: 1;
     border-top: 0;
     padding-top: 0;
-    align-self: center;
+    align-self: start;
   }
   .akt-5-menu { grid-column: 2; border-top: 0; }
   .akt-5-included { grid-column: 2; }
@@ -784,19 +815,41 @@
 .akt-5-included {
   margin: 0;
   padding-top: var(--sp-2);
-  border-top: 1px dashed var(--c-line);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.7;
-  font-size: 11px;
-  line-height: 1.7;
+  border-top: 1px solid color-mix(in srgb, var(--c-inchiostro) 15%, transparent);
+  display: grid;
+  gap: var(--sp-1);
 }
-.akt-5-included-head {
-  display: inline-block;
-  color: var(--c-fuoco);
+.akt-5-included-label {
+  color: var(--c-pane);
   font-weight: 700;
   letter-spacing: 3px;
-  margin-right: 10px;
+  opacity: 1;
+  font-size: 11px;
+}
+.akt-5-included-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.akt-5-included-list li {
+  font-family: var(--ff-editorial);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--c-inchiostro);
+  opacity: 0.85;
+  padding-left: 14px;
+  position: relative;
+}
+.akt-5-included-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.4;
 }
 
 .akt-5-formula {
@@ -954,91 +1007,93 @@
   transform: translateY(-1px);
 }
 
+/* TWINT-Block · restrained editorial card (no dark shadow, no rounded box) */
 .akt-6-twint {
-  padding: var(--sp-4);
-  border-radius: 10px;
+  padding: var(--sp-4) var(--sp-3);
+  border-top: 1px solid color-mix(in srgb, var(--c-inchiostro) 18%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--c-inchiostro) 18%, transparent);
   display: grid;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
   align-content: start;
-  background: var(--c-brace);
-  color: var(--c-farina);
-  box-shadow: 0 24px 60px -20px color-mix(in srgb, var(--c-inchiostro) 55%, transparent);
-  --c-line: color-mix(in srgb, var(--c-farina) 22%, transparent);
+  background: transparent;
+  color: var(--c-inchiostro);
 }
 .akt-6-twint-kicker {
-  color: var(--c-pane);
-  opacity: 1;
-  font-weight: 700;
-  letter-spacing: 3.5px;
-  font-size: 12px;
+  color: var(--c-inchiostro);
+  opacity: 0.5;
+  font-weight: 500;
+  letter-spacing: 3px;
+  font-size: 11px;
 }
 .akt-6-twint-qr {
   display: block;
-  background: var(--c-farina);
-  padding: 18px;
-  border-radius: 8px;
-  max-width: 480px;
-  margin: 0 auto;
+  background: transparent;
+  padding: 0;
+  max-width: 260px;
+  margin: 0;
 }
 .akt-6-twint-qr img {
   width: 100%;
   height: auto;
   display: block;
+  border: 1px solid color-mix(in srgb, var(--c-inchiostro) 10%, transparent);
 }
 .akt-6-twint-note {
   font-family: var(--ff-editorial);
-  font-size: clamp(15px, 1.1vw, 17px);
+  font-size: clamp(14px, 1vw, 16px);
   line-height: 1.5;
   letter-spacing: 0;
   text-transform: none;
-  opacity: 0.85;
-  color: var(--c-farina);
+  opacity: 0.72;
+  color: var(--c-inchiostro);
+  max-width: 38ch;
 }
 .akt-6-twint-applink {
   display: none;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: var(--c-pane);
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 0;
+  background: transparent;
   color: var(--c-inchiostro);
   text-decoration: none;
   font-family: var(--ff-mono);
-  font-size: 11px;
-  letter-spacing: 2.5px;
+  font-size: 12px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  font-weight: 600;
-  transition: background var(--t-fast), transform var(--t-fast);
+  font-weight: 500;
+  width: fit-content;
+  border-bottom: 1px solid var(--c-inchiostro);
+  transition: opacity var(--t-fast);
 }
 .akt-6-twint-applink:hover,
 .akt-6-twint-applink:focus-visible {
-  background: var(--c-farina);
-  transform: translateY(-1px);
+  opacity: 0.65;
   outline: none;
 }
 @media (max-width: 899px) {
   .akt-6-twint-applink { display: inline-flex; }
 }
 .akt-6-direct {
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  padding-top: var(--sp-2);
-  border-top: 1px dashed var(--c-line);
-  color: var(--c-farina);
-  opacity: 1;
+  padding-top: var(--sp-1);
+  font-size: 11px;
+  color: var(--c-inchiostro);
+  opacity: 0.7;
 }
 .akt-6-direct a {
   text-decoration: none;
-  color: var(--c-pane);
-  font-weight: 700;
-  text-underline-offset: 3px;
-  letter-spacing: 2px;
-  font-size: clamp(15px, 1.15vw, 18px);
-  transition: color var(--t-fast);
+  color: var(--c-inchiostro);
+  font-family: var(--ff-display);
+  font-variation-settings: 'opsz' 48, 'wdth' 85, 'wght' 600;
+  font-size: clamp(17px, 1.3vw, 22px);
+  letter-spacing: -0.3px;
+  text-transform: none;
+  margin-left: 8px;
+  transition: opacity var(--t-fast);
 }
 .akt-6-direct a:hover, .akt-6-direct a:focus-visible {
-  color: var(--c-farina);
+  opacity: 0.7;
   outline: none;
 }
 

@@ -55,8 +55,8 @@
       <div class="akt-1-yt-wrap" aria-hidden="true">
         <video class="akt-1-video" id="akt1-video" autoplay playsinline muted loop preload="auto"
                poster="/src/media/hero-poster.jpg">
-          <source src="/src/media/hero.webm" type="video/webm">
           <source src="/src/media/hero.mp4" type="video/mp4">
+          <source src="/src/media/hero.webm" type="video/webm">
         </video>
       </div>
       <div class="akt-1-veil"></div>
@@ -70,39 +70,41 @@
       </div>
     </section>
 
-    <!-- Akt 2 · Unsere Pizza -->
+    <!-- Akt 2 · Unsere Pizza · Diptych -->
     <section class="akt akt-2" id="akt-2" data-akt="2" data-theme="farina" data-nav-label="Pizza">
-      <div class="akt-inner">
-        <div class="akt-head">
-          <div class="kicker reveal"><span lang="it">Atto II</span> · Unsere Pizza</div>
-          <h2 class="akt-title akt-2-title reveal">Neapolitanisch. Frisch. Vor Ort gebacken.</h2>
-          <p class="akt-lede editorial akt-2-lede reveal">Jede Pizza beginnt mit Teig, der 30 Stunden reift.</p>
+      <div class="akt-2-header-zone">
+        <div class="akt-inner">
+          <div class="akt-head">
+            <div class="kicker reveal"><span lang="it">Atto II</span> · Unsere Pizza</div>
+            <h2 class="akt-title akt-2-title reveal">Neapolitanisch. Frisch. Vor Ort gebacken.</h2>
+            <p class="akt-lede editorial akt-2-lede reveal">Jede Pizza beginnt mit Teig, der 30 Stunden reift.</p>
+          </div>
         </div>
+      </div>
 
-        <div class="akt-2-pizza-grid">
-          <figure class="akt-2-media reveal-image">
-            <picture>
-              <source srcset="/src/images/pizza-teig.avif" type="image/avif">
-              <source srcset="/src/images/pizza-teig.webp" type="image/webp">
-              <img src="/src/images/pizza-teig.jpg" alt="Biga-Teig vor der Verarbeitung" width="800" height="1000" fetchpriority="high">
-            </picture>
-            <figcaption>
-              <h3 class="display akt-2-sub">Der Teig</h3>
-              <p class="lede editorial">Biga-Vorteig · 30 Stunden Reifung · Caputo Rossa Type 00.</p>
-            </figcaption>
-          </figure>
-          <figure class="akt-2-media reveal-image">
-            <picture>
-              <source srcset="/src/images/pizza-boden.avif" type="image/avif">
-              <source srcset="/src/images/pizza-boden.webp" type="image/webp">
-              <img src="/src/images/pizza-boden.jpg" alt="Fertige Pizza aus dem Holzofen" width="800" height="1000" loading="lazy">
-            </picture>
-            <figcaption>
-              <h3 class="display akt-2-sub">Der Pizzaboden</h3>
-              <p class="lede editorial">Doppel-Back-System · außen knusprig, innen zart.</p>
-            </figcaption>
-          </figure>
-        </div>
+      <div class="akt-2-diptych">
+        <figure class="akt-2-panel reveal-image">
+          <picture>
+            <source srcset="/src/images/pizza-teig.avif" type="image/avif">
+            <source srcset="/src/images/pizza-teig.webp" type="image/webp">
+            <img src="/src/images/pizza-teig.jpg" alt="Biga-Teig vor der Verarbeitung" width="800" height="1000" fetchpriority="high">
+          </picture>
+          <figcaption>
+            <div class="kicker akt-2-panel-kicker">Der Teig</div>
+            <p class="akt-2-panel-text">30 Stunden Reifung · Biga-Vorteig · Caputo Rossa Type 00</p>
+          </figcaption>
+        </figure>
+        <figure class="akt-2-panel reveal-image">
+          <picture>
+            <source srcset="/src/images/pizza-boden.avif" type="image/avif">
+            <source srcset="/src/images/pizza-boden.webp" type="image/webp">
+            <img src="/src/images/pizza-boden.jpg" alt="Fertige Pizza aus dem Holzofen" width="800" height="1000">
+          </picture>
+          <figcaption>
+            <div class="kicker akt-2-panel-kicker">Der Pizzaboden</div>
+            <p class="akt-2-panel-text">Doppel-Back-System · aussen knusprig · innen zart</p>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -113,7 +115,7 @@
           <picture>
             <source srcset="/src/images/zutaten-hero.avif" type="image/avif">
             <source srcset="/src/images/zutaten-hero.webp" type="image/webp">
-            <img src="/src/images/zutaten-hero.jpg" alt="Zutaten-Flat-Lay · Mozzarella, Tomaten, Basilikum, Mehl, Olivenöl" width="2000" height="1500" loading="lazy">
+            <img src="/src/images/zutaten-hero.jpg" alt="Zutaten-Flat-Lay · Mozzarella, Tomaten, Basilikum, Mehl, Olivenöl" width="2000" height="1500">
           </picture>
         </figure>
         <div class="akt-3-content">
@@ -174,7 +176,7 @@
         <picture class="akt-4-bg">
           <source srcset="/src/images/foodtruck.avif" type="image/avif">
           <source srcset="/src/images/foodtruck.webp" type="image/webp">
-          <img src="/src/images/foodtruck.jpg" alt="Pizza D'Amico Foodtruck bei Nacht — Pferdeanhänger mit Holzofen und warmem Glow" loading="lazy">
+          <img src="/src/images/foodtruck.jpg" alt="Pizza D'Amico Foodtruck bei Nacht — Pferdeanhänger mit Holzofen und warmem Glow">
         </picture>
         <div class="akt-4-veil"></div>
         <div class="akt-4-overlay">
@@ -255,7 +257,14 @@
                 </div>
               </dl>
 
-              <p class="meta akt-5-included"><span class="akt-5-included-head">Inbegriffen</span> Bis 100 Pizzen / h · Ø 30 cm · 6 Zutaten individuell · Vegetarisch &amp; vegan auf Wunsch</p>
+              <div class="akt-5-included">
+                <div class="kicker akt-5-included-label">Im Preis enthalten</div>
+                <ul class="akt-5-included-list">
+                  <li>Bis 100 Pizzen / h · Ø 30 cm</li>
+                  <li>6 Zutaten individuell im Voraus gewählt</li>
+                  <li>Vegetarisch &amp; vegan auf Wunsch</li>
+                </ul>
+              </div>
 
               <div class="akt-5-formula">
                 <span class="akt-5-formula-label">Gesamtkosten</span>
