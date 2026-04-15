@@ -5,7 +5,7 @@ export function initAkt4() {
   const section = document.querySelector('.akt-4');
   if (!section) return;
 
-  const nodes = section.querySelectorAll('.kicker, .akt-4-title, .akt-4-lede, .akt-4-media');
+  const nodes = section.querySelectorAll('.akt-4-kicker, .akt-4-title, .akt-4-lede, .akt-4-specs');
 
   if (reduceMotion.value) {
     gsap.set([...nodes], { opacity: 1, y: 0 });
