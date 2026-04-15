@@ -43,7 +43,8 @@ export function initSiteModal() {
 export function openModal(modal) {
   if (!modal) return;
   if (openModalEl && openModalEl !== modal) closeModal(openModalEl);
-  if (window.innerWidth >= DESKTOP_BREAKPOINT) return;  // no-op on desktop
+  const alwaysOverlay = modal.classList.contains('site-modal-overlay');
+  if (!alwaysOverlay && window.innerWidth >= DESKTOP_BREAKPOINT) return;  // inline on desktop
 
   modal.setAttribute('aria-hidden', 'false');
   prevBodyOverflow = document.body.style.overflow;

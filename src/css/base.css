@@ -134,6 +134,9 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; 
 }
 .editorial { hanging-punctuation: first last allow-end; }
 
+/* Globale hanging-punctuation für akt-lede + akt-title */
+.akt-lede, .akt-title { hanging-punctuation: first last allow-end; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

@@ -66,7 +66,7 @@
 }
 .akt-1-kicker {
   color: var(--c-farina);
-  opacity: 0.6;
+  opacity: 0.82;
   letter-spacing: 3.5px;
 }
 .akt-1-brand {
@@ -650,27 +650,8 @@
   display: grid;
   gap: var(--sp-head-body);
   padding-block: var(--sp-akt-y);
-}
-@media (min-width: 900px) {
-  .akt-5-inner {
-    grid-template-columns: 1fr 1fr;
-    column-gap: var(--sp-6);
-    row-gap: var(--sp-2);
-    align-items: start;
-    padding-block: var(--sp-3);
-  }
-  .akt-5-intro { grid-column: 1 / -1; }            /* Intro full-width oben */
-  .akt-5-statement-block {
-    grid-column: 1;
-    border-top: 0;
-    padding-top: 0;
-    align-self: start;
-  }
-  .akt-5-menu { grid-column: 2; border-top: 0; }
-  .akt-5-included { grid-column: 2; }
-  .akt-5-formula { grid-column: 1 / -1; }
-  .akt-5-tax { grid-column: 1 / -1; }
-  .akt-5 .site-modal-trigger { grid-column: 1; }
+  max-width: 1000px;
+  align-content: center;
 }
 .akt-5-title {
   max-width: 22ch;
@@ -698,10 +679,12 @@
 .akt-5-statement .s-line { display: block; }
 .akt-5-statement em {
   font-style: normal;
-  color: var(--c-fuoco);
+  color: var(--c-inchiostro);
   font-variant-numeric: tabular-nums;
-  font-variation-settings: 'opsz' 96, 'wdth' 80, 'wght' 750;
+  font-variation-settings: 'opsz' 96, 'wdth' 80, 'wght' 800;
   letter-spacing: -2.5px;
+  border-bottom: 3px solid var(--c-pane);
+  padding-bottom: 2px;
 }
 .akt-5-details {
   display: none;  /* hidden globally — info lebt im Menu-Popup */
@@ -723,7 +706,7 @@
   .akt-5::before {
     content: ""; position: absolute; top: -15%; right: -30%;
     width: 80vw; aspect-ratio: 1; border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--c-fuoco) 14%, transparent) 0%, transparent 60%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--c-pane) 22%, transparent) 0%, transparent 60%);
     pointer-events: none; z-index: 0;
   }
   .akt-5-inner { padding-block: var(--sp-akt-y); gap: var(--sp-head-body); position: relative; z-index: 1; }
