@@ -1446,23 +1446,33 @@
    ============================================ */
 .akt-5, .akt-6 {
   background:
-    radial-gradient(ellipse 100% 70% at 50% 30%,
-      color-mix(in srgb, var(--c-brace) 78%, var(--c-inchiostro)) 0%,
-      var(--c-inchiostro) 90%),
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--c-inchiostro) 50%, transparent) 0%,
+      color-mix(in srgb, var(--c-inchiostro) 30%, transparent) 100%),
+    url('/src/images/bg-stone.png') center/cover no-repeat,
     var(--c-inchiostro);
   position: relative;
   color: var(--c-farina);
 }
-/* Subtle noise/stone texture over dark bg */
-.akt-5::after,
-.akt-6::after {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.8  0 0 0 0 0.65  0 0 0 0.2 0'/></filter><rect width='100%25' height='100%25' filter='url(%23s)' opacity='0.9'/></svg>");
-  opacity: 0.25;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  z-index: 0;
+/* Mobile: Stone-Bild 90° rotiert damit es 9:16 abdeckt */
+@media (max-width: 899px) {
+  .akt-5, .akt-6 {
+    background:
+      linear-gradient(to bottom,
+        color-mix(in srgb, var(--c-inchiostro) 55%, transparent) 0%,
+        color-mix(in srgb, var(--c-inchiostro) 30%, transparent) 100%),
+      url('/src/images/bg-stone.png') center/cover no-repeat,
+      var(--c-inchiostro);
+  }
+}
+/* Footer bekommt auch den Stone-BG */
+.site-footer {
+  background:
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--c-inchiostro) 65%, transparent) 0%,
+      var(--c-inchiostro) 100%),
+    url('/src/images/bg-stone.png') center/cover no-repeat,
+    var(--c-inchiostro);
 }
 .akt-5 > *, .akt-6 > * { position: relative; z-index: 1; }
 
@@ -1531,6 +1541,20 @@
 /* Akt 5 included-list on dark */
 .akt-5-included-list li { color: var(--c-farina); }
 .akt-5-formula { background: color-mix(in srgb, var(--c-farina) 8%, transparent); }
+
+/* Akt 5 · 2 CTAs stacked mobile · inline desktop */
+.akt-5-ctas {
+  display: grid;
+  gap: var(--sp-2);
+}
+@media (min-width: 900px) {
+  .akt-5-ctas {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-2);
+    margin-top: var(--sp-2);
+  }
+  .akt-5-ctas .site-modal-trigger { width: 100%; justify-content: space-between; font-size: 11px; padding: 14px 20px; }
+}
 
 /* ============================================
    Desktop-Merge · Akt 5 + Akt 6 (≥ 900px)

@@ -22,7 +22,7 @@
 html, body { margin: 0; padding: 0; }
 
 /* Scrollbar verstecken · cinematic, distraction-free */
-html { scrollbar-width: none; scroll-padding-top: 72px; }
+html { scrollbar-width: none; scroll-padding-top: 0; }
 html::-webkit-scrollbar { display: none; }
 body { overflow-x: hidden; }
 body {
