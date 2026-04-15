@@ -33,7 +33,7 @@
       <div class="akt-1-veil"></div>
       <div class="akt-inner">
         <div class="akt-1-hero">
-          <div class="akt-1-kicker meta"><span lang="it">Napoli</span> · Schlossstrasse 15, Münsingen</div>
+          <div class="akt-1-kicker meta">Bern · Schlossstrasse 15, Münsingen</div>
           <h1 class="akt-1-brand display">Pizza D'Amico</h1>
           <div class="akt-1-sub meta">Pizza · Foodtruck · Catering</div>
           <button type="button" class="akt-1-cta" id="akt1-cta" aria-label="Catering anfragen">
@@ -47,33 +47,93 @@
 
     <section class="akt akt-2" data-akt="2" data-theme="farina">
       <div class="akt-inner">
-        <div class="akt-2-head"><div class="kicker"><span lang="it">Atto II · Materia</span></div></div>
-        <div class="akt-2-grid">
-          <figure class="akt-2-item">
-            <picture>
-              <source srcset="/src/images/caputo-rossa.avif" type="image/avif">
-              <source srcset="/src/images/caputo-rossa.webp" type="image/webp">
-              <img src="/src/images/caputo-rossa.jpg" alt="Caputo Rossa Type 00 Mehlsack aus Neapel" width="800" height="1000" fetchpriority="high">
-            </picture>
-            <figcaption>
-              <h2 class="display akt-2-title">Mehl aus Neapel.</h2>
-              <p class="lede editorial">Caputo Rossa, gemahlen aus süditalienischem Weichweizen, Type 00. Eine Tonne reicht für vier Wochen Betrieb.</p>
-              <p class="meta">50 kg · Molino Caputo · Napoli</p>
-            </figcaption>
-          </figure>
-          <figure class="akt-2-item">
-            <picture>
-              <source srcset="/src/images/fior-di-latte.avif" type="image/avif">
-              <source srcset="/src/images/fior-di-latte.webp" type="image/webp">
-              <img src="/src/images/fior-di-latte.jpg" alt="Fior di Latte Büffelmozzarella" width="800" height="1000" loading="lazy">
-            </picture>
-            <figcaption>
-              <h2 class="display akt-2-title">Milch aus Kampanien.</h2>
-              <p class="lede editorial">Fior di Latte, täglich geliefert, in Lake. Kein Reifegrad-Kompromiss.</p>
-              <p class="meta">250 g Kugeln · Kampanien</p>
-            </figcaption>
-          </figure>
+
+        <!-- Teil 1 · Unsere Pizza -->
+        <div class="akt-2-part akt-2-pizza">
+          <div class="kicker"><span lang="it">Atto II</span> · Unsere Pizza</div>
+          <h2 class="display akt-2-title">Neapolitanisch. Frisch. Vor Ort gebacken.</h2>
+          <p class="lede editorial akt-2-lede">Jede Pizza beginnt mit Teig, der 30 Stunden reift, und endet nach dem Doppel-Back bei 485°C. Kein Shortcut. Kein Kompromiss.</p>
+
+          <div class="akt-2-pizza-grid">
+            <figure class="akt-2-media">
+              <picture>
+                <source srcset="/src/images/pizza-teig.avif" type="image/avif">
+                <source srcset="/src/images/pizza-teig.webp" type="image/webp">
+                <img src="/src/images/pizza-teig.jpg" alt="Biga-Teig vor der Verarbeitung" width="800" height="1000" fetchpriority="high">
+              </picture>
+              <figcaption>
+                <h3 class="display akt-2-sub">Der Teig</h3>
+                <p class="lede editorial">Biga-Vorteig · 30 Stunden Reifung · Caputo Rossa Type 00.</p>
+              </figcaption>
+            </figure>
+            <figure class="akt-2-media">
+              <picture>
+                <source srcset="/src/images/pizza-boden.avif" type="image/avif">
+                <source srcset="/src/images/pizza-boden.webp" type="image/webp">
+                <img src="/src/images/pizza-boden.jpg" alt="Fertige Pizza aus dem Holzofen" width="800" height="1000" loading="lazy">
+              </picture>
+              <figcaption>
+                <h3 class="display akt-2-sub">Die Pizza</h3>
+                <p class="lede editorial">Doppel-Back-System · außen knusprig, innen zart · nur bei uns in der Schweiz.</p>
+              </figcaption>
+            </figure>
+          </div>
         </div>
+
+        <!-- Teil 2 · Die Zutaten -->
+        <div class="akt-2-part akt-2-ingredients">
+          <div class="kicker">Die Zutaten</div>
+          <h2 class="display akt-2-title">Alles frisch. Vieles aus Italien.</h2>
+
+          <div class="ingredients-grid">
+            <div class="ingredients-col ingredients-base">
+              <h3 class="meta ingredients-cat">Basis</h3>
+              <ul class="ingredients-list">
+                <li>Caputo Rossa <span class="meta">Type 00</span></li>
+                <li>Fior di Latte <span class="meta">Kampanien</span></li>
+                <li>San Marzano <span class="meta">Süditalien</span></li>
+                <li>Basilikum <span class="meta">frisch</span></li>
+                <li>Olivenöl <span class="meta">extra vergine</span></li>
+              </ul>
+            </div>
+            <div class="ingredients-col">
+              <h3 class="meta ingredients-cat">Gemüse</h3>
+              <ul class="ingredients-list">
+                <li>Champignons</li>
+                <li>Zwiebeln</li>
+                <li>Zucchetti</li>
+                <li>Spinat</li>
+                <li>Aubergine</li>
+                <li>Peperoni</li>
+                <li>Artischocken</li>
+                <li>Oliven</li>
+                <li>Kapern</li>
+                <li>Knoblauch</li>
+              </ul>
+            </div>
+            <div class="ingredients-col">
+              <h3 class="meta ingredients-cat">Fleisch</h3>
+              <ul class="ingredients-list">
+                <li>Schinken</li>
+                <li>Salami</li>
+                <li>Speck</li>
+              </ul>
+              <h3 class="meta ingredients-cat" style="margin-top: var(--sp-4);">Fisch</h3>
+              <ul class="ingredients-list">
+                <li>Thunfisch</li>
+                <li>Sardellen</li>
+              </ul>
+              <h3 class="meta ingredients-cat" style="margin-top: var(--sp-4);">Käse &amp; Mehr</h3>
+              <ul class="ingredients-list">
+                <li>Rahm</li>
+                <li>Gorgonzola</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="meta ingredients-note">6 Zutaten frei wählbar beim Catering · alle Zutaten stehen beim Foodtruck vor Ort zur Auswahl</p>
+        </div>
+
       </div>
     </section>
 
