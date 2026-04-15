@@ -16,3 +16,4 @@ private/config.php
 private/*.db
 private/*.db-wal
 private/*.db-shm
+_dev_snapshots/

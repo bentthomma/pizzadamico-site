@@ -1,0 +1,145 @@
+/* Site Modal · shared responsive shell
+   Desktop (≥900px): renders inline (display: contents — children participate in parent flow)
+   Mobile (<900px): transforms into fullscreen overlay
+*/
+
+/* Base (Desktop) · modal is transparent to layout */
+.site-modal,
+.site-modal-shell,
+.site-modal-body {
+  display: contents;
+}
+.site-modal-backdrop,
+.site-modal-close,
+.site-modal-head,
+.site-modal-trigger {
+  display: none;
+}
+
+/* Mobile: full overlay */
+@media (max-width: 899px) {
+  .site-modal {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    padding: var(--sp-2);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--t-med) var(--e-out), visibility 0s linear var(--t-med);
+  }
+  .site-modal[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s, 0s;
+  }
+  .site-modal-backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--c-inchiostro) 62%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .site-modal-shell {
+    display: grid;
+    gap: var(--sp-2);
+    position: relative;
+    background: var(--c-farina);
+    color: var(--c-inchiostro);
+    padding: var(--sp-4) var(--sp-3) var(--sp-3);
+    border-radius: 12px;
+    max-width: min(92vw, 540px);
+    max-height: 92dvh;
+    overflow-y: auto;
+    box-shadow: 0 24px 60px -20px color-mix(in srgb, var(--c-inchiostro) 55%, transparent);
+    transform: translateY(12px);
+    transition: transform var(--t-med) var(--e-out);
+  }
+  .site-modal[aria-hidden="false"] .site-modal-shell {
+    transform: translateY(0);
+  }
+  .site-modal-close {
+    display: grid;
+    place-items: center;
+    position: sticky;
+    top: 0;
+    margin-left: auto;
+    margin-top: calc(var(--sp-4) * -1);
+    margin-right: calc(var(--sp-3) * -1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--c-inchiostro);
+    background: var(--c-farina);
+    opacity: 0.75;
+    z-index: 2;
+    transition: opacity var(--t-fast), background var(--t-fast);
+  }
+  .site-modal-close:hover,
+  .site-modal-close:focus-visible {
+    opacity: 1;
+    background: color-mix(in srgb, var(--c-inchiostro) 10%, var(--c-farina));
+    outline: none;
+  }
+  .site-modal-head {
+    display: grid;
+    gap: 6px;
+    padding-right: 40px;
+    margin-top: calc(var(--sp-3) * -1);
+  }
+  .site-modal-title {
+    font-size: clamp(26px, 7vw, 36px);
+    line-height: 1.05;
+    margin: 0;
+    letter-spacing: -1px;
+    color: var(--c-inchiostro);
+  }
+  .site-modal-body {
+    display: grid;
+    gap: var(--sp-2);
+  }
+
+  /* CTA-Trigger · Pill-Button */
+  .site-modal-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 10px;
+    padding: 11px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--c-fg);
+    background: transparent;
+    color: inherit;
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+  }
+  .site-modal-trigger:hover,
+  .site-modal-trigger:focus-visible {
+    background: var(--c-fg);
+    color: var(--c-bg);
+    outline: none;
+    transform: translateY(-1px);
+  }
+  .site-modal-trigger-arrow {
+    display: inline-block;
+    transition: transform var(--t-fast);
+  }
+  .site-modal-trigger:hover .site-modal-trigger-arrow,
+  .site-modal-trigger:focus-visible .site-modal-trigger-arrow {
+    transform: translateX(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-modal, .site-modal-shell { transition: none; }
+}

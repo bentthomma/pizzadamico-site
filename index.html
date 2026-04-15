@@ -12,20 +12,17 @@
   <link rel="stylesheet" href="/src/css/modal.css">
   <link rel="stylesheet" href="/src/css/pill.css">
   <link rel="stylesheet" href="/src/css/site-header.css">
+  <link rel="stylesheet" href="/src/css/site-modal.css">
   <link rel="stylesheet" href="/src/css/footer.css">
-  <link rel="preconnect" href="https://www.youtube.com" crossorigin>
-  <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin>
-  <link rel="preconnect" href="https://i.ytimg.com">
-  <link rel="preconnect" href="https://www.google.com">
-  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="preload" href="/src/media/hero.mp4" as="video" type="video/mp4">
   <link rel="preload" href="/src/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/src/fonts/Newsreader-Variable.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
   <header class="site-header" data-hidden="true">
     <a href="#top" class="site-brand" aria-label="Pizza D'Amico — Home">
-      <span class="site-brand-mark">D'Amico</span>
-      <span class="site-brand-sub meta"><span lang="it">Pizza · Foodtruck</span></span>
+      <span class="site-brand-mark">Pizza D'Amico</span>
+      <span class="site-brand-sub meta">Foodtruck · Catering</span>
     </a>
     <nav class="site-nav" aria-label="Sektionen">
       <a href="#akt-2" data-nav-target="2">Pizza</a>
@@ -56,7 +53,11 @@
 
     <section class="akt akt-1" id="akt-1" data-akt="1" data-theme="brace">
       <div class="akt-1-yt-wrap" aria-hidden="true">
-        <div id="akt1-yt-player" class="akt-1-yt-player"></div>
+        <video class="akt-1-video" id="akt1-video" autoplay playsinline muted loop preload="auto"
+               poster="/src/media/hero-poster.jpg">
+          <source src="/src/media/hero.webm" type="video/webm">
+          <source src="/src/media/hero.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="akt-1-veil"></div>
       <div class="akt-inner">
@@ -72,9 +73,11 @@
     <!-- Akt 2 · Unsere Pizza -->
     <section class="akt akt-2" id="akt-2" data-akt="2" data-theme="farina" data-nav-label="Pizza">
       <div class="akt-inner">
-        <div class="kicker"><span lang="it">Atto II</span> · Unsere Pizza</div>
-        <h2 class="display akt-2-title">Neapolitanisch. Frisch. Vor Ort gebacken.</h2>
-        <p class="lede editorial akt-2-lede">Jede Pizza beginnt mit Teig, der 30 Stunden reift.</p>
+        <header class="akt-head">
+          <div class="kicker"><span lang="it">Atto II</span> · Unsere Pizza</div>
+          <h2 class="akt-title akt-2-title">Neapolitanisch. Frisch. Vor Ort gebacken.</h2>
+          <p class="akt-lede editorial akt-2-lede">Jede Pizza beginnt mit Teig, der 30 Stunden reift.</p>
+        </header>
 
         <div class="akt-2-pizza-grid">
           <figure class="akt-2-media">
@@ -95,7 +98,7 @@
               <img src="/src/images/pizza-boden.jpg" alt="Fertige Pizza aus dem Holzofen" width="800" height="1000" loading="lazy">
             </picture>
             <figcaption>
-              <h3 class="display akt-2-sub">Die Pizza</h3>
+              <h3 class="display akt-2-sub">Der Pizzaboden</h3>
               <p class="lede editorial">Doppel-Back-System · außen knusprig, innen zart.</p>
             </figcaption>
           </figure>
@@ -114,33 +117,51 @@
           </picture>
         </figure>
         <div class="akt-3-content">
-          <div class="kicker"><span lang="it">Atto III</span> · Die Zutaten</div>
-          <h2 class="display akt-3-title">Alles frisch. Vieles aus Italien.</h2>
-          <div class="ingredients-grid">
-            <div class="ingredients-col ingredients-base">
-              <h3 class="meta ingredients-cat">Basis</h3>
-              <ul class="ingredients-list">
-                <li>Caputo Rossa Type 00</li>
-                <li>Fior di Latte</li>
-                <li>San Marzano</li>
-                <li>Basilikum</li>
-                <li>Olivenöl extra vergine</li>
-              </ul>
-            </div>
-            <div class="ingredients-col">
-              <h3 class="meta ingredients-cat">Gemüse</h3>
-              <ul class="ingredients-list">
-                <li>Champignons</li><li>Zwiebeln</li><li>Zucchetti</li><li>Spinat</li><li>Aubergine</li>
-                <li>Peperoni</li><li>Artischocken</li><li>Oliven</li><li>Kapern</li><li>Knoblauch</li>
-              </ul>
-            </div>
-            <div class="ingredients-col">
-              <h3 class="meta ingredients-cat">Fleisch · Fisch · Käse</h3>
-              <ul class="ingredients-list">
-                <li>Schinken</li><li>Salami</li><li>Speck</li>
-                <li>Thunfisch</li><li>Sardellen</li>
-                <li>Rahm</li><li>Gorgonzola</li>
-              </ul>
+          <header class="akt-head">
+            <div class="kicker"><span lang="it">Atto III</span> · Die Zutaten</div>
+            <h2 class="akt-title akt-3-title">Alles frisch. Vieles aus Italien.</h2>
+          </header>
+          <button class="site-modal-trigger" type="button" data-modal-target="modal-zutaten">
+            <span>Alle Zutaten ansehen</span>
+            <span class="site-modal-trigger-arrow" aria-hidden="true">→</span>
+          </button>
+          <div class="site-modal" id="modal-zutaten" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-zutaten-title">
+            <div class="site-modal-backdrop" data-modal-close></div>
+            <div class="site-modal-shell">
+              <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">×</button>
+              <div class="site-modal-head">
+                <div class="kicker"><span lang="it">Atto III</span> · Die Zutaten</div>
+                <h3 class="display site-modal-title" id="modal-zutaten-title">Alles frisch.</h3>
+              </div>
+              <div class="site-modal-body">
+                <div class="ingredients-grid">
+                  <div class="ingredients-col ingredients-base">
+                    <h3 class="meta ingredients-cat">Basis</h3>
+                    <ul class="ingredients-list">
+                      <li>Caputo Rossa Type 00</li>
+                      <li>Fior di Latte</li>
+                      <li>San Marzano</li>
+                      <li>Basilikum</li>
+                      <li>Olivenöl extra vergine</li>
+                    </ul>
+                  </div>
+                  <div class="ingredients-col">
+                    <h3 class="meta ingredients-cat">Gemüse</h3>
+                    <ul class="ingredients-list">
+                      <li>Champignons</li><li>Zwiebeln</li><li>Zucchetti</li><li>Spinat</li><li>Aubergine</li>
+                      <li>Peperoni</li><li>Artischocken</li><li>Oliven</li><li>Kapern</li><li>Knoblauch</li>
+                    </ul>
+                  </div>
+                  <div class="ingredients-col">
+                    <h3 class="meta ingredients-cat">Fleisch · Fisch · Käse</h3>
+                    <ul class="ingredients-list">
+                      <li>Schinken</li><li>Salami</li><li>Speck</li>
+                      <li>Thunfisch</li><li>Sardellen</li>
+                      <li>Rahm</li><li>Gorgonzola</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -157,12 +178,13 @@
         </picture>
         <div class="akt-4-veil"></div>
         <div class="akt-4-overlay">
-          <div class="kicker akt-4-kicker"><span lang="it">Atto IV</span> · Unser Foodtruck</div>
-          <h2 class="display akt-4-title">Ein Pferdeanhänger wird zur Pizzeria.</h2>
-          <p class="lede editorial akt-4-lede">Schwarz lackiert, Holzofen hinten, Serviertisch vorn. Wir kommen dorthin, wo dein Event stattfindet — mit 485°C im Gepäck.</p>
+          <header class="akt-head">
+            <div class="kicker akt-4-kicker"><span lang="it">Atto IV</span> · Unser Foodtruck</div>
+            <h2 class="akt-title akt-4-title">Ein Pferdeanhänger wird zur Pizzeria.</h2>
+            <p class="akt-lede editorial akt-4-lede">Schwarz lackiert, Holzofen hinten, Serviertisch vorn. Wir kommen dorthin, wo dein Event stattfindet.</p>
+          </header>
           <ul class="akt-4-specs meta">
             <li>7 × 3 m</li>
-            <li>485 °C</li>
             <li>100 Pizzen / h</li>
             <li>Neapolitanisch</li>
             <li>Live vor Ort</li>
@@ -175,34 +197,75 @@
     <!-- Akt 5 · Catering · Info + Preise -->
     <section class="akt akt-5" id="akt-5" data-akt="5" data-theme="farina" data-nav-label="Catering">
       <div class="akt-inner akt-5-inner">
-        <div class="akt-5-intro">
+        <header class="akt-head akt-5-intro">
           <div class="kicker"><span lang="it">Atto V</span> · Catering</div>
-          <h2 class="display akt-5-title">Für jeden Anlass das passende Erlebnis.</h2>
-          <p class="lede editorial akt-5-lede">Ob Firmenfeier, Hochzeit, Geburtstag oder privates Fest — wir gestalten unser Angebot individuell nach euren Wünschen. Ein kulinarisches Highlight, das in Erinnerung bleibt. Sichert euch rechtzeitig euren Wunschtermin — beliebte Daten sind früh ausgebucht.</p>
+          <h2 class="akt-title akt-5-title">Für jeden Anlass das passende Erlebnis.</h2>
+          <p class="akt-lede editorial akt-5-lede">Firmenfeier, Hochzeit, Geburtstag, privates Fest — individuell nach euren Wünschen. Beliebte Daten sind früh ausgebucht.</p>
+        </header>
+
+        <div class="akt-5-statement-block">
+          <p class="akt-5-statement">
+            <span class="s-line">Pizza à discrétion,</span>
+            <span class="s-line"><em>CHF 25</em> pro Person.</span>
+          </p>
+          <p class="lede editorial akt-5-details">
+            Ab 30 Gästen. Wir bringen Ofen, Teig und die ganze Pizzeria — ihr geniesst den Abend. 6 Zutaten wählt ihr im Voraus, vegetarisch &amp; vegan sind immer dabei.
+          </p>
         </div>
 
-        <div class="akt-5-grid">
-          <div class="akt-5-block">
-            <h3 class="meta akt-5-cat">Unser Angebot</h3>
-            <ul class="akt-5-list">
-              <li><strong>Pizza à discrétion</strong> · CHF 25.– pro Person</li>
-              <li>Kinder 5–10 J. · CHF 12.– pro Kind</li>
-              <li>Bis 100 Pizzen pro Stunde · Ø 30 cm</li>
-              <li>Individuelle Auswahl von 6 Zutaten im Voraus</li>
-              <li>Vegetarische &amp; vegane Optionen auf Wunsch</li>
-            </ul>
-          </div>
-          <div class="akt-5-block">
-            <h3 class="meta akt-5-cat">Rahmenbedingungen</h3>
-            <ul class="akt-5-list">
-              <li><strong>Anfahrt</strong> · CHF 1.50 / km ab Standort · hin &amp; zurück</li>
-              <li><strong>Mindestbuchung</strong> · ab 30 Personen</li>
-              <li><strong>Reservierung</strong> · fixer Betrag CHF 250.– für Infrastruktur &amp; Organisation</li>
-              <li>Gesamtkosten = CHF 250.– + CHF 25.– pro Person + CHF 1.50 pro km</li>
-            </ul>
+        <button class="site-modal-trigger" type="button" data-modal-target="modal-catering">
+          <span>Preise &amp; Details</span>
+          <span class="site-modal-trigger-arrow" aria-hidden="true">→</span>
+        </button>
+
+        <div class="site-modal" id="modal-catering" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-catering-title">
+          <div class="site-modal-backdrop" data-modal-close></div>
+          <div class="site-modal-shell">
+            <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">×</button>
+            <div class="site-modal-head">
+              <div class="kicker"><span lang="it">Atto V</span> · Catering</div>
+              <h3 class="display site-modal-title" id="modal-catering-title">Preise &amp; Details</h3>
+            </div>
+            <div class="site-modal-body">
+              <dl class="akt-5-menu" aria-label="Preise und Konditionen">
+                <div class="menu-line">
+                  <dt class="menu-label">Pizza à discrétion</dt>
+                  <span class="menu-leader" aria-hidden="true"></span>
+                  <dd class="menu-price">CHF 25.– <span class="menu-unit">/ Person</span></dd>
+                </div>
+                <div class="menu-line">
+                  <dt class="menu-label">Kinder 5–10 Jahre</dt>
+                  <span class="menu-leader" aria-hidden="true"></span>
+                  <dd class="menu-price">CHF 12.– <span class="menu-unit">/ Kind</span></dd>
+                </div>
+                <div class="menu-line">
+                  <dt class="menu-label">Anfahrt <span class="menu-sub">hin &amp; zurück ab Standort</span></dt>
+                  <span class="menu-leader" aria-hidden="true"></span>
+                  <dd class="menu-price">CHF 1.50 <span class="menu-unit">/ km</span></dd>
+                </div>
+                <div class="menu-line">
+                  <dt class="menu-label">Mindestbuchung</dt>
+                  <span class="menu-leader" aria-hidden="true"></span>
+                  <dd class="menu-price">ab 30 <span class="menu-unit">Personen</span></dd>
+                </div>
+                <div class="menu-line">
+                  <dt class="menu-label">Reservierung <span class="menu-sub">Infrastruktur &amp; Organisation</span></dt>
+                  <span class="menu-leader" aria-hidden="true"></span>
+                  <dd class="menu-price">CHF 250.–</dd>
+                </div>
+              </dl>
+
+              <p class="meta akt-5-included"><span class="akt-5-included-head">Inbegriffen</span> Bis 100 Pizzen / h · Ø 30 cm · 6 Zutaten individuell · Vegetarisch &amp; vegan auf Wunsch</p>
+
+              <div class="akt-5-formula">
+                <span class="akt-5-formula-label">Gesamtkosten</span>
+                <span class="akt-5-formula-expr">CHF 250.– <span class="akt-5-op">+</span> 25.– <span class="akt-5-op">×</span> Personen <span class="akt-5-op">+</span> 1.50 <span class="akt-5-op">×</span> km</span>
+              </div>
+
+              <p class="meta akt-5-tax">Alle Preise exkl. MwSt. · auf den Gesamtbetrag werden 8.1 % MwSt. erhoben.</p>
+            </div>
           </div>
         </div>
-        <p class="meta akt-5-tax">Alle Preise exkl. MwSt. · auf den Gesamtbetrag werden 8.1 % MwSt. erhoben.</p>
       </div>
     </section>
 
@@ -210,27 +273,46 @@
     <section class="akt akt-6" id="akt-6" data-akt="6" data-theme="farina" data-nav-label="Kontakt">
       <div class="akt-inner akt-6-inner">
         <div class="akt-6-form-col">
-          <div class="kicker"><span lang="it">Atto VI</span> · Kontakt</div>
-          <h2 class="display akt-6-title">Schreibt uns.</h2>
-          <p class="lede editorial akt-6-lede">Anfragen, Termine, Rückfragen — Pietro meldet sich persönlich innerhalb von 48 Stunden.</p>
+          <header class="akt-head">
+            <div class="kicker"><span lang="it">Atto VI</span> · Kontakt</div>
+            <h2 class="akt-title akt-6-title">Schreibt uns.</h2>
+            <p class="akt-lede editorial akt-6-lede">Anfragen, Termine, Rückfragen — Pietro meldet sich persönlich innerhalb von 48 Stunden.</p>
+          </header>
 
-          <form class="contact-form" action="https://formsubmit.co/benedikt@thomma.ch" method="POST">
-            <input type="hidden" name="_subject" value="Neue Anfrage · pizzadamico.ch">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="true">
-            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <button class="site-modal-trigger" type="button" data-modal-target="modal-kontakt">
+            <span>Nachricht schreiben</span>
+            <span class="site-modal-trigger-arrow" aria-hidden="true">→</span>
+          </button>
 
-            <label class="form-field">
-              <span class="form-label">E-Mail</span>
-              <input type="email" name="email" required autocomplete="email" placeholder="deine@mail.ch">
-            </label>
-            <label class="form-field">
-              <span class="form-label">Nachricht</span>
-              <textarea name="message" rows="5" required placeholder="Datum, Anlass, Personenzahl, Ort, Besonderheiten …"></textarea>
-            </label>
+          <div class="site-modal" id="modal-kontakt" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-kontakt-title">
+            <div class="site-modal-backdrop" data-modal-close></div>
+            <div class="site-modal-shell">
+              <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">×</button>
+              <div class="site-modal-head">
+                <div class="kicker"><span lang="it">Atto VI</span> · Kontakt</div>
+                <h3 class="display site-modal-title" id="modal-kontakt-title">Schreibt uns.</h3>
+              </div>
+              <div class="site-modal-body">
+                <form class="contact-form" action="https://formsubmit.co/benedikt@thomma.ch" method="POST">
+                  <input type="hidden" name="_subject" value="Neue Anfrage · pizzadamico.ch">
+                  <input type="hidden" name="_template" value="table">
+                  <input type="hidden" name="_captcha" value="false">
+                  <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
-            <button type="submit" class="contact-submit">Senden →</button>
-          </form>
+                  <label class="form-field">
+                    <span class="form-label">E-Mail</span>
+                    <input type="email" name="email" required autocomplete="email" placeholder="deine@mail.ch">
+                  </label>
+                  <label class="form-field">
+                    <span class="form-label">Nachricht</span>
+                    <textarea name="message" rows="5" required placeholder="Datum, Anlass, Personenzahl, Ort, Besonderheiten …"></textarea>
+                  </label>
+
+                  <button type="submit" class="contact-submit">Senden →</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
 
         <aside class="akt-6-twint">
@@ -239,6 +321,10 @@
             <img src="/src/images/twint-qr.png" alt="TWINT QR-Code · Anzahlung CHF 250 an Pizza D'Amico" width="600" height="300">
           </picture>
           <p class="meta akt-6-twint-note">Scannen · Betrag eingeben · bestätigen. Die Reservation wird nach Eingang definitiv bestätigt.</p>
+          <a class="akt-6-twint-applink" href="https://go.twint.ch/1/e/tw?tw=acq.erLxqXuzQa2zND3B2wKBNM3KxDVpHFhbX6N8FjLRvWMv8epCovCoo1PWmZRIX7c0" target="_blank" rel="noopener">
+            <span>Mit TWINT App bezahlen</span>
+            <span aria-hidden="true">→</span>
+          </a>
           <p class="meta akt-6-direct">Oder direkt: <a href="tel:+41763313259">076 331 32 59</a></p>
         </aside>
       </div>
@@ -257,7 +343,7 @@
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95 0-5.52-4.48-10-10-10z"/></svg>
             <span>Facebook</span>
           </a>
-          <a href="https://instagram.com/pizza_pasta_damico" target="_blank" rel="noopener" aria-label="Instagram">
+          <a href="https://instagram.com/pizzadamico.ch" target="_blank" rel="noopener" aria-label="Instagram">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428A4.88 4.88 0 0 1 3.68 3.678 4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
             <span>Instagram</span>
           </a>
@@ -276,7 +362,6 @@
           <a class="meta" href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a>
         </div>
 
-        <div class="site-footer-legal meta">© Pizza D'Amico · Pietro D'Amico</div>
       </div>
     </footer>
   </main>
@@ -285,6 +370,17 @@
     <span class="pill-dot" aria-hidden="true"></span>
     <span class="pill-label">Catering anfragen</span>
   </button>
+
+  <div class="success-overlay" id="contact-success" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="success-title">
+    <div class="success-backdrop" data-success-close></div>
+    <div class="success-shell">
+      <button class="success-close" type="button" data-success-close aria-label="Schliessen">×</button>
+      <div class="kicker success-kicker">Anfrage eingegangen</div>
+      <h3 class="display success-title" id="success-title">Grazie!</h3>
+      <p class="lede editorial success-text">Pietro meldet sich persönlich innerhalb von 48 Stunden. Check kurz dein Postfach — allenfalls landet die Bestätigung im Spam-Ordner.</p>
+      <button class="success-ok" type="button" data-success-close>OK</button>
+    </div>
+  </div>
 
   <aside class="modal" id="catering-modal" aria-hidden="true" aria-modal="true" role="dialog" aria-labelledby="modal-title">
     <div class="modal-backdrop" data-modal-close></div>

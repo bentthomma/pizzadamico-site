@@ -20,11 +20,15 @@
   --ff-editorial: 'Tiempos Text', 'Newsreader', Georgia, serif;
   --ff-mono: 'Söhne Mono', 'JetBrains Mono', ui-monospace, monospace;
 
+  /* Type scale · semantic roles (uniformes Design-System) */
   --fs-kicker: 11px;
-  --fs-body: 17px;
-  --fs-lead: 19px;
-  --fs-statement: clamp(44px, 5.5vw, 80px);
-  --fs-climax: clamp(40px, 5vw, 72px);
+  --fs-meta: 11px;
+  --fs-body: clamp(15px, 1.1vw, 17px);
+  --fs-lede: clamp(16px, 1.2vw, 20px);
+  --fs-lead: var(--fs-lede);            /* legacy alias */
+  --fs-title: clamp(32px, 5vw, 72px);
+  --fs-statement: clamp(40px, 6.5vw, 108px);
+  --fs-climax: clamp(44px, 5.8vw, 88px);
 
   /* Spacing (8er) */
   --sp-1: 8px;
@@ -34,7 +38,14 @@
   --sp-5: 56px;
   --sp-6: 88px;
   --sp-7: 140px;
-  --sp-viewport: 9vw;
+  --sp-viewport: 7vw;
+
+  /* Section rhythm (einheitlich über alle Akte) */
+  --sp-akt-y: var(--sp-5);
+  --sp-head-gap-1: var(--sp-1);   /* kicker → title */
+  --sp-head-gap-2: var(--sp-2);   /* title → lede */
+  --sp-head-body: var(--sp-3);    /* head → body */
+  --sp-body-gap: var(--sp-3);     /* zwischen body children */
 
   /* Timing */
   --t-soft: 1.1s;
@@ -45,3 +56,4 @@
 }
 
 @media (max-width: 720px) { :root { --sp-viewport: 6vw; } }
+@media (max-width: 899px) { :root { --sp-akt-y: var(--sp-4); } }

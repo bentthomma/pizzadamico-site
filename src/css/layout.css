@@ -11,13 +11,6 @@
   min-height: 100vh;
   display: grid;
   align-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
-html { scroll-snap-type: y proximity; }
-@media (prefers-reduced-motion: reduce), (max-width: 900px) {
-  html { scroll-snap-type: none; }
 }
 
 .akt[data-theme="brace"] {
@@ -33,7 +26,7 @@ html { scroll-snap-type: y proximity; }
 }
 
 .akt-inner {
-  max-width: 1320px;
+  max-width: 1520px;
   margin-inline: auto;
   padding: var(--sp-6) var(--sp-viewport);
 }

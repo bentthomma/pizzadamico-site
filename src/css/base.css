@@ -53,18 +53,46 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; 
 }
 .lede {
   font-family: var(--ff-editorial);
-  font-size: var(--fs-lead);
+  font-size: var(--fs-lede);
   line-height: 1.55;
   max-width: 60ch;
   font-variation-settings: 'opsz' 18;
 }
 .meta {
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: var(--fs-meta);
   letter-spacing: 2px;
   text-transform: uppercase;
   opacity: 0.55;
   font-variant-numeric: tabular-nums;
+}
+
+/* Unified Section Anatomy · .akt-head / .akt-title / .akt-lede / .akt-body */
+.akt-head {
+  display: block;
+}
+.akt-head > .akt-title {
+  font-family: var(--ff-display);
+  font-variation-settings: 'opsz' 96, 'wdth' 78, 'wght' 650;
+  font-size: var(--fs-title);
+  line-height: 1.02;
+  letter-spacing: -1.2px;
+  margin: var(--sp-head-gap-1) 0 0;
+}
+.akt-head > .akt-lede {
+  font-family: var(--ff-editorial);
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+  max-width: 62ch;
+  margin: var(--sp-head-gap-2) 0 0;
+  font-variation-settings: 'opsz' 18;
+}
+.akt-head > :first-child { margin-top: 0; }
+.akt-title { font-family: var(--ff-display); font-size: var(--fs-title); font-variation-settings: 'opsz' 96, 'wdth' 78, 'wght' 650; line-height: 1.02; letter-spacing: -1.2px; margin: 0; }
+.akt-lede { font-family: var(--ff-editorial); font-size: var(--fs-lede); line-height: 1.55; max-width: 62ch; font-variation-settings: 'opsz' 18; margin: 0; }
+.akt-body {
+  display: grid;
+  gap: var(--sp-body-gap);
 }
 .editorial { hanging-punctuation: first last allow-end; }
 
