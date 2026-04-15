@@ -76,3 +76,29 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; 
     scroll-behavior: auto !important;
   }
 }
+
+/* Fallback font faces with metric-override to reduce CLS during font swap */
+@font-face {
+  font-family: 'Bricolage-Fallback';
+  src: local('Arial');
+  size-adjust: 92%;
+  ascent-override: 88%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Newsreader-Fallback';
+  src: local('Georgia');
+  size-adjust: 104%;
+  ascent-override: 92%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+/* override type primitives to prepend fallback before system fonts */
+.display {
+  font-family: 'Bricolage Grotesque', 'Bricolage-Fallback', ui-sans-serif, system-ui, sans-serif;
+}
+.lede, body {
+  font-family: 'Newsreader', 'Newsreader-Fallback', Georgia, serif;
+}

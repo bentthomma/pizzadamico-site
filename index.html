@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/src/css/modal.css">
   <link rel="stylesheet" href="/src/css/pill.css">
   <link rel="preload" href="/src/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/src/fonts/Newsreader-Variable.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
   <main id="scroll-root">
@@ -34,7 +35,11 @@
         <div class="akt-2-head"><div class="kicker"><span lang="it">Atto II · Materia</span></div></div>
         <div class="akt-2-grid">
           <figure class="akt-2-item">
-            <img src="/src/images/caputo-rossa.jpg" alt="Caputo Rossa Type 00 Mehlsack aus Neapel" width="800" height="1000">
+            <picture>
+              <source srcset="/src/images/caputo-rossa.avif" type="image/avif">
+              <source srcset="/src/images/caputo-rossa.webp" type="image/webp">
+              <img src="/src/images/caputo-rossa.jpg" alt="Caputo Rossa Type 00 Mehlsack aus Neapel" width="800" height="1000" fetchpriority="high">
+            </picture>
             <figcaption>
               <h2 class="display akt-2-title">Mehl aus Neapel.</h2>
               <p class="lede editorial">Caputo Rossa, gemahlen aus süditalienischem Weichweizen, Type 00. Eine Tonne reicht für vier Wochen Betrieb.</p>
@@ -42,7 +47,11 @@
             </figcaption>
           </figure>
           <figure class="akt-2-item">
-            <img src="/src/images/fior-di-latte.jpg" alt="Fior di Latte Büffelmozzarella" width="800" height="1000">
+            <picture>
+              <source srcset="/src/images/fior-di-latte.avif" type="image/avif">
+              <source srcset="/src/images/fior-di-latte.webp" type="image/webp">
+              <img src="/src/images/fior-di-latte.jpg" alt="Fior di Latte Büffelmozzarella" width="800" height="1000" loading="lazy">
+            </picture>
             <figcaption>
               <h2 class="display akt-2-title">Milch aus Kampanien.</h2>
               <p class="lede editorial">Fior di Latte, täglich geliefert, in Lake. Kein Reifegrad-Kompromiss.</p>
@@ -70,9 +79,21 @@
       <div class="akt-3-bridge">
         <div class="kicker"><span lang="it">Le Mani</span> · Die Hände</div>
         <div class="akt-3-hands-grid">
-          <figure><img src="/src/images/hand-1.jpg" alt="Hände formen den Teig" width="600" height="800"></figure>
-          <figure><img src="/src/images/hand-2.jpg" alt="Teig wird gedehnt" width="600" height="800"></figure>
-          <figure><img src="/src/images/hand-3.jpg" alt="Makro Teigoberfläche" width="600" height="800"></figure>
+          <figure><picture>
+            <source srcset="/src/images/hand-1.avif" type="image/avif">
+            <source srcset="/src/images/hand-1.webp" type="image/webp">
+            <img src="/src/images/hand-1.jpg" alt="Hände formen den Teig" width="600" height="800" loading="lazy">
+          </picture></figure>
+          <figure><picture>
+            <source srcset="/src/images/hand-2.avif" type="image/avif">
+            <source srcset="/src/images/hand-2.webp" type="image/webp">
+            <img src="/src/images/hand-2.jpg" alt="Teig wird gedehnt" width="600" height="800" loading="lazy">
+          </picture></figure>
+          <figure><picture>
+            <source srcset="/src/images/hand-3.avif" type="image/avif">
+            <source srcset="/src/images/hand-3.webp" type="image/webp">
+            <img src="/src/images/hand-3.jpg" alt="Makro Teigoberfläche" width="600" height="800" loading="lazy">
+          </picture></figure>
         </div>
       </div>
     </section>
@@ -147,7 +168,11 @@
           <source src="/src/media/akt6-fire.webm" type="video/webm">
           <source src="/src/media/akt6-fire.mp4" type="video/mp4">
         </video>
-        <figure class="akt-6-pizza"><img src="/src/images/akt6-pizza-final.jpg" alt="Margherita aus dem Doppel-Back-Ofen" width="800" height="800"></figure>
+        <figure class="akt-6-pizza"><picture>
+          <source srcset="/src/images/akt6-pizza-final.avif" type="image/avif">
+          <source srcset="/src/images/akt6-pizza-final.webp" type="image/webp">
+          <img src="/src/images/akt6-pizza-final.jpg" alt="Margherita aus dem Doppel-Back-Ofen" width="800" height="800" loading="lazy">
+        </picture></figure>
         <div class="akt-6-caption display">Eine Konsequenz.</div>
       </div>
     </section>

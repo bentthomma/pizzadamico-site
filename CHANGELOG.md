@@ -15,3 +15,8 @@
    - Head: paste content of `dist/head-inject.html`
    - Body: paste content of `dist/body-inject.html`
 5. Publish.
+
+## v1.1 · 2026-04-15
+- Asset-Mapping-Fix (Akt 2 material shots sauber, Akt 4 Temperaturkurve, Akt 4 Padding)
+- Reservation-System komplett (Sub-Plan D: 9 PHP-Endpoints · Google-Calendar · TWINT · Token-Mails · Cron-Expire)
+- Phase 13 Polish: AVIF/WebP-Bilder, Font-Fallback-Metrics, Newsreader-Preload
