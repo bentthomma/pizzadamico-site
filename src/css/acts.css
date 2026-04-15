@@ -334,31 +334,24 @@
 .akt-4-lede {
   max-width: 58ch;
 }
-.akt-4-diagram {
+.akt-4-media {
   margin: 0;
-  padding: var(--sp-4);
-  border: 1px solid var(--c-line);
-}
-.akt-4-diagram svg {
   width: 100%;
-  height: auto;
-  color: var(--c-fg);
 }
-.akt-4-quote {
-  margin: 0;
-  padding-top: var(--sp-5);
-  border-top: 1px solid var(--c-line);
-  display: grid;
-  gap: var(--sp-2);
+.akt-4-media picture,
+.akt-4-media img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  background: var(--c-semola);
+  display: block;
 }
-.akt-4-quote p {
-  margin: 0;
-  font-variation-settings: 'opsz' 96, 'wdth' 82, 'wght' 500;
-  font-size: clamp(30px, 3.8vw, 56px);
-  line-height: 1.1;
-  max-width: 24ch;
+@media (min-width: 900px) {
+  .akt-4-media img,
+  .akt-4-media picture {
+    aspect-ratio: 16/10;
+  }
 }
-.akt-4-quote cite { font-style: normal; }
 
 /* ============================================
    Akt 5 · Nicht das Produkt
