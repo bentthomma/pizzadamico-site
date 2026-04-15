@@ -28,8 +28,10 @@ export function initSiteHeader() {
 
   function applyAkt(aktNum, theme) {
     header.dataset.theme = theme;
-    // Hero shows no header, all other sections show
-    header.dataset.hidden = aktNum === '1' ? 'true' : 'false';
+    // Hero (Akt 1) + Akt 3 Zutaten on mobile hide the header (full-bleed content)
+    const hideOnMobileAkt3 = aktNum === '3' && window.matchMedia('(max-width: 899px)').matches;
+    header.dataset.hidden = (aktNum === '1' || hideOnMobileAkt3) ? 'true' : 'false';
+    document.body.dataset.currentAkt = aktNum;
     // Active state on nav links
     navLinks.forEach((a) => {
       a.dataset.active = a.dataset.navTarget === aktNum ? 'true' : 'false';

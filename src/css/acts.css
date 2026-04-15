@@ -1296,3 +1296,86 @@
   outline: none;
   transform: translateY(-1px);
 }
+
+/* ============================================
+   Desktop-Merge · Akt 5 + Akt 6 (≥ 900px)
+   Zwei separate <section>s bleiben (Nav/SEO),
+   verschränken sich per CSS zu einem Split-View
+   ============================================ */
+@media (min-width: 900px) {
+  .akt-5, .akt-6 { min-height: auto; align-content: initial; }
+
+  .akt-5 {
+    min-height: 100dvh;
+    padding-right: 0;
+    position: relative;
+    scroll-snap-align: start;
+  }
+  .akt-5-inner {
+    max-width: none;
+    margin: 0;
+    padding-inline: var(--sp-viewport) 0;
+    width: calc(55% - var(--sp-2));
+    padding-block: var(--sp-akt-y);
+    min-height: 100dvh;
+    display: grid;
+    align-content: center;
+    gap: var(--sp-head-body);
+  }
+  .akt-5-main {
+    display: grid;
+    gap: var(--sp-head-body);
+    max-width: 42ch;
+  }
+
+  .akt-5::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--sp-akt-y) + var(--sp-4));
+    bottom: calc(var(--sp-akt-y) + var(--sp-4));
+    left: 55%;
+    width: 1px;
+    background: color-mix(in srgb, var(--c-inchiostro) 14%, transparent);
+    pointer-events: none;
+  }
+
+  /* Akt 6 rutscht in denselben Viewport wie Akt 5 */
+  .akt-6 {
+    margin-top: -100dvh;
+    margin-top: -100vh;
+    padding-left: 55%;
+    pointer-events: none;
+    scroll-snap-align: none;  /* kein separater snap — visuell gemerged */
+  }
+  .akt-6 > * { pointer-events: auto; }
+
+  .akt-6-inner {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+    padding-block: var(--sp-akt-y);
+    padding-inline: var(--sp-4) var(--sp-viewport);
+    min-height: 100dvh;
+    align-content: center;
+    max-width: 48ch;
+  }
+
+  .akt-6-form-col { gap: var(--sp-3); max-width: 44ch; }
+  .akt-6-title    { font-size: clamp(36px, 4.2vw, 68px); }
+  .akt-6-lede     { max-width: 42ch; }
+
+  .akt-6-twint {
+    padding: var(--sp-3) 0;
+    border-top: 1px solid color-mix(in srgb, var(--c-inchiostro) 16%, transparent);
+    border-bottom: 0;
+    grid-template-columns: 140px 1fr;
+    display: grid;
+    gap: var(--sp-2) var(--sp-3);
+    align-items: start;
+    background: transparent;
+  }
+  .akt-6-twint-kicker { grid-column: 1 / -1; }
+  .akt-6-twint-qr    { max-width: 140px; }
+  .akt-6-twint-note,
+  .akt-6-direct,
+  .akt-6-twint-applink { grid-column: 2; max-width: 34ch; }
+}

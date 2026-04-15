@@ -1,4 +1,18 @@
-/* Scroll-Root und Akt-Container */
+/* Scroll-Root und Akt-Container · CSS Scroll-Snap Section-Paging */
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+/* Disable mandatory snap on reduced-motion + when a modal is open (content inside scrolls) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; scroll-behavior: auto; }
+}
+body:has(.site-modal[aria-hidden="false"]),
+body:has(.site-mobile-menu[aria-hidden="false"]),
+body:has(#contact-success[aria-hidden="false"]) {
+  overflow: hidden;
+}
 
 #scroll-root { width: 100%; overflow-x: clip; }
 
@@ -11,6 +25,12 @@
   min-height: 100vh;
   display: grid;
   align-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.site-footer {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 /* Mobile: per-Akt align overrides damit Content nicht schwebend wirkt */

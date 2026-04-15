@@ -1,158 +1,71 @@
-// Smooth scroll via Lenis + JS-based dominant-section snap on scroll-end.
-// Lenis interpolates momentum for butter-smooth scrolling.
-// Snap respects user velocity: fast scrolls = no fight with snap.
+// Section-snap scrolling · via native CSS scroll-snap.
+// html has scroll-snap-type: y mandatory, each .akt + footer has scroll-snap-align: start.
+// scroll-snap-stop: always forces exactly one snap per gesture.
+// Lenis entfernt — CSS-native ist zuverlässiger + butter-smooth mit browser scroll-behavior: smooth.
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SCROLLEND_DEBOUNCE = 200;
-const PROGRAMMATIC_LOCK_MS = 1100;
-const MIN_OFFSET_TO_SNAP = 12;
-const USER_INTENT_VELOCITY = 0.35;  // Lenis velocity (normalized)
-
-let lenis = null;
-let programmaticLock = false;
-let pendingSnapTimer = null;
-let scrollVelocity = 0;
-let footer = null;
-let lastScrollY = 0;
-let lastScrollTime = 0;
-
-function dominantSection() {
-  const sections = document.querySelectorAll('.akt');
-  const vh = window.innerHeight;
-  let best = null;
-  let bestVisible = 0;
-  for (const s of sections) {
-    const r = s.getBoundingClientRect();
-    const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-    if (visible > bestVisible) {
-      bestVisible = visible;
-      best = s;
-    }
-  }
-  return best;
-}
-
-function maybeSnap() {
-  if (programmaticLock) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  if (footer) {
-    const fr = footer.getBoundingClientRect();
-    if (fr.top < window.innerHeight - 40) return;
-  }
-
-  const maxY = document.documentElement.scrollHeight - window.innerHeight;
-  if (window.scrollY > maxY - 20) return;
-
-  const target = dominantSection();
-  if (!target) return;
-  const rect = target.getBoundingClientRect();
-
-  // scroll-padding-top: 72px in CSS means target.top should be ~72 not 0
-  const idealTop = 0;  // Lenis + scrollTo with offset handles padding
-  if (Math.abs(rect.top - idealTop) < MIN_OFFSET_TO_SNAP) return;
-
-  if (Math.abs(scrollVelocity) > USER_INTENT_VELOCITY) {
-    schedulePendingSnap();
-    return;
-  }
-
-  programmaticLock = true;
-  if (lenis) {
-    lenis.scrollTo(target, {
-      duration: 0.9,
-      easing: (t) => 1 - Math.pow(1 - t, 3),  // ease-out cubic
-      lock: true,
-    });
-  } else {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  setTimeout(() => { programmaticLock = false; }, PROGRAMMATIC_LOCK_MS);
-}
-
-function schedulePendingSnap() {
-  clearTimeout(pendingSnapTimer);
-  pendingSnapTimer = setTimeout(maybeSnap, SCROLLEND_DEBOUNCE);
-}
-
 export function initScroll() {
-  footer = document.querySelector('.site-footer');
-
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  const useLenis = !reduceMotion && !isTouch;  // Lenis only on desktop · mobile uses native scroll
-
-  if (useLenis) {
-    // Lenis instance — butter-smooth momentum scroll
-    lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      smoothTouch: false,  // native-touch on mobile feels better
-      wheelMultiplier: 1.0,
-      touchMultiplier: 2.0,
-    });
-
-    // Canonical Lenis + GSAP ScrollTrigger integration
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-    gsap.ticker.lagSmoothing(0);
-
-    // Track velocity + schedule snap on scroll-stop
-    lenis.on('scroll', ({ scroll, velocity }) => {
-      scrollVelocity = velocity;
-      clearTimeout(pendingSnapTimer);
-      if (Math.abs(velocity) < USER_INTENT_VELOCITY * 2) {
-        schedulePendingSnap();
-      }
-    });
-  } else {
-    // No Lenis for reduced-motion users — use native scroll + scrollend
-    lastScrollY = window.scrollY;
-    lastScrollTime = performance.now();
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      const t = performance.now();
-      const dt = Math.max(1, t - lastScrollTime);
-      scrollVelocity = (y - lastScrollY) / dt;
-      lastScrollY = y;
-      lastScrollTime = t;
-      clearTimeout(pendingSnapTimer);
-    }, { passive: true });
-    if ('onscrollend' in window) {
-      window.addEventListener('scrollend', schedulePendingSnap);
-    } else {
-      window.addEventListener('scroll', schedulePendingSnap, { passive: true });
-    }
-  }
-
+  // Keep ScrollTrigger in sync with native scroll
   window.addEventListener('resize', () => ScrollTrigger.refresh());
+
+  // Keyboard navigation: Arrow keys, Page keys, Home/End
+  window.addEventListener('keydown', (e) => {
+    if (isModalOpen() || isInputTarget(e.target)) return;
+    const sections = [...document.querySelectorAll('.akt'), document.querySelector('.site-footer')].filter(Boolean);
+    const current = currentSectionIndex(sections);
+
+    if (['ArrowDown', 'PageDown'].includes(e.key)) {
+      e.preventDefault();
+      snapTo(sections, Math.min(current + 1, sections.length - 1));
+    } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
+      e.preventDefault();
+      snapTo(sections, Math.max(current - 1, 0));
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      snapTo(sections, 0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      snapTo(sections, sections.length - 1);
+    }
+  });
 }
 
-export function scrollTo(target, opts = {}) {
-  programmaticLock = true;
-  setTimeout(() => { programmaticLock = false; }, PROGRAMMATIC_LOCK_MS);
+function isModalOpen() {
+  return document.querySelector('.site-modal[aria-hidden="false"]') != null
+      || document.querySelector('.site-mobile-menu[aria-hidden="false"]') != null
+      || document.querySelector('#contact-success[aria-hidden="false"]') != null;
+}
 
-  if (lenis) {
-    lenis.scrollTo(target, { duration: opts.instant ? 0 : 0.9 });
-    return;
+function isInputTarget(el) {
+  if (!el) return false;
+  const tag = el.tagName;
+  return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+}
+
+function currentSectionIndex(sections) {
+  const y = window.scrollY + 60;
+  for (let i = 0; i < sections.length; i++) {
+    const el = sections[i];
+    if (y >= el.offsetTop && y < el.offsetTop + el.offsetHeight) return i;
   }
-
-  const behavior = opts.instant ? 'instant' : 'smooth';
-  if (typeof target === 'number') {
-    window.scrollTo({ top: target, behavior });
-  } else if (typeof target === 'string') {
-    const el = document.querySelector(target);
-    if (el) el.scrollIntoView({ behavior, block: 'start' });
-  } else if (target && target.scrollIntoView) {
-    target.scrollIntoView({ behavior, block: 'start' });
-  }
+  return 0;
 }
 
-export function destroyScroll() {
-  if (lenis) { lenis.destroy(); lenis = null; }
+function snapTo(sections, idx) {
+  const el = sections[idx];
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+export function scrollTo(target) {
+  const sections = [...document.querySelectorAll('.akt'), document.querySelector('.site-footer')].filter(Boolean);
+  let el = null;
+  if (typeof target === 'string') el = document.querySelector(target);
+  else if (target instanceof HTMLElement) el = target;
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+export function destroyScroll() { /* no-op */ }
