@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="/src/css/site-header.css">
   <link rel="stylesheet" href="/src/css/site-modal.css">
   <link rel="stylesheet" href="/src/css/footer.css">
-  <link rel="preload" href="/src/media/hero.mp4" as="video" type="video/mp4">
   <link rel="preload" href="/src/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/src/fonts/Newsreader-Variable.woff2" as="font" type="font/woff2" crossorigin>
 </head>
@@ -98,66 +97,16 @@
       </div>
     </section>
 
-    <!-- Akt 3 · Die Zutaten -->
-    <section class="akt akt-3" id="akt-3" data-akt="3" data-theme="farina" data-nav-label="Zutaten">
-      <div class="akt-inner akt-3-inner">
-        <figure class="akt-3-hero reveal-image">
-          <picture>
-            <source srcset="/src/images/zutaten-hero.avif" type="image/avif">
-            <source srcset="/src/images/zutaten-hero.webp" type="image/webp">
-            <img src="/src/images/zutaten-hero.jpg" alt="Zutaten-Flat-Lay · Mozzarella, Tomaten, Basilikum, Mehl, Olivenöl" width="2000" height="1500">
-          </picture>
-        </figure>
-        <div class="akt-3-content">
-          <div class="akt-head">
-            <div class="kicker reveal"><span lang="it">Atto III</span> · Die Zutaten</div>
-            <h2 class="akt-title akt-3-title reveal">Alles frisch. Vieles aus Italien.</h2>
-          </div>
-          <button class="site-modal-trigger reveal" type="button" data-modal-target="modal-zutaten">
-            <span>Alle Zutaten ansehen</span>
-            <span class="site-modal-trigger-arrow" aria-hidden="true">→</span>
-          </button>
-          <div class="site-modal" id="modal-zutaten" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-zutaten-title">
-            <div class="site-modal-backdrop" data-modal-close></div>
-            <div class="site-modal-shell">
-              <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">×</button>
-              <div class="site-modal-head">
-                <div class="kicker"><span lang="it">Atto III</span> · Die Zutaten</div>
-                <h3 class="display site-modal-title" id="modal-zutaten-title">Alles frisch.</h3>
-              </div>
-              <div class="site-modal-body">
-                <div class="ingredients-grid">
-                  <div class="ingredients-col ingredients-base">
-                    <h3 class="meta ingredients-cat">Basis</h3>
-                    <ul class="ingredients-list">
-                      <li>Caputo Rossa Type 00</li>
-                      <li>Fior di Latte</li>
-                      <li>San Marzano</li>
-                      <li>Basilikum</li>
-                      <li>Olivenöl extra vergine</li>
-                    </ul>
-                  </div>
-                  <div class="ingredients-col">
-                    <h3 class="meta ingredients-cat">Gemüse</h3>
-                    <ul class="ingredients-list">
-                      <li>Champignons</li><li>Zwiebeln</li><li>Zucchetti</li><li>Spinat</li><li>Aubergine</li>
-                      <li>Peperoni</li><li>Artischocken</li><li>Oliven</li><li>Kapern</li><li>Knoblauch</li>
-                    </ul>
-                  </div>
-                  <div class="ingredients-col">
-                    <h3 class="meta ingredients-cat">Fleisch · Fisch · Käse</h3>
-                    <ul class="ingredients-list">
-                      <li>Schinken</li><li>Salami</li><li>Speck</li>
-                      <li>Thunfisch</li><li>Sardellen</li>
-                      <li>Rahm</li><li>Gorgonzola</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Akt 3 · Zutaten · Labeled-Hero · lines draw from ingredient → label on section-enter -->
+    <section class="akt akt-3" id="akt-3" data-akt="3" data-theme="brace" data-nav-label="Zutaten">
+      <figure class="akt-3-labeled-hero" id="akt-3-labeled">
+        <picture>
+          <source media="(max-width: 899px)" srcset="/src/images/zutaten-labeled-mobile.png">
+          <img src="/src/images/zutaten-labeled-desktop.png" alt="Alle Zutaten auf einem Holztisch">
+        </picture>
+        <svg class="labels-svg" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true"></svg>
+        <div class="labels-text"></div>
+      </figure>
     </section>
 
     <!-- Akt 4 · Foodtruck -->

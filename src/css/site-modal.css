@@ -85,7 +85,7 @@
   color: var(--c-inchiostro);
   padding: var(--sp-6) var(--sp-5) var(--sp-5);
   border-radius: 2px;
-  width: min(94vw, 920px);
+  width: clamp(540px, 76vw, 1120px);
   max-height: 92dvh;
   overflow-y: auto;
   transform: translateY(12px);
@@ -174,12 +174,18 @@
     color: var(--c-inchiostro);
     padding: var(--sp-4) var(--sp-3) var(--sp-3);
     border-radius: 12px;
-    max-width: min(92vw, 540px);
+    width: min(92vw, 540px);
     max-height: 92dvh;
     overflow-y: auto;
     box-shadow: 0 24px 60px -20px color-mix(in srgb, var(--c-inchiostro) 55%, transparent);
     transform: translateY(12px);
     transition: transform var(--t-med) var(--e-out);
+  }
+  .site-modal .contact-form,
+  .site-modal .contact-form input,
+  .site-modal .contact-form textarea {
+    width: 100%;
+    box-sizing: border-box;
   }
   .site-modal[aria-hidden="false"] .site-modal-shell {
     transform: translateY(0);

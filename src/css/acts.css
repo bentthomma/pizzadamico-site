@@ -574,17 +574,101 @@
 }
 
 /* ============================================
-   Akt 3 · Die Zutaten (Split: Hero + Liste)
+   Akt 3 · Zutaten · Labeled-Hero · SVG line-draw on section enter
    ============================================ */
-.akt-3-inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-head-body);
-  padding-block: var(--sp-akt-y);
+.akt-3 {
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  min-height: 100vh;
 }
-@media (min-width: 900px) {
-  .akt-3-inner { grid-template-columns: 1.1fr 1fr; align-items: center; }
+.akt-3-labeled-hero {
+  position: relative;
+  height: 100dvh;
+  height: 100vh;
+  aspect-ratio: 1.2 / 1;
+  max-width: 100vw;
+  margin: 0;
+  overflow: visible;
 }
+@media (max-width: 899px) {
+  .akt-3-labeled-hero {
+    aspect-ratio: 0.6 / 1;
+  }
+}
+.akt-3-labeled-hero picture,
+.akt-3-labeled-hero img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.labels-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.labels-svg .ing-dot {
+  fill: var(--c-pane);
+  opacity: 0;
+  transition: opacity 300ms var(--e-out);
+}
+.labels-svg .ing-dot.in { opacity: 1; }
+
+.labels-svg .ing-line {
+  stroke: var(--c-pane);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  fill: none;
+  transition: stroke-dashoffset 700ms var(--e-out);
+}
+.labels-svg .ing-line.in { stroke-dashoffset: 0; }
+
+.labels-text {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.labels-text .ing-text {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: var(--c-farina);
+  font-family: var(--ff-mono);
+  font-size: clamp(9px, 0.8vw, 12px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 400ms var(--e-out);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 6px rgba(0, 0, 0, 0.6);
+}
+.labels-text .ing-text.in { opacity: 0.95; }
+/* Anchor by edge: labels nahe left edge links-bündig, right edge rechts-bündig */
+.labels-text .ing-text[data-align="left"]  { transform: translate(0, -50%); }
+.labels-text .ing-text[data-align="right"] { transform: translate(-100%, -50%); }
+
+@media (max-width: 899px) {
+  .labels-text .ing-text { font-size: 9px; letter-spacing: 1.2px; }
+}
+
+/* Entfernte alte akt-3 legacy rules */
+.akt-3-hero,
+.akt-3-content,
+.akt-3-inner,
+.akt-3-pin,
+.akt-3-stage,
+.akt-3-biga,
+.akt-3-readout,
+.akt-3-bridge,
+.akt-3-hands-grid,
+.akt-3-title { display: none; }
 .akt-3-hero { margin: 0; }
 .akt-3-hero picture, .akt-3-hero img {
   width: 100%;
