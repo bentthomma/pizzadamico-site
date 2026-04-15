@@ -95,7 +95,7 @@
           </picture>
           <svg class="akt-2-panel-svg" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="55" r="0.6" class="panel-dot"/>
-            <line x1="50" y1="55" x2="50" y2="15" pathLength="1" vector-effect="non-scaling-stroke" class="panel-line"/>
+            <line x1="50" y1="55" x2="50" y2="24" pathLength="1" vector-effect="non-scaling-stroke" class="panel-line"/>
           </svg>
           <figcaption>
             <div class="kicker akt-2-panel-kicker">Der Pizzaboden</div>
@@ -173,6 +173,20 @@
           </div>
         </div>
 
+        <!-- TWINT-Block · Desktop only (Mobile zeigt Akt 6 · unten hidden) -->
+        <aside class="akt-5-twint akt-6-twint reveal" aria-label="TWINT Anzahlung">
+          <div class="kicker akt-6-twint-kicker">Anzahlung per TWINT</div>
+          <picture class="akt-6-twint-qr">
+            <img src="/src/images/twint-qr-cropped.png" alt="TWINT QR-Code · Anzahlung an Pizza D'Amico" width="520" height="660">
+          </picture>
+          <p class="meta akt-6-twint-note">Scannen · Betrag eingeben · bestätigen.</p>
+          <a class="akt-6-twint-applink" href="https://go.twint.ch/1/e/tw?tw=acq.erLxqXuzQa2zND3B2wKBNM3KxDVpHFhbX6N8FjLRvWMv8epCovCoo1PWmZRIX7c0" target="_blank" rel="noopener">
+            <span>Mit TWINT App bezahlen</span>
+            <span aria-hidden="true">→</span>
+          </a>
+          <p class="meta akt-6-direct">Oder direkt: <a href="tel:+41763313259">076 331 32 59</a></p>
+        </aside>
+
         <div class="site-modal site-modal-overlay" id="modal-catering" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-catering-title">
           <div class="site-modal-backdrop" data-modal-close></div>
           <div class="site-modal-shell">
@@ -246,35 +260,6 @@
             <span class="site-modal-trigger-arrow" aria-hidden="true">→</span>
           </button>
 
-          <div class="site-modal site-modal-overlay" id="modal-kontakt" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-kontakt-title">
-            <div class="site-modal-backdrop" data-modal-close></div>
-            <div class="site-modal-shell">
-              <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">×</button>
-              <div class="site-modal-head">
-                <div class="kicker"><span lang="it">Atto VI</span> · Kontakt</div>
-                <h3 class="display site-modal-title" id="modal-kontakt-title">Schreibt uns.</h3>
-              </div>
-              <div class="site-modal-body">
-                <form class="contact-form" action="https://formsubmit.co/benedikt@thomma.ch" method="POST">
-                  <input type="hidden" name="_subject" value="Neue Anfrage · pizzadamico.ch">
-                  <input type="hidden" name="_template" value="table">
-                  <input type="hidden" name="_captcha" value="false">
-                  <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-
-                  <label class="form-field">
-                    <span class="form-label">E-Mail</span>
-                    <input type="email" name="email" required autocomplete="email" placeholder="deine@mail.ch">
-                  </label>
-                  <label class="form-field">
-                    <span class="form-label">Nachricht</span>
-                    <textarea name="message" rows="5" required placeholder="Datum, Anlass, Personenzahl, Ort, Besonderheiten …"></textarea>
-                  </label>
-
-                  <button type="submit" class="contact-submit">Senden →</button>
-                </form>
-              </div>
-            </div>
-          </div>
         </div>
 
         <aside class="akt-6-twint reveal">
@@ -326,6 +311,37 @@
 
       </div>
     </footer>
+
+    <!-- modal-kontakt · aus akt-6 herausgenommen damit es auch funktioniert wenn akt-6 Desktop-hidden ist -->
+    <div class="site-modal site-modal-overlay" id="modal-kontakt" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-kontakt-title">
+      <div class="site-modal-backdrop" data-modal-close></div>
+      <div class="site-modal-shell">
+        <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">×</button>
+        <div class="site-modal-head">
+          <div class="kicker"><span lang="it">Atto VI</span> · Kontakt</div>
+          <h3 class="display site-modal-title" id="modal-kontakt-title">Schreibt uns.</h3>
+        </div>
+        <div class="site-modal-body">
+          <form class="contact-form" action="https://formsubmit.co/benedikt@thomma.ch" method="POST">
+            <input type="hidden" name="_subject" value="Neue Anfrage · pizzadamico.ch">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+            <label class="form-field">
+              <span class="form-label">E-Mail</span>
+              <input type="email" name="email" required autocomplete="email" placeholder="deine@mail.ch">
+            </label>
+            <label class="form-field">
+              <span class="form-label">Nachricht</span>
+              <textarea name="message" rows="5" required placeholder="Datum, Anlass, Personenzahl, Ort, Besonderheiten …"></textarea>
+            </label>
+
+            <button type="submit" class="contact-submit">Senden →</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </main>
 
   <button class="pill" id="cta-pill" data-state="hidden" aria-label="Catering anfragen">

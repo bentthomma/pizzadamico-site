@@ -28,9 +28,8 @@ export function initSiteHeader() {
 
   function applyAkt(aktNum, theme) {
     header.dataset.theme = theme;
-    // Hero (Akt 1) + Akt 3 Zutaten on mobile hide the header (full-bleed content)
-    const hideOnMobileAkt3 = aktNum === '3' && window.matchMedia('(max-width: 899px)').matches;
-    header.dataset.hidden = (aktNum === '1' || hideOnMobileAkt3) ? 'true' : 'false';
+    // Hero (Akt 1) + Akt 3 Zutaten (Desktop + Mobile) hide the header (full-bleed)
+    header.dataset.hidden = (aktNum === '1' || aktNum === '3') ? 'true' : 'false';
     document.body.dataset.currentAkt = aktNum;
     // Active state on nav links
     navLinks.forEach((a) => {
