@@ -136,14 +136,14 @@
    Akt 2 · Unsere Pizza + Die Zutaten
    ============================================ */
 .akt-2 .akt-inner {
-  padding-top: var(--sp-7);
-  padding-bottom: var(--sp-7);
+  padding-block: var(--sp-5);
   display: grid;
-  gap: var(--sp-7);
+  gap: var(--sp-3);
+  align-content: center;
 }
 .akt-2-part {
   display: grid;
-  gap: var(--sp-4);
+  gap: var(--sp-2);
 }
 .akt-2-title {
   font-size: clamp(36px, 4.2vw, 62px);
@@ -161,28 +161,31 @@
 .akt-2-pizza-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--sp-6);
-  margin-top: var(--sp-3);
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
 }
 @media (min-width: 900px) {
   .akt-2-pizza-grid {
     grid-template-columns: 1fr 1fr;
-    gap: var(--sp-6);
+    gap: var(--sp-4);
   }
 }
 .akt-2-media {
   margin: 0;
   display: grid;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
 }
 .akt-2-media img,
 .akt-2-media picture {
   width: 100%;
-  aspect-ratio: 4/5;
+  aspect-ratio: 4/3;
+  max-height: 40vh;
   object-fit: cover;
   background: var(--c-semola);
   display: block;
 }
+.akt-2-sub { font-size: clamp(20px, 2.2vw, 28px); }
+.akt-2-media .lede { font-size: 14px; line-height: 1.45; }
 .akt-2-sub {
   font-size: clamp(24px, 2.6vw, 36px);
   line-height: 1.05;
@@ -525,46 +528,222 @@
 }
 
 /* ============================================
-   Akt 7 · Münsingen
+   Akt 3 · Die Zutaten (Split: Hero + Liste)
    ============================================ */
-.akt-7 .akt-inner {
-  padding-top: var(--sp-7);
-  padding-bottom: var(--sp-6);
+.akt-3-inner {
   display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+}
+@media (min-width: 900px) {
+  .akt-3-inner { grid-template-columns: 1.1fr 1fr; align-items: center; }
+}
+.akt-3-hero { margin: 0; }
+.akt-3-hero picture, .akt-3-hero img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  background: var(--c-brace);
+}
+.akt-3-content { display: grid; gap: var(--sp-2); }
+.akt-3-title {
+  font-size: clamp(28px, 3.2vw, 48px);
+  margin: 0;
+  max-width: 18ch;
+}
+.akt-3-content .ingredients-grid {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+
+/* ============================================
+   Akt 5 · Catering Info + Preise
+   ============================================ */
+.akt-5-inner {
+  display: grid;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+}
+.akt-5-title {
+  font-size: clamp(32px, 3.8vw, 56px);
+  max-width: 22ch;
+  margin: 0;
+}
+.akt-5-lede { max-width: 62ch; margin: 0; font-size: 17px; }
+.akt-5-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+}
+@media (min-width: 720px) {
+  .akt-5-grid { grid-template-columns: 1fr 1fr; }
+}
+.akt-5-block {
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--c-line);
+  display: grid;
+  gap: var(--sp-2);
+}
+.akt-5-cat {
+  letter-spacing: 2.5px;
+  color: var(--c-pane);
+  opacity: 1;
+}
+.akt-5-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-1);
+  font-family: var(--ff-editorial);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.akt-5-list li::before {
+  content: "— ";
+  opacity: 0.4;
+  margin-right: 4px;
+}
+.akt-5-list strong { font-weight: 600; }
+.akt-5-tax {
+  padding-top: var(--sp-2);
+  border-top: 1px dashed var(--c-line);
+  opacity: 0.65;
+  font-family: var(--ff-editorial);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ============================================
+   Akt 6 · Kontakt + TWINT
+   ============================================ */
+.akt-6-inner {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: var(--sp-5);
+  padding-block: var(--sp-5);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .akt-6-inner { grid-template-columns: 1.3fr 1fr; }
+}
+.akt-6-form-col { display: grid; gap: var(--sp-2); }
+.akt-6-title {
+  font-size: clamp(32px, 3.8vw, 56px);
+  margin: 0;
+}
+.akt-6-lede { max-width: 52ch; margin: 0 0 var(--sp-2); font-size: 17px; }
+
+.contact-form {
+  display: grid;
+  gap: var(--sp-3);
+  max-width: 560px;
+}
+.form-field { display: grid; gap: 6px; }
+.form-label {
+  font-family: var(--ff-mono);
+  font-size: 10.5px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: 1px solid var(--c-line);
+  border-radius: 4px;
+  font-family: var(--ff-editorial);
+  font-size: 16px;
+  color: var(--c-inchiostro);
+  font: inherit;
+  font-size: 16px;
+}
+.contact-form textarea { resize: vertical; min-height: 120px; }
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--c-inchiostro);
+}
+.contact-submit {
+  justify-self: start;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: var(--c-inchiostro);
+  color: var(--c-farina);
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border: 0;
+  cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+.contact-submit:hover,
+.contact-submit:focus-visible {
+  background: var(--c-pane);
+  color: var(--c-inchiostro);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.akt-6-twint {
+  padding: var(--sp-3);
+  border: 1px solid var(--c-line);
+  border-radius: 6px;
+  display: grid;
+  gap: var(--sp-2);
+  align-content: start;
+  background: color-mix(in srgb, var(--c-semola) 40%, transparent);
+}
+.akt-6-twint-kicker { color: var(--c-pane); }
+.akt-6-twint-qr {
+  display: block;
+  background: #fff;
+  padding: 8px;
+  border-radius: 4px;
+}
+.akt-6-twint-qr img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.akt-6-twint-note {
+  font-family: var(--ff-editorial);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.75;
+}
+.akt-6-direct { letter-spacing: 2px; }
+.akt-6-direct a { text-decoration: none; color: var(--c-inchiostro); text-underline-offset: 3px; }
+
+/* ============================================
+   Akt 7 · Standort
+   ============================================ */
+.akt-7-inner {
+  padding-block: var(--sp-5);
+  display: grid;
+  gap: var(--sp-3);
 }
 .akt-7-title {
-  font-size: clamp(38px, 4.2vw, 64px);
+  font-size: clamp(32px, 3.8vw, 56px);
   max-width: 22ch;
   margin: 0;
 }
 .akt-7-map {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 21 / 9;
   background: var(--c-brace);
   border: 1px solid var(--c-line);
 }
-.akt-7-dates .akt-7-list {
-  list-style: none;
-  margin: var(--sp-2) 0 0;
-  padding: 0;
-  border-top: 1px solid var(--c-line);
+@media (max-width: 720px) {
+  .akt-7-map { aspect-ratio: 4 / 3; }
 }
-.akt-7-list li {
-  padding: var(--sp-2) 0;
-  border-bottom: 1px solid var(--c-line);
-  display: grid;
-  grid-template-columns: 120px 1fr auto;
-  gap: var(--sp-3);
-  align-items: baseline;
-  font-variant-numeric: tabular-nums;
-}
-.akt-7-list .d-date { font-family: var(--ff-mono); font-size: 13px; letter-spacing: 1.5px; }
-.akt-7-list .d-where { font-family: var(--ff-editorial); font-size: 16px; }
-.akt-7-list .d-time { font-family: var(--ff-mono); font-size: 12px; opacity: 0.6; letter-spacing: 1.5px; }
-.akt-7-contact {
-  padding-top: var(--sp-4);
-  border-top: 1px solid var(--c-line);
-  max-width: 55ch;
-}
+.akt-7-contact { padding-top: var(--sp-2); }
 .akt-7-contact a { text-underline-offset: 4px; }

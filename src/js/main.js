@@ -3,15 +3,7 @@ import { initAkt1 } from './acts/akt1.js';
 import { initAkt1Yt } from './acts/akt1-yt.js';
 import { initAkt4 } from './acts/akt4.js';
 import { initAkt7 } from './acts/akt7.js';
-import { initPill } from './acts/pill.js';
-import { initModal } from './modal/modal.js';
-import { initDeepLink } from './modal/deeplink.js';
-import { initWizard } from './wizard/mount.js';
-import { initPricingView } from './wizard/pricing-view.js';
-import { attachPlaces, initAkt7Map } from './maps.js';
-import { submitReservation } from './submit.js';
-import { showResult } from './wizard/result-panel.js';
-import { setField } from './wizard/state.js';
+import { initAkt7Map } from './maps.js';
 import { initSiteHeader } from './site-header.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,16 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initAkt1();
   initAkt4();
   initAkt7();
-  initPill();
-  initModal();
-  initDeepLink();
-  initWizard();
-  initPricingView();
 
-  document.addEventListener('wizard:step3-mounted', (e) => {
-    attachPlaces(e.detail.inputEl).catch((err) => console.warn('[maps] autocomplete failed:', err));
-  });
-
+  // Lazy-load the Akt 7 dark map when visible
   const mapEl = document.getElementById('akt7-map');
   if (mapEl) {
     const mapObs = new IntersectionObserver((entries) => {
@@ -39,28 +23,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { rootMargin: '200px' });
     mapObs.observe(mapEl);
-  }
-
-  document.addEventListener('wizard:submit', async () => {
-    const next = document.getElementById('wizard-next');
-    if (next) { next.disabled = true; next.textContent = 'Sende…'; }
-    const res = await submitReservation();
-    showResult(res);
-    if (next) {
-      next.disabled = !!res.ok;
-      next.textContent = res.ok ? 'Gesendet' : 'Erneut senden';
-    }
-  });
-
-  document.addEventListener('wizard:goto-step', (e) => {
-    setField('step', e.detail.step);
-  });
-
-  // Hero CTA opens catering modal
-  const heroCta = document.getElementById('akt1-cta');
-  if (heroCta) {
-    heroCta.addEventListener('click', () => {
-      document.dispatchEvent(new CustomEvent('modal:open', { detail: { source: 'hero-cta' } }));
-    });
   }
 });

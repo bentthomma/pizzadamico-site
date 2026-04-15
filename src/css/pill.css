@@ -1,4 +1,7 @@
-.pill {
+/* Temporär komplett versteckt — Kontakt läuft über Akt 6 Formular */
+.pill { display: none !important; }
+
+.pill-disabled {
   position: fixed;
   right: var(--sp-3);
   bottom: var(--sp-3);

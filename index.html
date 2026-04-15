@@ -16,17 +16,41 @@
   <link rel="preload" href="/src/fonts/Newsreader-Variable.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header" data-hidden="true">
     <a href="#top" class="site-brand" aria-label="Pizza D'Amico — Home">
       <span class="site-brand-mark">D'Amico</span>
       <span class="site-brand-sub meta"><span lang="it">Pizza · Foodtruck</span></span>
     </a>
-    <a class="site-contact meta" href="tel:+41763313259">076 331 32 59</a>
+    <nav class="site-nav" aria-label="Sektionen">
+      <a href="#akt-2" data-nav-target="2">Pizza</a>
+      <a href="#akt-3" data-nav-target="3">Zutaten</a>
+      <a href="#akt-4" data-nav-target="4">Foodtruck</a>
+      <a href="#akt-5" data-nav-target="5">Catering</a>
+      <a href="#akt-6" data-nav-target="6">Kontakt</a>
+      <a href="#akt-7" data-nav-target="7">Standort</a>
+    </nav>
+    <button class="site-burger" type="button" aria-label="Menu öffnen" aria-expanded="false" aria-controls="site-mobile-menu">
+      <span class="site-burger-bar" aria-hidden="true"></span>
+      <span class="site-burger-bar" aria-hidden="true"></span>
+      <span class="site-burger-bar" aria-hidden="true"></span>
+    </button>
   </header>
+
+  <aside class="site-mobile-menu" id="site-mobile-menu" aria-hidden="true">
+    <nav aria-label="Mobile Sektionen">
+      <a href="#akt-2" data-nav-target="2">Pizza</a>
+      <a href="#akt-3" data-nav-target="3">Zutaten</a>
+      <a href="#akt-4" data-nav-target="4">Foodtruck</a>
+      <a href="#akt-5" data-nav-target="5">Catering</a>
+      <a href="#akt-6" data-nav-target="6">Kontakt</a>
+      <a href="#akt-7" data-nav-target="7">Standort</a>
+    </nav>
+    <a class="site-mobile-tel meta" href="tel:+41763313259">076 331 32 59</a>
+  </aside>
 
   <main id="scroll-root">
 
-    <section class="akt akt-1" data-akt="1" data-theme="brace">
+    <section class="akt akt-1" id="akt-1" data-akt="1" data-theme="brace">
       <div class="akt-1-yt-wrap" aria-hidden="true">
         <div id="akt1-yt-player" class="akt-1-yt-player"></div>
       </div>
@@ -36,62 +60,58 @@
           <div class="akt-1-kicker meta">Bern · Schlossstrasse 15, Münsingen</div>
           <h1 class="akt-1-brand display">Pizza D'Amico</h1>
           <div class="akt-1-sub meta">Pizza · Foodtruck · Catering</div>
-          <button type="button" class="akt-1-cta" id="akt1-cta" aria-label="Catering anfragen">
-            <span class="akt-1-cta-label">Catering anfragen</span>
-            <span class="akt-1-cta-arrow" aria-hidden="true">→</span>
-          </button>
         </div>
         <div class="akt-1-scroll-hint meta"><span lang="it">scorri</span></div>
       </div>
     </section>
 
-    <section class="akt akt-2" data-akt="2" data-theme="farina">
+    <!-- Akt 2 · Unsere Pizza -->
+    <section class="akt akt-2" id="akt-2" data-akt="2" data-theme="farina" data-nav-label="Pizza">
       <div class="akt-inner">
+        <div class="kicker"><span lang="it">Atto II</span> · Unsere Pizza</div>
+        <h2 class="display akt-2-title">Neapolitanisch. Frisch. Vor Ort gebacken.</h2>
+        <p class="lede editorial akt-2-lede">Jede Pizza beginnt mit Teig, der 30 Stunden reift.</p>
 
-        <!-- Teil 1 · Unsere Pizza -->
-        <div class="akt-2-part akt-2-pizza">
-          <div class="kicker"><span lang="it">Atto II</span> · Unsere Pizza</div>
-          <h2 class="display akt-2-title">Neapolitanisch. Frisch. Vor Ort gebacken.</h2>
-          <p class="lede editorial akt-2-lede">Jede Pizza beginnt mit Teig, der 30 Stunden reift.</p>
-
-          <div class="akt-2-pizza-grid">
-            <figure class="akt-2-media">
-              <picture>
-                <source srcset="/src/images/pizza-teig.avif" type="image/avif">
-                <source srcset="/src/images/pizza-teig.webp" type="image/webp">
-                <img src="/src/images/pizza-teig.jpg" alt="Biga-Teig vor der Verarbeitung" width="800" height="1000" fetchpriority="high">
-              </picture>
-              <figcaption>
-                <h3 class="display akt-2-sub">Der Teig</h3>
-                <p class="lede editorial">Biga-Vorteig · 30 Stunden Reifung · Caputo Rossa Type 00.</p>
-              </figcaption>
-            </figure>
-            <figure class="akt-2-media">
-              <picture>
-                <source srcset="/src/images/pizza-boden.avif" type="image/avif">
-                <source srcset="/src/images/pizza-boden.webp" type="image/webp">
-                <img src="/src/images/pizza-boden.jpg" alt="Fertige Pizza aus dem Holzofen" width="800" height="1000" loading="lazy">
-              </picture>
-              <figcaption>
-                <h3 class="display akt-2-sub">Die Pizza</h3>
-                <p class="lede editorial">Doppel-Back-System · außen knusprig, innen zart.</p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <!-- Teil 2 · Die Zutaten -->
-        <div class="akt-2-part akt-2-ingredients">
-          <figure class="akt-2-ingredients-hero">
+        <div class="akt-2-pizza-grid">
+          <figure class="akt-2-media">
             <picture>
-              <source srcset="/src/images/zutaten-hero.avif" type="image/avif">
-              <source srcset="/src/images/zutaten-hero.webp" type="image/webp">
-              <img src="/src/images/zutaten-hero.jpg" alt="Foodtruck-Innenraum bei Nacht · Holzofen leuchtet, Mozzarella auf dem Tresen" width="2000" height="1125" loading="lazy">
+              <source srcset="/src/images/pizza-teig.avif" type="image/avif">
+              <source srcset="/src/images/pizza-teig.webp" type="image/webp">
+              <img src="/src/images/pizza-teig.jpg" alt="Biga-Teig vor der Verarbeitung" width="800" height="1000" fetchpriority="high">
             </picture>
+            <figcaption>
+              <h3 class="display akt-2-sub">Der Teig</h3>
+              <p class="lede editorial">Biga-Vorteig · 30 Stunden Reifung · Caputo Rossa Type 00.</p>
+            </figcaption>
           </figure>
-          <div class="kicker">Die Zutaten</div>
-          <h2 class="display akt-2-title">Alles frisch. Vieles aus Italien.</h2>
+          <figure class="akt-2-media">
+            <picture>
+              <source srcset="/src/images/pizza-boden.avif" type="image/avif">
+              <source srcset="/src/images/pizza-boden.webp" type="image/webp">
+              <img src="/src/images/pizza-boden.jpg" alt="Fertige Pizza aus dem Holzofen" width="800" height="1000" loading="lazy">
+            </picture>
+            <figcaption>
+              <h3 class="display akt-2-sub">Die Pizza</h3>
+              <p class="lede editorial">Doppel-Back-System · außen knusprig, innen zart.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
 
+    <!-- Akt 3 · Die Zutaten -->
+    <section class="akt akt-3" id="akt-3" data-akt="3" data-theme="farina" data-nav-label="Zutaten">
+      <div class="akt-inner akt-3-inner">
+        <figure class="akt-3-hero">
+          <picture>
+            <source srcset="/src/images/zutaten-hero.avif" type="image/avif">
+            <source srcset="/src/images/zutaten-hero.webp" type="image/webp">
+            <img src="/src/images/zutaten-hero.jpg" alt="Zutaten-Flat-Lay · Mozzarella, Tomaten, Basilikum, Mehl, Olivenöl" width="2000" height="1500" loading="lazy">
+          </picture>
+        </figure>
+        <div class="akt-3-content">
+          <div class="kicker"><span lang="it">Atto III</span> · Die Zutaten</div>
+          <h2 class="display akt-3-title">Alles frisch. Vieles aus Italien.</h2>
           <div class="ingredients-grid">
             <div class="ingredients-col ingredients-base">
               <h3 class="meta ingredients-cat">Basis</h3>
@@ -106,45 +126,25 @@
             <div class="ingredients-col">
               <h3 class="meta ingredients-cat">Gemüse</h3>
               <ul class="ingredients-list">
-                <li>Champignons</li>
-                <li>Zwiebeln</li>
-                <li>Zucchetti</li>
-                <li>Spinat</li>
-                <li>Aubergine</li>
-                <li>Peperoni</li>
-                <li>Artischocken</li>
-                <li>Oliven</li>
-                <li>Kapern</li>
-                <li>Knoblauch</li>
+                <li>Champignons</li><li>Zwiebeln</li><li>Zucchetti</li><li>Spinat</li><li>Aubergine</li>
+                <li>Peperoni</li><li>Artischocken</li><li>Oliven</li><li>Kapern</li><li>Knoblauch</li>
               </ul>
             </div>
             <div class="ingredients-col">
-              <h3 class="meta ingredients-cat">Fleisch</h3>
+              <h3 class="meta ingredients-cat">Fleisch · Fisch · Käse</h3>
               <ul class="ingredients-list">
-                <li>Schinken</li>
-                <li>Salami</li>
-                <li>Speck</li>
-              </ul>
-              <h3 class="meta ingredients-cat" style="margin-top: var(--sp-4);">Fisch</h3>
-              <ul class="ingredients-list">
-                <li>Thunfisch</li>
-                <li>Sardellen</li>
-              </ul>
-              <h3 class="meta ingredients-cat" style="margin-top: var(--sp-4);">Käse &amp; Mehr</h3>
-              <ul class="ingredients-list">
-                <li>Rahm</li>
-                <li>Gorgonzola</li>
+                <li>Schinken</li><li>Salami</li><li>Speck</li>
+                <li>Thunfisch</li><li>Sardellen</li>
+                <li>Rahm</li><li>Gorgonzola</li>
               </ul>
             </div>
           </div>
-
-          <p class="meta ingredients-note">6 Zutaten frei wählbar beim Catering · alle Zutaten stehen beim Foodtruck vor Ort zur Auswahl</p>
         </div>
-
       </div>
     </section>
 
-    <section class="akt akt-4" data-akt="4" data-theme="brace">
+    <!-- Akt 4 · Foodtruck -->
+    <section class="akt akt-4" id="akt-4" data-akt="4" data-theme="brace" data-nav-label="Foodtruck">
       <div class="akt-4-hero">
         <picture class="akt-4-bg">
           <source srcset="/src/images/foodtruck.avif" type="image/avif">
@@ -168,17 +168,85 @@
     </section>
 
 
-    <section class="akt akt-7" data-akt="7" data-theme="farina">
-      <div class="akt-inner">
-        <div class="kicker"><span lang="it">Atto VII · Ritorno</span></div>
-        <h2 class="display akt-7-title">Du weisst jetzt, was kommt.</h2>
-        <div class="akt-7-map" id="akt7-map" aria-label="Karte Schlossstrasse 15, Münsingen"></div>
-        <div class="akt-7-dates">
-          <h3 class="kicker"><span lang="it">Prossimi appuntamenti</span></h3>
-          <ul class="akt-7-list" id="akt7-dates"></ul>
+    <!-- Akt 5 · Catering · Info + Preise -->
+    <section class="akt akt-5" id="akt-5" data-akt="5" data-theme="farina" data-nav-label="Catering">
+      <div class="akt-inner akt-5-inner">
+        <div class="akt-5-intro">
+          <div class="kicker"><span lang="it">Atto V</span> · Catering</div>
+          <h2 class="display akt-5-title">Für jeden Anlass das passende Erlebnis.</h2>
+          <p class="lede editorial akt-5-lede">Ob Firmenfeier, Hochzeit, Geburtstag oder privates Fest — wir gestalten unser Angebot individuell nach euren Wünschen. Ein kulinarisches Highlight, das in Erinnerung bleibt. Sichert euch rechtzeitig euren Wunschtermin — beliebte Daten sind früh ausgebucht.</p>
         </div>
+
+        <div class="akt-5-grid">
+          <div class="akt-5-block">
+            <h3 class="meta akt-5-cat">Unser Angebot</h3>
+            <ul class="akt-5-list">
+              <li><strong>Pizza à discrétion</strong> · CHF 25.– pro Person</li>
+              <li>Kinder 5–10 J. · CHF 12.– pro Kind</li>
+              <li>Bis 100 Pizzen pro Stunde · Ø 30 cm</li>
+              <li>Individuelle Auswahl von 6 Zutaten im Voraus</li>
+              <li>Vegetarische &amp; vegane Optionen auf Wunsch</li>
+            </ul>
+          </div>
+          <div class="akt-5-block">
+            <h3 class="meta akt-5-cat">Rahmenbedingungen</h3>
+            <ul class="akt-5-list">
+              <li><strong>Anfahrt</strong> · CHF 1.50 / km ab Standort · hin &amp; zurück</li>
+              <li><strong>Mindestbuchung</strong> · ab 30 Personen</li>
+              <li><strong>Reservierung</strong> · fixer Betrag CHF 250.– für Infrastruktur &amp; Organisation</li>
+              <li>Gesamtkosten = CHF 250.– + CHF 25.– pro Person + CHF 1.50 pro km</li>
+            </ul>
+          </div>
+        </div>
+        <p class="meta akt-5-tax">Alle Preise exkl. MwSt. · auf den Gesamtbetrag werden 8.1 % MwSt. erhoben.</p>
+      </div>
+    </section>
+
+    <!-- Akt 6 · Kontakt + TWINT -->
+    <section class="akt akt-6" id="akt-6" data-akt="6" data-theme="farina" data-nav-label="Kontakt">
+      <div class="akt-inner akt-6-inner">
+        <div class="akt-6-form-col">
+          <div class="kicker"><span lang="it">Atto VI</span> · Kontakt</div>
+          <h2 class="display akt-6-title">Schreibt uns.</h2>
+          <p class="lede editorial akt-6-lede">Anfragen, Termine, Rückfragen — Pietro meldet sich persönlich innerhalb von 48 Stunden.</p>
+
+          <form class="contact-form" action="https://formsubmit.co/damicopietro69@hotmail.it" method="POST">
+            <input type="hidden" name="_subject" value="Neue Anfrage · pizzadamico.ch">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+            <label class="form-field">
+              <span class="form-label">E-Mail</span>
+              <input type="email" name="email" required autocomplete="email" placeholder="deine@mail.ch">
+            </label>
+            <label class="form-field">
+              <span class="form-label">Nachricht</span>
+              <textarea name="message" rows="5" required placeholder="Datum, Anlass, Personenzahl, Ort, Besonderheiten …"></textarea>
+            </label>
+
+            <button type="submit" class="contact-submit">Senden →</button>
+          </form>
+        </div>
+
+        <aside class="akt-6-twint">
+          <div class="kicker akt-6-twint-kicker">Anzahlung per TWINT</div>
+          <picture class="akt-6-twint-qr">
+            <img src="/src/images/twint-qr.png" alt="TWINT QR-Code · Anzahlung CHF 250 an Pizza D'Amico" width="600" height="300">
+          </picture>
+          <p class="meta akt-6-twint-note">Scannen · Betrag eingeben · bestätigen. Die Reservation wird nach Eingang definitiv bestätigt.</p>
+          <p class="meta akt-6-direct">Oder direkt: <a href="tel:+41763313259">076 331 32 59</a></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Akt 7 · Standort -->
+    <section class="akt akt-7" id="akt-7" data-akt="7" data-theme="farina" data-nav-label="Standort">
+      <div class="akt-inner akt-7-inner">
+        <div class="kicker"><span lang="it">Atto VII · Ritorno</span></div>
+        <h2 class="display akt-7-title">Schlossstrasse 15, Münsingen.</h2>
+        <div class="akt-7-map" id="akt7-map" aria-label="Karte Schlossstrasse 15, Münsingen"></div>
         <div class="akt-7-contact editorial">
-          <p>Wenn du willst, dass wir an deinem Tag dabei sind — ruf Pietro an.</p>
           <p class="meta">
             <a href="tel:+41763313259">076 331 32 59</a>
             &nbsp;·&nbsp;

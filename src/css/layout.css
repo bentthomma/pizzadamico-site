@@ -2,7 +2,23 @@
 
 #scroll-root { width: 100%; overflow-x: clip; }
 
-.akt { width: 100%; position: relative; background: var(--c-bg); color: var(--c-fg); }
+.akt {
+  width: 100%;
+  position: relative;
+  background: var(--c-bg);
+  color: var(--c-fg);
+  min-height: 100dvh;
+  min-height: 100vh;
+  display: grid;
+  align-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+html { scroll-snap-type: y proximity; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; }
+}
 
 .akt[data-theme="brace"] {
   --c-bg: var(--c-brace);
