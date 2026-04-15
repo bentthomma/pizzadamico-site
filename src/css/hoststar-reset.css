@@ -1,34 +1,25 @@
-/* Hoststar-Override: blendet Builder-Wrapper aus, entfernt Default-Abstände.
-   Wird nur im Produktions-Head-Inject eingebunden (build-inject.js), nicht im Dev. */
+/* Hoststar-Override: blendet nur Builder-eigene Top-Level-Wrapper aus.
+   Wird nur im Produktions-Head-Inject eingebunden (build-inject.js), nicht im Dev.
+   VORSICHT: Zu aggressive Selektoren killen unsere eigenen Elemente —
+   wir scopen auf direkte Body-Kinder (Hoststar's own chrome). */
 
-/* klassische HTML-Tags */
-header,
-footer,
-nav {
+/* Builder-Chrome ausblenden · nur DIREKTE Body-Kinder,
+   damit unsere eigenen <header>, <nav>, <footer> innerhalb <section>/<main> unberührt bleiben */
+body > header,
+body > footer,
+body > nav {
   display: none !important;
 }
 
-/* häufige Builder-/Site-Namen */
-[id*="header"],
-[id*="Header"],
-[id*="footer"],
-[id*="Footer"],
-[class*="header"],
-[class*="Header"],
-[class*="footer"],
-[class*="Footer"],
-[class*="menu"],
-[class*="Menu"],
-[class*="navbar"],
-[class*="Navbar"],
-[class*="topbar"],
-[class*="Topbar"],
-[class*="site-header"],
-[class*="site-footer"] {
+/* Hoststar-typische Builder-Wrapper · nur als direkte Body-Kinder */
+body > [id*="hoststar"],
+body > [class*="hoststar"],
+body > [id*="builder"],
+body > [class*="builder"] {
   display: none !important;
 }
 
-/* oft bleibt oben/unten Abstand übrig */
+/* Default-Abstände auf Body/Main entfernen */
 body,
 main,
 #main,
