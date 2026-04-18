@@ -22,7 +22,7 @@ function preloadZutaten() {
   schedule(() => {
     ZUTATEN_IMAGES.forEach((id) => {
       const img = new Image();
-      img.src = `/src/images/zutaten/${id}.png`;
+      img.src = `/zutaten/${id}.png`;
       // Erzwingt decode in Memory -> bei Step 6 instant paint, kein pop-in.
       img.decode().catch(() => { /* fallback: browser will decode on demand */ });
     });

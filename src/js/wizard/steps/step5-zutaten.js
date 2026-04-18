@@ -293,7 +293,7 @@ export function renderStep5(stage) {
 
     const photoEl = createEl('img', {
       class: 'wz-topping-photo',
-      src: `/src/images/zutaten/${t.id}.png`,
+      src: `/zutaten/${t.id}.png`,
       alt: '',
       width: '72',
       height: '72',
