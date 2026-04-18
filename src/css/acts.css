@@ -714,19 +714,20 @@
   left: 0; top: 0; bottom: 0;
   width: 90px;
   z-index: 3;
-  padding-block: var(--sp-4);
-  align-items: center;
+  padding-top: clamp(40px, 8vh, 80px);
+  align-items: flex-start;
   justify-content: center;
   pointer-events: none;
 }
 .akt-3-title-side-inner {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  display: flex;
-  align-items: center;
-  gap: clamp(16px, 3vw, 32px);
   color: var(--c-farina);
+  line-height: 1;
+  text-align: start;
 }
+.akt-3-title-side .kicker-vert { display: block; margin-bottom: clamp(12px, 2vw, 28px); }
+.akt-3-title-side .title-vert { display: block; }
 .akt-3-title-side .kicker-vert {
   font-family: var(--ff-mono);
   font-size: 11px;

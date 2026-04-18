@@ -5,7 +5,7 @@ import { createEl, empty, qs } from '../lib/dom.js';
 import { reset } from './state.js';
 
 const TWINT_APPLINK = 'https://go.twint.ch/1/e/tw?tw=acq.erLxqXuzQa2zND3B2wKBNM3KxDVpHFhbX6N8FjLRvWMv8epCovCoo1PWmZRIX7c0';
-const TWINT_QR_SRC = '/src/images/twint-qr-cropped.png';
+const TWINT_QR_SRC = '/twint-qr.png';
 
 const CSS = `
 .wizard-success-inner{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;position:relative;z-index:1;}
