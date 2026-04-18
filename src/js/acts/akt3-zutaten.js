@@ -1,7 +1,11 @@
 // Akt 3 · Zutaten-Grid · 17 Display-Cards (kein Click-Popup mehr)
 // Bilder aus public/zutaten/{id}.png (vorgeladen via main.js preloadZutaten).
 
+// Akt-3-only Zutaten (3 Basis-Grundlagen, NICHT im Wizard-Step-5 verfügbar)
 const ZUTATEN = [
+  { id: 'caputo-rossa', label: 'Caputo Rossa',    hue: 28 },
+  { id: 'fior-di-latte', label: 'Fior di Latte',  hue: 50 },
+  { id: 'olio-doliva',  label: 'Olio d\u2019Oliva', hue: 60 },
   { id: 'champignons',  label: 'Champignons',  hue: 36 },
   { id: 'zwiebeln',     label: 'Zwiebeln',     hue: 32 },
   { id: 'zucchetti',    label: 'Zucchetti',    hue: 88 },

@@ -752,8 +752,8 @@
 
 .akt-3-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(8px, 1.5vh, 20px);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(6px, 1.3vh, 16px);
   align-content: center;
   justify-items: center;
   max-width: 1400px;
@@ -762,11 +762,8 @@
   flex: 1 1 0;
   min-height: 0;
 }
-@media (max-width: 1024px) {
-  .akt-3-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-}
 @media (max-width: 899px) {
-  .akt-3-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(6px, 1.2vh, 12px); }
+  .akt-3-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(6px, 1vh, 10px); }
 }
 @media (max-width: 380px) {
   .akt-3-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -792,7 +789,7 @@
 .akt-3-card-img {
   width: 100%;
   aspect-ratio: 1;
-  max-width: clamp(60px, 9vw, 120px);
+  max-width: clamp(52px, 7.5vw, 110px);
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%,
     hsl(var(--akt3-hue, 36) 65% 60%),
