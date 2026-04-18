@@ -22,16 +22,27 @@ const GALLERY_IMAGES = [
   'dd029010-cf76-4922-ab15-3bf24c8a5189',
   'f82bba34-ece5-4120-8e8a-0de3bb1949ea',
   'f9b69ab4-ff4e-44c2-9ca5-390a86bfa6cd',
-  'akt6-pizza-final',
-  'caputo-rossa',
   'fior-di-latte',
   'hand-1',
-  'hand-2',
   'hand-3',
   'zutaten-hero',
 ];
 
+// Galerie-Bilder im idle-callback preloaden damit das erste Modal-Open
+// ohne pop-in ist. 24 Bilder x ~300KB = ~7MB background — non-blocking.
+function preloadGalleryImages() {
+  const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1800));
+  schedule(() => {
+    GALLERY_IMAGES.forEach((id) => {
+      const img = new Image();
+      img.src = `/gallery/${id}.jpg`;
+      img.decode().catch(() => { /* fallback later */ });
+    });
+  }, { timeout: 6000 });
+}
+
 export function initGallery() {
+  preloadGalleryImages();
   const grid = document.getElementById('gallery-grid');
   const modal = document.getElementById('modal-gallery');
   const lightbox = document.getElementById('gallery-lightbox');
