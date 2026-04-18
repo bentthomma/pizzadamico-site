@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neue Catering-Anfrage {{reference}}</title>
+</head>
+<body style="margin:0; padding:0; background:#E4D6B5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#14100C;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#E4D6B5;">
+  <tr>
+    <td align="center" style="padding:24px 16px;">
+
+      <table role="presentation" width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px; width:100%; background:#F0E6D2; border:1px solid rgba(20,16,12,0.08); border-radius:6px; overflow:hidden;">
+
+        <!-- Urgent Header -->
+        <tr><td style="padding:24px 32px; background:#14100C; color:#F0E6D2;">
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600; margin-bottom:6px;">
+            Neue Catering-Anfrage
+          </div>
+          <div style="font-family:Georgia, 'Palatino Linotype', Palatino, serif; font-size:22px; letter-spacing:0.5px;">
+            {{reference}}
+          </div>
+        </td></tr>
+
+        <!-- Anzahlung-Check prominent -->
+        <tr><td style="padding:0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(210,74,26,0.08); border-left:4px solid #D24A1A;">
+            <tr><td style="padding:18px 28px;">
+              <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#D24A1A; font-weight:700; margin-bottom:6px;">
+                Anzahlung CHF {{deposit}}
+              </div>
+              <div style="font-size:14px; line-height:1.5; color:#14100C;">
+                [ ] erhalten&nbsp;&nbsp;&nbsp;[ ] offen
+              </div>
+              <div style="font-size:12px; color:rgba(20,16,12,0.6); margin-top:4px;">
+                Im Kalender-Event markieren nach TWINT-Eingang.
+              </div>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- Kunde -->
+        <tr><td style="padding:24px 32px 0 32px;">
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600; margin-bottom:10px;">
+            Kunde
+          </div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px; line-height:1.5;">
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); width:80px; vertical-align:top;">Name</td>
+              <td style="padding:4px 0; color:#14100C; font-weight:600;">{{name}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); vertical-align:top;">E-Mail</td>
+              <td style="padding:4px 0;"><a href="mailto:{{email}}" style="color:#14100C; text-decoration:none; border-bottom:1px solid rgba(20,16,12,0.3);">{{email}}</a></td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Telefon</td>
+              <td style="padding:4px 0;"><a href="tel:{{phoneClean}}" style="color:#14100C; text-decoration:none; border-bottom:1px solid rgba(20,16,12,0.3);">{{phone}}</a></td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- Divider -->
+        <tr><td style="padding:24px 32px 0 32px;">
+          <div style="border-top:1px solid rgba(20,16,12,0.12); height:1px; line-height:1px;">&nbsp;</div>
+        </td></tr>
+
+        <!-- Event -->
+        <tr><td style="padding:20px 32px 0 32px;">
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600; margin-bottom:10px;">
+            Event
+          </div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px; line-height:1.5;">
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); width:80px; vertical-align:top;">Anlass</td>
+              <td style="padding:4px 0; color:#14100C;">{{eventType}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Termin</td>
+              <td style="padding:4px 0; color:#14100C;">{{eventDateHuman}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Ort</td>
+              <td style="padding:4px 0; color:#14100C;">{{address}}{{kmSuffix}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Gaeste</td>
+              <td style="padding:4px 0; color:#14100C;">{{adults}} Erw + {{children}} Kinder{{vegSuffix}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Zutaten</td>
+              <td style="padding:4px 0; color:#14100C;">{{toppings}}</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- Setup -->
+        <tr><td style="padding:20px 32px 0 32px;">
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600; margin-bottom:10px;">
+            Setup
+          </div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px; line-height:1.5;">
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); width:80px; vertical-align:top;">Strom</td>
+              <td style="padding:4px 0; color:#14100C;">{{setupPower}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Platz</td>
+              <td style="padding:4px 0; color:#14100C;">{{setupSpace}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Dach</td>
+              <td style="padding:4px 0; color:#14100C;">{{setupShelter}}</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- Divider -->
+        <tr><td style="padding:24px 32px 0 32px;">
+          <div style="border-top:1px solid rgba(20,16,12,0.12); height:1px; line-height:1px;">&nbsp;</div>
+        </td></tr>
+
+        <!-- Kosten -->
+        <tr><td style="padding:20px 32px 0 32px;">
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600; margin-bottom:10px;">
+            Kosten
+          </div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px; line-height:1.5;">
+            {{breakdownRows}}
+            <tr><td colspan="2" style="padding:6px 0 0 0;"><div style="border-top:1px solid rgba(20,16,12,0.12); height:1px; line-height:1px;">&nbsp;</div></td></tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.7);">Netto</td>
+              <td style="padding:4px 0; text-align:right; color:#14100C; font-variant-numeric:tabular-nums;">CHF {{netto}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.7);">MwSt 8.1 %</td>
+              <td style="padding:4px 0; text-align:right; color:#14100C; font-variant-numeric:tabular-nums;">CHF {{vat}}</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 0 4px 0; color:#14100C; font-weight:700;">TOTAL</td>
+              <td style="padding:8px 0 4px 0; text-align:right; color:#14100C; font-weight:700; font-variant-numeric:tabular-nums;">CHF {{total}}</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- Notiz (optional block) -->
+        {{noteBlock}}
+
+        <!-- Footer -->
+        <tr><td style="padding:28px 32px 28px 32px;">
+          <div style="font-size:11px; color:rgba(20,16,12,0.5); letter-spacing:1px; text-transform:uppercase;">
+            Pizza D'Amico Bot &middot; via pizzadamico.ch
+          </div>
+        </td></tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

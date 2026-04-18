@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grazie - Ihre Catering-Anfrage</title>
+</head>
+<body style="margin:0; padding:0; background:#E4D6B5; font-family:Georgia, 'Palatino Linotype', Palatino, serif; color:#14100C;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#E4D6B5;">
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+
+      <!-- Container -->
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; width:100%; background:#F0E6D2; border:1px solid rgba(20,16,12,0.08); border-radius:6px; overflow:hidden;">
+
+        <!-- Kicker -->
+        <tr><td style="padding:40px 40px 0 40px;">
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600;">
+            Pizza D'Amico &middot; Catering
+          </div>
+        </td></tr>
+
+        <!-- Grazie-Headline -->
+        <tr><td style="padding:8px 40px 0 40px;">
+          <h1 style="margin:0; font-family:Georgia, 'Palatino Linotype', Palatino, serif; font-weight:normal; font-size:48px; line-height:1.05; color:#14100C; letter-spacing:-1px;">
+            Grazie!
+          </h1>
+        </td></tr>
+
+        <!-- Intro -->
+        <tr><td style="padding:16px 40px 0 40px;">
+          <p style="margin:0; font-size:17px; line-height:1.55; color:#14100C;">
+            Ihre Catering-Anfrage ist bei uns eingegangen. Pietro meldet sich persoenlich innerhalb von 48 Stunden zur Bestaetigung.
+          </p>
+        </td></tr>
+
+        <!-- Reference -->
+        <tr><td style="padding:28px 40px 0 40px;">
+          <div style="display:inline-block; padding:10px 16px; background:rgba(20,16,12,0.06); border-radius:4px; font-family:'SF Mono', Consolas, Monaco, 'Courier New', monospace; font-size:13px; color:#14100C; letter-spacing:1px;">
+            Referenz: <strong>{{reference}}</strong>
+          </div>
+        </td></tr>
+
+        <!-- Divider -->
+        <tr><td style="padding:32px 40px 0 40px;">
+          <div style="border-top:1px solid rgba(20,16,12,0.12); height:1px; line-height:1px;">&nbsp;</div>
+        </td></tr>
+
+        <!-- Event Details -->
+        <tr><td style="padding:24px 40px 0 40px;">
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600; margin-bottom:12px;">
+            Ihr Event
+          </div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:15px; line-height:1.6;">
+            <tr>
+              <td style="padding:6px 0; color:rgba(20,16,12,0.6); width:110px; vertical-align:top;">Anlass</td>
+              <td style="padding:6px 0; color:#14100C;">{{eventType}}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Termin</td>
+              <td style="padding:6px 0; color:#14100C;">{{eventDateHuman}}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Ort</td>
+              <td style="padding:6px 0; color:#14100C;">{{address}}{{kmSuffix}}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0; color:rgba(20,16,12,0.6); vertical-align:top;">Gaeste</td>
+              <td style="padding:6px 0; color:#14100C;">{{adults}} Erwachsene{{childrenSuffix}}{{vegSuffix}}</td>
+            </tr>
+            {{toppingsRow}}
+          </table>
+        </td></tr>
+
+        <!-- Divider -->
+        <tr><td style="padding:32px 40px 0 40px;">
+          <div style="border-top:1px solid rgba(20,16,12,0.12); height:1px; line-height:1px;">&nbsp;</div>
+        </td></tr>
+
+        <!-- Cost Breakdown -->
+        <tr><td style="padding:24px 40px 0 40px;">
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600; margin-bottom:12px;">
+            Kosten-Aufschluesselung
+          </div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:15px; line-height:1.5;">
+            {{breakdownRows}}
+            <tr><td colspan="2" style="padding:8px 0 0 0;"><div style="border-top:1px solid rgba(20,16,12,0.12); height:1px; line-height:1px;">&nbsp;</div></td></tr>
+            <tr>
+              <td style="padding:8px 0; color:rgba(20,16,12,0.7);">Netto</td>
+              <td style="padding:8px 0; text-align:right; color:#14100C; font-variant-numeric:tabular-nums;">CHF {{netto}}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0; color:rgba(20,16,12,0.7);">+ 8.1 % MwSt</td>
+              <td style="padding:4px 0; text-align:right; color:#14100C; font-variant-numeric:tabular-nums;">CHF {{vat}}</td>
+            </tr>
+            <tr><td colspan="2" style="padding:6px 0 0 0;"><div style="border-top:2px solid #14100C; height:2px; line-height:1px;">&nbsp;</div></td></tr>
+            <tr>
+              <td style="padding:10px 0; color:#14100C; font-weight:700; font-size:17px;">Total</td>
+              <td style="padding:10px 0; text-align:right; color:#14100C; font-weight:700; font-size:17px; font-variant-numeric:tabular-nums;">CHF {{total}}</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- Next Step: TWINT -->
+        <tr><td style="padding:32px 40px 0 40px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#14100C; color:#F0E6D2; border-radius:6px;">
+            <tr><td style="padding:28px 32px;">
+              <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#C9A66B; font-weight:600; margin-bottom:10px;">
+                Naechster Schritt
+              </div>
+              <h2 style="margin:0 0 8px 0; font-family:Georgia, 'Palatino Linotype', Palatino, serif; font-weight:normal; font-size:24px; line-height:1.2; color:#F0E6D2;">
+                CHF {{deposit}} Anzahlung per TWINT
+              </h2>
+              <p style="margin:0 0 20px 0; font-size:14px; line-height:1.55; color:rgba(240,230,210,0.8);">
+                Damit Pietro Ihren Termin definitiv blockiert, senden Sie bitte die Anzahlung per TWINT an:
+              </p>
+
+              {{twintQrBlock}}
+
+              <div style="text-align:center; margin-top:18px;">
+                <a href="https://go.twint.ch/1/e/tw?tw=acq.erLxqXuzQa2zND3B2wKBNM3KxDVpHFhbX6N8FjLRvWMv8epCovCoo1PWmZRIX7c0" style="display:inline-block; padding:14px 28px; background:#C9A66B; color:#14100C; text-decoration:none; border-radius:999px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase;">
+                  Mit TWINT App bezahlen &rarr;
+                </a>
+              </div>
+
+              <div style="margin-top:24px; padding-top:18px; border-top:1px solid rgba(240,230,210,0.15); text-align:center;">
+                <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(240,230,210,0.6); margin-bottom:4px;">
+                  Oder direkt
+                </div>
+                <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:18px; font-weight:600; color:#F0E6D2; letter-spacing:0.5px;">
+                  {{ownerPhone}}
+                </div>
+                <div style="font-size:13px; color:rgba(240,230,210,0.7); margin-top:4px;">
+                  {{ownerName}}
+                </div>
+              </div>
+
+              <p style="margin:18px 0 0 0; font-size:13px; line-height:1.55; color:rgba(240,230,210,0.65); text-align:center;">
+                Sobald die Zahlung eingegangen ist, erhalten Sie die finale Bestaetigung.
+              </p>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- Footer / Kontakt -->
+        <tr><td style="padding:32px 40px 40px 40px;">
+          <div style="border-top:1px solid rgba(20,16,12,0.12); padding-top:20px;">
+            <div style="font-family:Georgia, 'Palatino Linotype', Palatino, serif; font-size:16px; color:#14100C; margin-bottom:6px;">
+              Pizza D'Amico
+            </div>
+            <div style="font-size:12px; line-height:1.7; color:rgba(20,16,12,0.6);">
+              Schlossstrasse 15 &middot; 3110 Muensingen<br>
+              <a href="tel:+41763313259" style="color:rgba(20,16,12,0.75); text-decoration:none;">{{ownerPhone}}</a> &middot; <a href="mailto:{{ownerEmail}}" style="color:rgba(20,16,12,0.75); text-decoration:none;">{{ownerEmail}}</a>
+            </div>
+          </div>
+        </td></tr>
+
+      </table>
+
+      <!-- External footer -->
+      <div style="padding:16px 24px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(20,16,12,0.5);">
+        via pizzadamico.ch
+      </div>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

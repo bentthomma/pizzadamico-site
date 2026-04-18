@@ -1,4 +1,3 @@
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { qs, qsa } from './lib/dom.js';
 
 export function initSiteHeader() {
@@ -9,22 +8,21 @@ export function initSiteHeader() {
   const mobileMenu = qs('#site-mobile-menu');
   const navLinks = qsa('a[data-nav-target]');
 
-  // Per-akt ScrollTrigger for header theme + nav active state
   const akte = qsa('.akt');
   if (akte.length === 0) return;
 
-  for (const akt of akte) {
-    const theme = akt.dataset.theme || 'farina';
-    const aktNum = akt.dataset.akt;
-    ScrollTrigger.create({
-      trigger: akt,
-      start: 'top 56%',
-      end: 'bottom 56%',
-      onEnter:     () => applyAkt(aktNum, theme),
-      onEnterBack: () => applyAkt(aktNum, theme),
-    });
-  }
+  // Initial state · Akt 1 · header hidden
   applyAkt(akte[0].dataset.akt, akte[0].dataset.theme || 'brace');
+
+  // Header update: sofort bei Sektionswechsel (section-active, ohne Cooldown)
+  // und zusaetzlich bei settled fuer Safety-Net
+  const onSectionChange = (e) => {
+    const section = e.detail && e.detail.section;
+    if (!section || !section.classList || !section.classList.contains('akt')) return;
+    applyAkt(section.dataset.akt, section.dataset.theme || 'farina');
+  };
+  window.addEventListener('section-active', onSectionChange);
+  window.addEventListener('section-settled', onSectionChange);
 
   function applyAkt(aktNum, theme) {
     header.dataset.theme = theme;

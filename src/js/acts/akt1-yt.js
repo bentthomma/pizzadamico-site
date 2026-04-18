@@ -1,5 +1,6 @@
 // Hero-Video · native <video> · 0.75× playback rate
-// (was YouTube iframe before — swapped to local mp4 for instant start)
+// Wartet auf `canplaythrough` → Video startet erst wenn voll gebuffert (kein Stuttering)
+// Poster-Image bleibt sichtbar bis dann (smooth UX auf mobile)
 
 const RATE = 0.75;
 
@@ -10,15 +11,23 @@ export function initAkt1Yt() {
   const apply = () => {
     try { v.playbackRate = RATE; } catch { /* ignore */ }
   };
-
   v.addEventListener('loadedmetadata', apply, { once: true });
   v.addEventListener('play', apply);
-  if (v.readyState >= 1) apply();
 
-  // Ensure autoplay starts (some browsers need an explicit play() after DOMContentLoaded)
-  const tryPlay = () => {
-    v.play().catch(() => { /* user gesture required — autoplay will retry */ });
+  // Warte auf canplaythrough (voll gebuffert · kein Stuttering beim Start)
+  const start = () => {
+    apply();
+    v.classList.add('is-ready');
+    v.play().catch(() => { /* autoplay blocked, retry auf nächsten user gesture */ });
   };
-  if (v.readyState >= 2) tryPlay();
-  else v.addEventListener('canplay', tryPlay, { once: true });
+
+  if (v.readyState >= 4) {
+    start();
+  } else {
+    v.addEventListener('canplaythrough', start, { once: true });
+    // Fallback falls canplaythrough nicht feuert (kaputtes Netzwerk): nach 8s doch starten
+    setTimeout(() => {
+      if (!v.classList.contains('is-ready')) start();
+    }, 8000);
+  }
 }

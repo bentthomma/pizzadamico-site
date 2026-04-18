@@ -9,13 +9,19 @@
   <link rel="stylesheet" href="/src/css/base.css">
   <link rel="stylesheet" href="/src/css/layout.css">
   <link rel="stylesheet" href="/src/css/acts.css">
-  <link rel="stylesheet" href="/src/css/modal.css">
-  <link rel="stylesheet" href="/src/css/pill.css">
   <link rel="stylesheet" href="/src/css/site-header.css">
   <link rel="stylesheet" href="/src/css/site-modal.css">
   <link rel="stylesheet" href="/src/css/footer.css">
-  <link rel="preload" href="/src/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/src/fonts/Newsreader-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/src/css/wizard.css">
+  <link rel="preload" href="/src/fonts/BricolageGrotesque-Variable.woff2" as="font" crossorigin="anonymous">
+  <link rel="preload" href="/src/fonts/Newsreader-Variable.woff2" as="font" crossorigin="anonymous">
+  <!-- Preload Akt 2 + 3 images · sofort sichtbar wenn User scrollt -->
+  <link rel="preload" as="image" href="/src/images/pizza-teig.avif" type="image/avif">
+  <link rel="preload" as="image" href="/src/images/pizza-teig.jpg">
+  <link rel="preload" as="image" href="/src/images/pizza-boden.avif" type="image/avif">
+  <link rel="preload" as="image" href="/src/images/pizza-boden.jpg">
+  <link rel="preload" as="image" href="/src/images/zutaten-labeled-desktop-16-9.png">
+  <!-- Zutaten-Bilder: JS-Preload via main.js im idle-callback (echt garantiert). -->
 </head>
 <body>
   <header class="site-header" data-hidden="true">
@@ -28,7 +34,6 @@
       <a href="#akt-3" data-nav-target="3">Zutaten</a>
       <a href="#akt-4" data-nav-target="4">Foodtruck</a>
       <a href="#akt-5" data-nav-target="5">Catering</a>
-      <a href="#akt-6" data-nav-target="6">Kontakt</a>
     </nav>
     <button class="site-burger" type="button" aria-label="Menu öffnen" aria-expanded="false" aria-controls="site-mobile-menu">
       <span class="site-burger-bar" aria-hidden="true"></span>
@@ -43,7 +48,6 @@
       <a href="#akt-3" data-nav-target="3">Zutaten</a>
       <a href="#akt-4" data-nav-target="4">Foodtruck</a>
       <a href="#akt-5" data-nav-target="5">Catering</a>
-      <a href="#akt-6" data-nav-target="6">Kontakt</a>
     </nav>
     <a class="site-mobile-tel meta" href="tel:+41763313259">076 331 32 59</a>
   </aside>
@@ -52,8 +56,8 @@
 
     <section class="akt akt-1" id="akt-1" data-akt="1" data-theme="brace">
       <div class="akt-1-yt-wrap" aria-hidden="true">
-        <video class="akt-1-video" id="akt1-video" autoplay playsinline muted loop preload="auto"
-               poster="/src/media/hero-poster.jpg">
+        <img class="akt-1-poster" src="/src/media/hero-poster.jpg" alt="" width="1280" height="720" fetchpriority="high">
+        <video class="akt-1-video" id="akt1-video" playsinline muted loop preload="auto">
           <source src="/src/media/hero.mp4" type="video/mp4">
           <source src="/src/media/hero.webm" type="video/webm">
         </video>
@@ -64,6 +68,10 @@
           <div class="akt-1-kicker meta">Bern · Schlossstrasse 15, Münsingen</div>
           <h1 class="akt-1-brand display">Pizza D'Amico</h1>
           <div class="akt-1-sub meta">Pizza · Foodtruck · Catering</div>
+          <button class="akt-1-cta" type="button" data-wizard-open data-akt1-cta aria-haspopup="dialog" aria-controls="wizard-modal">
+            <span class="akt-1-cta-label">Catering anfragen</span>
+            <span class="akt-1-cta-arrow" aria-hidden="true">&rarr;</span>
+          </button>
         </div>
         <div class="akt-1-scroll-hint meta"><span lang="it">scorri</span></div>
       </div>
@@ -76,26 +84,26 @@
           <picture>
             <source srcset="/src/images/pizza-teig.avif" type="image/avif">
             <source srcset="/src/images/pizza-teig.webp" type="image/webp">
-            <img src="/src/images/pizza-teig.jpg" alt="Biga-Teig vor der Verarbeitung" width="800" height="1000" fetchpriority="high">
+            <img src="/src/images/pizza-teig.jpg" alt="Biga-Teig vor der Verarbeitung" width="800" height="1000" fetchpriority="high" loading="eager">
           </picture>
           <svg class="akt-2-panel-svg" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="48" r="0.6" class="panel-dot"/>
-            <line x1="50" y1="48" x2="78" y2="78" pathLength="1" vector-effect="non-scaling-stroke" class="panel-line"/>
+            <line x1="50" y1="48" x2="68" y2="76" class="panel-line"/>
           </svg>
           <figcaption>
             <div class="kicker akt-2-panel-kicker">Der Teig</div>
-            <p class="akt-2-panel-text">30 Stunden Reifung · Biga-Vorteig · Caputo Rossa Type 00</p>
+            <p class="akt-2-panel-text">30 Stunden Reifung · Biga-Vorteig · Caputo Rossa Type&nbsp;00</p>
           </figcaption>
         </figure>
         <figure class="akt-2-panel akt-2-panel-boden reveal-image">
           <picture>
             <source srcset="/src/images/pizza-boden.avif" type="image/avif">
             <source srcset="/src/images/pizza-boden.webp" type="image/webp">
-            <img src="/src/images/pizza-boden.jpg" alt="Fertige Pizza aus dem Holzofen" width="800" height="1000">
+            <img src="/src/images/pizza-boden.jpg" alt="Fertige Pizza aus dem Holzofen" width="800" height="1000" fetchpriority="high" loading="eager">
           </picture>
           <svg class="akt-2-panel-svg" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="55" r="0.6" class="panel-dot"/>
-            <line x1="50" y1="55" x2="50" y2="24" pathLength="1" vector-effect="non-scaling-stroke" class="panel-line"/>
+            <line x1="50" y1="55" x2="50" y2="26" class="panel-line"/>
           </svg>
           <figcaption>
             <div class="kicker akt-2-panel-kicker">Der Pizzaboden</div>
@@ -105,16 +113,21 @@
       </div>
     </section>
 
-    <!-- Akt 3 · Zutaten · Labeled-Hero · lines draw from ingredient → label on section-enter -->
+    <!-- Akt 3 · Zutaten · Desktop SVG (tuning) · Mobile Video -->
     <section class="akt akt-3" id="akt-3" data-akt="3" data-theme="brace" data-nav-label="Zutaten">
-      <figure class="akt-3-labeled-hero" id="akt-3-labeled">
-        <picture>
-          <source media="(max-width: 899px)" srcset="/src/images/zutaten-labeled-mobile-9-16.png">
-          <img src="/src/images/zutaten-labeled-desktop-16-9.png" alt="Alle Zutaten auf einem Holztisch">
-        </picture>
-        <svg class="labels-svg" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true"></svg>
-        <div class="labels-text"></div>
-      </figure>
+      <svg class="akt-3-map akt-3-map--desktop" id="akt-3-map-desktop"
+           viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice">
+        <image href="/src/images/zutaten-labeled-desktop-16-9.png" width="1672" height="941" preserveAspectRatio="xMidYMid slice"/>
+        <g class="akt-3-ingredients"></g>
+      </svg>
+
+      <svg class="akt-3-map akt-3-map--mobile" id="akt-3-map-mobile"
+           viewBox="0 0 941 1672" preserveAspectRatio="xMidYMid meet">
+        <image href="/src/images/zutaten-labeled-mobile-9-16.png" width="941" height="1672" preserveAspectRatio="xMidYMid meet"/>
+        <g class="akt-3-ingredients"></g>
+      </svg>
+
+      <div class="akt-3-title-vert" aria-hidden="true"><span>Z</span><span>u</span><span>t</span><span>a</span><span>t</span><span>e</span><span>n</span></div>
     </section>
 
     <!-- Akt 4 · Foodtruck -->
@@ -141,106 +154,27 @@
     </section>
 
 
-    <!-- Akt 5 · Catering · dark premium kitchen -->
+    <!-- Akt 5 · Catering · schlank, 100vh, nur CTA -->
     <section class="akt akt-5" id="akt-5" data-akt="5" data-theme="brace" data-nav-label="Catering">
       <div class="akt-inner akt-5-inner">
-        <div class="akt-5-main">
-          <div class="akt-head akt-5-intro">
-            <div class="kicker reveal"><span lang="it">Atto V</span> · Catering</div>
-            <h2 class="akt-title akt-5-title reveal">Für jeden Anlass das passende Erlebnis.</h2>
-            <p class="akt-lede editorial akt-5-lede reveal">Firmenfeier, Hochzeit, Geburtstag, privates Fest — individuell nach euren Wünschen. Beliebte Daten sind früh ausgebucht.</p>
-          </div>
-
-          <div class="akt-5-statement-block reveal">
-            <p class="akt-5-statement">
-              <span class="s-line">Pizza à discrétion,</span>
-              <span class="s-line"><em>CHF 25</em> pro Person.</span>
-            </p>
-            <p class="lede editorial akt-5-details">
-              Ab 30 Gästen. Wir bringen Ofen, Teig und die ganze Pizzeria — ihr geniesst den Abend. 6 Zutaten wählt ihr im Voraus, vegetarisch &amp; vegan sind immer dabei.
-            </p>
-          </div>
-
-          <div class="akt-5-ctas reveal">
-            <button class="site-modal-trigger" type="button" data-modal-target="modal-catering">
-              <span>Preise &amp; Details</span>
-              <span class="site-modal-trigger-arrow" aria-hidden="true">→</span>
-            </button>
-            <button class="site-modal-trigger" type="button" data-modal-target="modal-kontakt">
-              <span>Schreib uns jetzt</span>
-              <span class="site-modal-trigger-arrow" aria-hidden="true">→</span>
-            </button>
-          </div>
+        <div class="akt-head akt-5-intro">
+          <div class="kicker reveal"><span lang="it">Atto V</span> &middot; Catering</div>
+          <h2 class="akt-title akt-5-title reveal">Authentische neapolitanische Pizza<br>direkt an eurem Event.</h2>
+          <p class="akt-lede editorial akt-5-lede reveal">Firmenfeier, Hochzeit, Geburtstag, privates Fest. Frisch und live vor Ort zubereitet.</p>
         </div>
 
-        <!-- TWINT-Block · Desktop only (Mobile zeigt Akt 6 · unten hidden) -->
-        <aside class="akt-5-twint akt-6-twint reveal" aria-label="TWINT Anzahlung">
-          <div class="kicker akt-6-twint-kicker">Anzahlung per TWINT</div>
-          <picture class="akt-6-twint-qr">
-            <img src="/src/images/twint-qr-cropped.png" alt="TWINT QR-Code · Anzahlung an Pizza D'Amico" width="520" height="660">
-          </picture>
-          <p class="meta akt-6-twint-note">Scannen · Betrag eingeben · bestätigen.</p>
-          <a class="akt-6-twint-applink" href="https://go.twint.ch/1/e/tw?tw=acq.erLxqXuzQa2zND3B2wKBNM3KxDVpHFhbX6N8FjLRvWMv8epCovCoo1PWmZRIX7c0" target="_blank" rel="noopener">
-            <span>Mit TWINT App bezahlen</span>
-            <span aria-hidden="true">→</span>
-          </a>
-          <p class="meta akt-6-direct">Oder direkt: <a href="tel:+41763313259">076 331 32 59</a></p>
-        </aside>
+        <p class="akt-5-price-anchor reveal">
+          <span class="akt-5-price-label"><span lang="fr">Pizza &agrave; discr&eacute;tion</span></span>
+          <span class="akt-5-price-dot" aria-hidden="true">&middot;</span>
+          <span class="akt-5-price-value">CHF 25.&ndash; <span class="akt-5-price-unit">pro Person</span></span>
+        </p>
 
-        <div class="site-modal site-modal-overlay" id="modal-catering" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-catering-title">
-          <div class="site-modal-backdrop" data-modal-close></div>
-          <div class="site-modal-shell">
-            <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">×</button>
-            <div class="site-modal-head">
-              <div class="kicker"><span lang="it">Atto V</span> · Catering</div>
-              <h3 class="display site-modal-title" id="modal-catering-title">Preise &amp; Details</h3>
-            </div>
-            <div class="site-modal-body">
-              <dl class="akt-5-menu" aria-label="Preise und Konditionen">
-                <div class="menu-line">
-                  <dt class="menu-label">Pizza à discrétion</dt>
-                  <span class="menu-leader" aria-hidden="true"></span>
-                  <dd class="menu-price">CHF 25.– <span class="menu-unit">/ Person</span></dd>
-                </div>
-                <div class="menu-line">
-                  <dt class="menu-label">Kinder 5–10 Jahre</dt>
-                  <span class="menu-leader" aria-hidden="true"></span>
-                  <dd class="menu-price">CHF 12.– <span class="menu-unit">/ Kind</span></dd>
-                </div>
-                <div class="menu-line">
-                  <dt class="menu-label">Anfahrt <span class="menu-sub">hin &amp; zurück ab Standort</span></dt>
-                  <span class="menu-leader" aria-hidden="true"></span>
-                  <dd class="menu-price">CHF 1.50 <span class="menu-unit">/ km</span></dd>
-                </div>
-                <div class="menu-line">
-                  <dt class="menu-label">Mindestbuchung</dt>
-                  <span class="menu-leader" aria-hidden="true"></span>
-                  <dd class="menu-price">ab 30 <span class="menu-unit">Personen</span></dd>
-                </div>
-                <div class="menu-line">
-                  <dt class="menu-label">Reservierung <span class="menu-sub">Infrastruktur &amp; Organisation</span></dt>
-                  <span class="menu-leader" aria-hidden="true"></span>
-                  <dd class="menu-price">CHF 250.–</dd>
-                </div>
-              </dl>
-
-              <div class="akt-5-included">
-                <div class="kicker akt-5-included-label">Im Preis enthalten</div>
-                <ul class="akt-5-included-list">
-                  <li>Bis 100 Pizzen / h · Ø 30 cm</li>
-                  <li>6 Zutaten individuell im Voraus gewählt</li>
-                  <li>Vegetarisch &amp; vegan auf Wunsch</li>
-                </ul>
-              </div>
-
-              <div class="akt-5-formula">
-                <span class="akt-5-formula-label">Gesamtkosten</span>
-                <span class="akt-5-formula-expr">CHF 250.– <span class="akt-5-op">+</span> 25.– <span class="akt-5-op">×</span> Personen <span class="akt-5-op">+</span> 1.50 <span class="akt-5-op">×</span> km</span>
-              </div>
-
-              <p class="meta akt-5-tax">Alle Preise exkl. MwSt. · auf den Gesamtbetrag werden 8.1 % MwSt. erhoben.</p>
-            </div>
-          </div>
+        <div class="akt-5-cta-wrap reveal">
+          <button class="wizard-open-btn" type="button" data-wizard-open aria-haspopup="dialog" aria-controls="wizard-modal">
+            <span class="wizard-open-label">Catering anfragen</span>
+            <span class="wizard-open-arrow" aria-hidden="true">&rarr;</span>
+          </button>
+          <p class="meta akt-5-cta-note">In 3 Minuten &middot; verbindlich nach CHF 250.&ndash; Anzahlung per TWINT.</p>
         </div>
       </div>
     </section>
@@ -291,23 +225,34 @@
             <span>Facebook</span>
           </a>
           <a href="https://instagram.com/pizzadamico.ch" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428A4.88 4.88 0 0 1 3.68 3.678 4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             <span>Instagram</span>
           </a>
           <a href="https://www.tiktok.com/@amico5809" target="_blank" rel="noopener" aria-label="TikTok">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-0z"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M19.321 5.562a5.124 5.124 0 01-.443-.258 6.228 6.228 0 01-1.137-.966c-.849-.971-1.166-1.956-1.284-2.645h.004c-.099-.568-.058-.938-.052-.938h-3.835v14.83c0 .199 0 .395-.008.589l-.003.048-.003.048v.01a3.245 3.245 0 01-1.632 2.577 3.19 3.19 0 01-1.584.418c-1.772 0-3.209-1.446-3.209-3.229 0-1.783 1.437-3.229 3.209-3.229.335 0 .658.052.961.148l.004-3.9a7.09 7.09 0 00-.965-.065A7.078 7.078 0 001 16.108a7.074 7.074 0 002.58 5.458 7.072 7.072 0 004.538 1.636c3.913 0 7.088-3.175 7.118-7.085V7.84a9.986 9.986 0 005.827 1.862V5.897s-.637.027-1.075-.034c-.208-.029-.44-.086-.667-.301z"/></svg>
             <span>TikTok</span>
           </a>
-          <a href="https://www.google.com/maps/search/?api=1&amp;query=Pizza+D%27Amico+Schlossstrasse+15+M%C3%BCnsingen" target="_blank" rel="noopener" aria-label="Google Bewertung">
+          <a class="site-footer-google" href="https://www.google.com/maps/place/Pizza%26Pasta+D%27Amico/@46.8746647,7.560187,17z/data=!4m6!3m5!1s0x478e4b3e1e8e4067:0x5e084cdbdaebec04!8m2!3d46.8746647!4d7.560187!16s%2Fg%2F11wvkvndyh" target="_blank" rel="noopener" aria-label="Google Bewertung 4,4 von 5 Sternen, 13 Rezensionen">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2L9.2 8.6 2 9.3l5.5 4.8L5.8 21 12 17.3 18.2 21l-1.7-6.9L22 9.3l-7.2-.7z"/></svg>
-            <span>Google Bewertung</span>
+            <span class="site-footer-google-label">
+              <span class="site-footer-google-rating">4,4</span>
+              <span class="site-footer-google-dot" aria-hidden="true">&middot;</span>
+              <span class="site-footer-google-reviews">13 Rezensionen</span>
+            </span>
           </a>
         </nav>
 
         <div class="site-footer-contact">
           <a class="meta" href="tel:+41763313259">076 331 32 59</a>
           <a class="meta" href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a>
+          <a class="meta site-modal-trigger site-footer-contact-write" href="#modal-kontakt" data-modal-target="modal-kontakt">Nachricht schreiben &rarr;</a>
         </div>
+
+        <nav class="site-footer-legal" aria-label="Rechtliches">
+          <a class="meta site-modal-trigger" href="#modal-agb" data-modal-target="modal-agb">AGB</a>
+          <a class="meta site-modal-trigger" href="#modal-datenschutz" data-modal-target="modal-datenschutz">Datenschutz</a>
+          <a class="meta site-modal-trigger" href="#modal-impressum" data-modal-target="modal-impressum">Impressum</a>
+        </nav>
 
       </div>
     </footer>
@@ -326,6 +271,7 @@
             <input type="hidden" name="_subject" value="Neue Anfrage · pizzadamico.ch">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_autoresponder" value="false">
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
             <label class="form-field">
@@ -337,17 +283,178 @@
               <textarea name="message" rows="5" required placeholder="Datum, Anlass, Personenzahl, Ort, Besonderheiten …"></textarea>
             </label>
 
+            <label class="form-consent">
+              <input type="checkbox" name="consent" required>
+              <span>Ich akzeptiere die <a href="#modal-agb" class="site-modal-trigger" data-modal-target="modal-agb">AGB</a> und die <a href="#modal-datenschutz" class="site-modal-trigger" data-modal-target="modal-datenschutz">Datenschutzerkl&auml;rung</a>.</span>
+            </label>
+
             <button type="submit" class="contact-submit">Senden →</button>
           </form>
         </div>
       </div>
     </div>
-  </main>
 
-  <button class="pill" id="cta-pill" data-state="hidden" aria-label="Catering anfragen">
-    <span class="pill-dot" aria-hidden="true"></span>
-    <span class="pill-label">Catering anfragen</span>
-  </button>
+    <!-- Wizard Modal · Fullscreen Catering-Anfrage -->
+    <div class="wizard-modal" id="wizard-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="wizard-title">
+      <div class="wizard-backdrop" data-wizard-close aria-hidden="true"></div>
+      <div class="wizard-shell" role="document">
+
+        <header class="wizard-header">
+          <div class="wizard-brand">
+            <span class="wizard-brand-mark" id="wizard-title">Catering anfragen</span>
+            <span class="meta wizard-brand-sub">Pizza D'Amico</span>
+          </div>
+          <div class="wizard-progress" aria-label="Fortschritt">
+            <div class="wizard-progress-label">
+              <span class="wizard-progress-num" id="wizard-progress-num">Schritt 1 von 9</span>
+              <span class="wizard-progress-title" id="wizard-progress-title">&mdash;</span>
+            </div>
+            <ol class="wizard-progress-dots" id="wizard-steps" role="progressbar" aria-valuemin="1" aria-valuemax="9" aria-valuenow="1" aria-label="Schritte"></ol>
+          </div>
+          <button class="wizard-close" type="button" data-wizard-close aria-label="Schliessen">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </header>
+
+        <div class="wizard-body">
+          <main class="wizard-stage" id="wizard-stage" aria-live="polite" aria-atomic="false" tabindex="-1"></main>
+        </div>
+
+        <footer class="wizard-footer">
+          <button class="wizard-btn wizard-btn-secondary" id="wizard-prev" type="button" aria-label="Zur&uuml;ck">
+            <span aria-hidden="true">&larr;</span>
+            <span>Zur&uuml;ck</span>
+          </button>
+          <div class="wizard-footer-meta meta" id="wizard-footer-meta" aria-live="polite"></div>
+          <button class="wizard-btn wizard-btn-primary" id="wizard-next" type="button">
+            <span>Weiter</span>
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </footer>
+
+        <!-- Success panel · nach Submit eingeblendet -->
+        <div class="wizard-success" id="wizard-success" aria-hidden="true" role="region" aria-label="Anfrage bestaetigt"></div>
+      </div>
+    </div>
+
+    <!-- AGB Modal · Rechtliches -->
+    <div class="site-modal site-modal-overlay" id="modal-agb" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-agb-title">
+      <div class="site-modal-backdrop" data-modal-close></div>
+      <div class="site-modal-shell" style="overflow-y:auto">
+        <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">&times;</button>
+        <div class="site-modal-head">
+          <div class="kicker">Rechtliches</div>
+          <h3 class="display site-modal-title" id="modal-agb-title">AGB &amp; Bedingungen</h3>
+        </div>
+        <div class="site-modal-body">
+          <div class="info-section">
+            <div class="kicker info-kicker">Reservation &amp; Anzahlung</div>
+            <p class="editorial">Mit dem Absenden einer Anfrage &uuml;ber dieses Formular wird noch kein verbindlicher Vertrag geschlossen. Die Reservation wird erst nach Eingang der Anzahlung von CHF 250.&ndash; per TWINT definitiv best&auml;tigt. Bis dahin bleibt das Datum unter Vorbehalt und kann durch andere, bereits bezahlte Anfragen &uuml;berschrieben werden.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Abrechnung</div>
+            <p class="editorial">Der Endbetrag berechnet sich aus: CHF 250.&ndash; Reservation + CHF 25.&ndash; pro Erwachsener + CHF 12.&ndash; pro Kind (5&ndash;10 Jahre) + CHF 1.50 pro Strassenkilometer (hin &amp; zur&uuml;ck ab Schlossstrasse 15, 3110 M&uuml;nsingen). Auf den Gesamtbetrag werden 8.1 % MwSt. erhoben.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Verschiebung durch Pietro</div>
+            <p class="editorial">Pietro beh&auml;lt sich das Recht vor, aus wichtigem Grund (Krankheit, technischer Defekt am Foodtruck, h&ouml;here Gewalt) das Event zu verschieben. In diesem Fall wird ein Ersatztermin in Absprache gefunden oder die Anzahlung vollumf&auml;nglich zur&uuml;ckerstattet.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Storno</div>
+            <p class="editorial">Bei Absage &uuml;ber 30 Tage vor Event wird die Anzahlung zu 50 % zur&uuml;ckerstattet. Bei Absage 30&ndash;7 Tage vorher wird die Anzahlung einbehalten. Bei Absage unter 7 Tagen k&ouml;nnen zus&auml;tzliche Materialkosten anfallen.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Datenschutz</div>
+            <p class="editorial">Die im Formular angegebenen Daten (Name, E-Mail, Telefon, Adresse, Event-Details) werden ausschliesslich zur Bearbeitung der Anfrage verwendet und nicht an Dritte weitergegeben. Speicherung erfolgt im Google-Kalender von Pietro sowie per E-Mail an den Betreiber. Widerruf jederzeit per E-Mail.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Kontakt</div>
+            <p class="editorial">Pietro D'Amico &middot; Schlossstrasse 15 &middot; 3110 M&uuml;nsingen &middot; <a href="tel:+41763313259">076 331 32 59</a> &middot; <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Datenschutz Modal -->
+    <div class="site-modal site-modal-overlay" id="modal-datenschutz" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-datenschutz-title">
+      <div class="site-modal-backdrop" data-modal-close></div>
+      <div class="site-modal-shell" style="overflow-y:auto">
+        <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">&times;</button>
+        <div class="site-modal-head">
+          <div class="kicker">Rechtliches</div>
+          <h3 class="display site-modal-title" id="modal-datenschutz-title">Datenschutzerkl&auml;rung</h3>
+        </div>
+        <div class="site-modal-body">
+          <div class="info-section">
+            <div class="kicker info-kicker">Verantwortlicher</div>
+            <p class="editorial">Pietro D'Amico, Schlossstrasse 15, 3110 M&uuml;nsingen, Schweiz. E-Mail: <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a> &middot; Telefon: <a href="tel:+41763313259">076 331 32 59</a>.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Erhobene Daten</div>
+            <p class="editorial">&Uuml;ber das Catering-Formular und das Kontaktformular auf dieser Website erheben wir: Name, E-Mail-Adresse, Telefonnummer, Event-Adresse, Anzahl G&auml;ste, gew&uuml;nschte Zutaten, Datum und Uhrzeit des Events sowie optionale Nachrichten.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Zweck der Verarbeitung</div>
+            <p class="editorial">Die erhobenen Daten dienen ausschliesslich der Bearbeitung Ihrer Anfrage, der Koordination des Catering-Events sowie der Rechnungsstellung. Eine Weitergabe an Dritte erfolgt nicht.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Speicherung &amp; L&ouml;schung</div>
+            <p class="editorial">Anfragen werden im Google-Kalender von Pietro D'Amico sowie per E-Mail bei uns gespeichert. Nach Abschluss des Events oder definitiver Absage werden personenbezogene Daten nach 12 Monaten gel&ouml;scht, ausgenommen Rechnungen (10 Jahre Aufbewahrungspflicht).</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Eingesetzte Dienste</div>
+            <p class="editorial"><strong>Google Calendar &amp; Apps Script</strong> &ndash; zur Speicherung der Reservation. <strong>OpenRouteService</strong> &ndash; anonyme Distanz-Berechnung (nur Koordinaten, keine Personendaten). <strong>FormSubmit.co</strong> &ndash; zur E-Mail-Weiterleitung von Kontaktanfragen. <strong>TWINT</strong> &ndash; f&uuml;r die Anzahlung (keine Speicherung von Zahlungsdaten bei uns).</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Ihre Rechte</div>
+            <p class="editorial">Sie haben das Recht auf Auskunft, Berichtigung und L&ouml;schung Ihrer Daten sowie auf Widerruf Ihrer Einwilligung. Wenden Sie sich dazu per E-Mail an <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a>.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Cookies</div>
+            <p class="editorial">Diese Website setzt keine Tracking- oder Marketing-Cookies. F&uuml;r die Funktion des Catering-Formulars wird ein lokaler Speicher (<code>localStorage</code>) verwendet, um Ihre Eingaben zwischenzuspeichern, falls Sie das Formular erneut &ouml;ffnen. Diese Daten verlassen Ihr Ger&auml;t nicht.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Anwendbares Recht</div>
+            <p class="editorial">Es gilt das schweizerische Bundesgesetz &uuml;ber den Datenschutz (DSG) sowie die EU-Datenschutz-Grundverordnung (DSGVO), soweit anwendbar. Gerichtsstand ist M&uuml;nsingen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Impressum Modal -->
+    <div class="site-modal site-modal-overlay" id="modal-impressum" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-impressum-title">
+      <div class="site-modal-backdrop" data-modal-close></div>
+      <div class="site-modal-shell" style="overflow-y:auto">
+        <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">&times;</button>
+        <div class="site-modal-head">
+          <div class="kicker">Rechtliches</div>
+          <h3 class="display site-modal-title" id="modal-impressum-title">Impressum</h3>
+        </div>
+        <div class="site-modal-body">
+          <div class="info-section">
+            <div class="kicker info-kicker">Betreiber</div>
+            <p class="editorial"><strong>Pietro D'Amico</strong><br>Schlossstrasse 15<br>3110 M&uuml;nsingen<br>Schweiz</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Kontakt</div>
+            <p class="editorial">Telefon: <a href="tel:+41763313259">+41 76 331 32 59</a><br>E-Mail: <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a></p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Haftungsausschluss</div>
+            <p class="editorial">Pietro D'Amico &uuml;bernimmt keine Gew&auml;hr f&uuml;r die Richtigkeit, Vollst&auml;ndigkeit oder Aktualit&auml;t der auf dieser Website zur Verf&uuml;gung gestellten Informationen. Haftungsanspr&uuml;che gegen den Autor wegen Sch&auml;den materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung der Website entstehen, sind ausgeschlossen.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Urheberrecht</div>
+            <p class="editorial">Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf dieser Website geh&ouml;ren ausschliesslich Pietro D'Amico oder den speziell genannten Rechteinhabern. F&uuml;r die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung des Urheberrechtstr&auml;gers im Voraus einzuholen.</p>
+          </div>
+          <div class="info-section">
+            <div class="kicker info-kicker">Website</div>
+            <p class="editorial">Design, Entwicklung und technischer Betrieb: Benedikt Thomma. Hosting: Hoststar (Schweiz).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <div class="success-overlay" id="contact-success" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="success-title">
     <div class="success-backdrop" data-success-close></div>
@@ -359,29 +466,6 @@
       <button class="success-ok" type="button" data-success-close>OK</button>
     </div>
   </div>
-
-  <aside class="modal" id="catering-modal" aria-hidden="true" aria-modal="true" role="dialog" aria-labelledby="modal-title">
-    <div class="modal-backdrop" data-modal-close></div>
-    <div class="modal-shell">
-      <header class="modal-head">
-        <h2 id="modal-title" class="display">Dein Event. Unsere Pizza.</h2>
-        <button class="modal-close" data-modal-close aria-label="Schließen">×</button>
-      </header>
-      <div class="modal-body">
-        <nav class="wizard-nav" aria-label="Wizard-Fortschritt">
-          <ol class="wizard-steps" id="wizard-steps"></ol>
-        </nav>
-        <div class="wizard-main">
-          <section class="wizard-stage" id="wizard-stage"></section>
-        </div>
-        <aside class="wizard-pricing" id="wizard-pricing" aria-live="polite"></aside>
-      </div>
-      <footer class="modal-foot">
-        <button class="wizard-prev" id="wizard-prev">← Zurück</button>
-        <button class="wizard-next" id="wizard-next">Weiter →</button>
-      </footer>
-    </div>
-  </aside>
 
   <script type="module" src="/src/js/main.js"></script>
 </body>

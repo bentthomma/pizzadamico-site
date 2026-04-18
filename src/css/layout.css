@@ -21,8 +21,8 @@ body:has(#contact-success[aria-hidden="false"]) {
   position: relative;
   background: var(--c-bg);
   color: var(--c-fg);
-  min-height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   align-content: center;
   scroll-snap-align: start;

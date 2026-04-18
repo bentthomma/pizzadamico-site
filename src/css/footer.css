@@ -14,7 +14,8 @@
   grid-template-columns: 1fr auto;
   grid-template-areas:
     "brand socials"
-    "contact socials";
+    "contact socials"
+    "legal legal";
   gap: var(--sp-2) var(--sp-4);
   align-items: center;
 }
@@ -59,7 +60,31 @@
   opacity: 0.8;
   transition: opacity var(--t-fast), background var(--t-fast), color var(--t-fast);
 }
-.site-footer-socials a span { display: none; }
+.site-footer-socials a > span { display: none; }
+.site-footer-socials a.site-footer-google {
+  width: auto;
+  padding: 0 12px;
+  gap: 8px;
+  border-radius: 4px;
+}
+.site-footer-socials a.site-footer-google .site-footer-google-label,
+.site-footer-socials a.site-footer-google .site-footer-google-label span {
+  display: inline-flex;
+  align-items: center;
+}
+.site-footer-socials a.site-footer-google .site-footer-google-label {
+  gap: 6px;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.site-footer-google-rating {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.site-footer-google-dot { opacity: 0.55; }
+.site-footer-google-reviews { opacity: 0.8; }
 .site-footer-socials a:hover,
 .site-footer-socials a:focus-visible {
   opacity: 1;
@@ -78,6 +103,7 @@
   display: flex;
   gap: var(--sp-3);
   flex-wrap: wrap;
+  align-items: center;
   font-size: 13px;
   letter-spacing: 1.5px;
   opacity: 0.75;
@@ -85,9 +111,53 @@
 .site-footer-contact a {
   text-decoration: none;
   color: inherit;
-  transition: opacity var(--t-fast);
+  transition: opacity var(--t-fast), color var(--t-fast);
 }
 .site-footer-contact a:hover { opacity: 1; }
+.site-footer-contact-write {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  border-radius: 4px;
+  transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+}
+.site-footer-contact-write:hover,
+.site-footer-contact-write:focus-visible {
+  background: var(--c-farina);
+  color: var(--c-inchiostro);
+  border-color: var(--c-farina);
+  outline: none;
+  opacity: 1;
+}
+
+.site-footer-legal {
+  grid-area: legal;
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: nowrap;
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--c-line);
+  margin-top: var(--sp-2);
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.site-footer-legal a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity var(--t-fast), color var(--t-fast);
+  cursor: pointer;
+}
+.site-footer-legal a:hover,
+.site-footer-legal a:focus-visible {
+  opacity: 1;
+  color: var(--c-pane);
+  outline: none;
+}
 
 @media (max-width: 720px) {
   .site-footer { padding: var(--sp-3) var(--sp-viewport); }
@@ -96,10 +166,25 @@
     grid-template-areas:
       "brand"
       "socials"
-      "contact";
+      "contact"
+      "legal";
     gap: var(--sp-2);
   }
   .site-footer-socials { justify-self: start; }
   .site-footer-contact { flex-direction: column; gap: 4px; }
   .site-footer-mark { font-size: 20px; }
+  .site-footer-legal {
+    gap: var(--sp-2);
+    font-size: 11px;
+    letter-spacing: 1px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 380px) {
+  .site-footer-legal {
+    gap: 10px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
 }

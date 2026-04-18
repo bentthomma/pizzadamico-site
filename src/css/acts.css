@@ -2,8 +2,8 @@
    Akt 1 · Die Stunde Null
    ============================================ */
 .akt-1 {
-  min-height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
   position: relative;
@@ -27,17 +27,27 @@
 }
 .akt-1-yt-wrap iframe,
 .akt-1-yt-wrap .akt-1-yt-player,
-.akt-1-yt-wrap .akt-1-video {
+.akt-1-yt-wrap .akt-1-video,
+.akt-1-yt-wrap .akt-1-poster {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: max(100vw, 177.78vh);
-  height: max(100vh, 56.25vw);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border: 0;
   pointer-events: none;
   display: block;
   object-fit: cover;
+  object-position: center;
+}
+.akt-1-yt-wrap { background: #000; }
+
+/* Poster bleibt sichtbar bis Video fadet ein (kein position-jump) */
+.akt-1-yt-wrap .akt-1-video {
+  opacity: 0;
+  transition: opacity 800ms cubic-bezier(.2,.7,.1,1);
+}
+.akt-1-yt-wrap .akt-1-video.is-ready {
+  opacity: 1;
 }
 .akt-1-veil {
   position: absolute;
@@ -64,9 +74,14 @@
   text-align: center;
   color: var(--c-farina);
 }
+/* Akt 1 Hero · initial hidden · GSAP Timeline reveal nach delay */
+.akt-1-kicker,
+.akt-1-brand,
+.akt-1-sub {
+  opacity: 0;
+}
 .akt-1-kicker {
   color: var(--c-farina);
-  opacity: 0.82;
   letter-spacing: 3.5px;
 }
 .akt-1-brand {
@@ -80,14 +95,16 @@
 }
 .akt-1-sub {
   color: var(--c-pane);
-  opacity: 0.85;
   letter-spacing: 3px;
   margin-top: var(--sp-1);
 }
 .akt-1-cta {
-  margin-top: var(--sp-4);
+  appearance: none;
+  -webkit-appearance: none;
+  margin-top: var(--sp-3);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   padding: 14px 28px;
   border-radius: 999px;
@@ -121,6 +138,13 @@
 .akt-1-cta:focus-visible .akt-1-cta-arrow {
   transform: translateX(3px);
 }
+@media (max-width: 480px) {
+  .akt-1-cta {
+    font-size: 11px;
+    padding: 13px 22px;
+    letter-spacing: 2px;
+  }
+}
 .akt-1-scroll-hint {
   position: absolute;
   bottom: var(--sp-4);
@@ -149,10 +173,10 @@
   display: block;
   padding: 0;
   overflow: hidden;
-  height: 100dvh;
   height: 100vh;
-  min-height: 100dvh;
+  height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   background: #000;
 }
 .akt-2-diptych {
@@ -161,6 +185,11 @@
   gap: 1px;
   background: #000;
   height: 100%;
+}
+/* Akt 2 images always visible — only dot/line/caption animates */
+.akt-2-panel.reveal-image {
+  opacity: 1;
+  transform: none;
 }
 .akt-2-panel {
   position: relative;
@@ -177,14 +206,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: filter 500ms var(--e-out), transform 500ms var(--e-out);
-}
-/* Hover state: hovered panel brighter, siblings dimmer */
-@media (hover: hover) {
-  .akt-2-diptych:hover .akt-2-panel img { filter: brightness(0.55) saturate(0.85); }
-  .akt-2-diptych .akt-2-panel:hover img { filter: brightness(1.15) saturate(1.1); transform: scale(1.015); }
-  .akt-2-diptych:hover .akt-2-panel:not(:hover)::after { opacity: 0.92; }
-  .akt-2-diptych .akt-2-panel:hover::after { opacity: 0.4; }
+
 }
 .akt-2-panel::after {
   content: "";
@@ -234,45 +256,24 @@
   pointer-events: none;
   overflow: visible;
 }
+/* Akt 2 dot/line/caption: initial hidden, JS controls the full sequence */
 .akt-2-panel-svg .panel-dot {
   fill: var(--c-pane);
   opacity: 0;
-  transition: opacity 400ms var(--e-out);
+  transform-origin: center;
+  transform-box: fill-box;
+  transform: scale(0);
 }
 .akt-2-panel-svg .panel-line {
   stroke: var(--c-pane);
-  stroke-width: 1;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  stroke-width: 0.2;
   fill: none;
-  transition: stroke-dashoffset 900ms var(--e-out);
 }
-/* Caption animation */
 .akt-2-panel figcaption .kicker,
 .akt-2-panel figcaption .akt-2-panel-text {
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 600ms var(--e-out), transform 600ms var(--e-out);
+  transform: translateY(12px);
 }
-
-/* Sequence: Teig 400ms first, Pizzaboden 1600ms delay (after teig done) */
-.akt-2-panel.reveal-in .panel-dot { opacity: 1; }
-.akt-2-panel.reveal-in .panel-line { stroke-dashoffset: 0; }
-.akt-2-panel.reveal-in figcaption .kicker,
-.akt-2-panel.reveal-in figcaption .akt-2-panel-text {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* Teig · first in sequence */
-.akt-2-panel-teig .panel-dot { transition-delay: 200ms; }
-.akt-2-panel-teig .panel-line { transition-delay: 400ms; }
-.akt-2-panel-teig figcaption .kicker { transition-delay: 1000ms; }
-.akt-2-panel-teig figcaption .akt-2-panel-text { transition-delay: 1200ms; }
-/* Pizzaboden · second (waits for teig to finish ~1.6s) */
-.akt-2-panel-boden .panel-dot { transition-delay: 1800ms; }
-.akt-2-panel-boden .panel-line { transition-delay: 2000ms; }
-.akt-2-panel-boden figcaption .kicker { transition-delay: 2600ms; }
-.akt-2-panel-boden figcaption .akt-2-panel-text { transition-delay: 2800ms; }
 .akt-2-panel-kicker {
   color: var(--c-farina);
   opacity: 0.85;
@@ -303,10 +304,12 @@
   margin: 0;
 }
 
-/* Mobile: Diptych stacked vertikal statt side-by-side */
+/* Mobile + Portrait-Tablets: Diptych stacked vertikal · SVG bleibt aktiv für dot/line/text */
 @media (max-width: 899px) {
   .akt-2-diptych { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-  .akt-2-panel figcaption { bottom: var(--sp-2); left: var(--sp-2); right: var(--sp-2); }
+}
+@media (orientation: portrait) and (max-width: 1200px) {
+  .akt-2-diptych { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
 }
 
 /* Teil 2 · Die Zutaten */
@@ -389,8 +392,8 @@
    Akt 3 · Die 30 Stunden
    ============================================ */
 .akt-3-pin {
-  height: 100dvh;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   overflow: clip;
 }
@@ -398,8 +401,8 @@
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100dvh;
   height: 100vh;
+  height: 100dvh;
   display: grid;
   place-items: center;
   background: var(--c-farina);
@@ -452,8 +455,8 @@
   padding: 0;
   position: relative;
   overflow: hidden;
-  min-height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
 }
 .akt-4 .akt-inner { display: contents; }   /* falls vorhanden — hier nicht mehr, Sicherheit */
@@ -461,13 +464,16 @@
 .akt-4-hero {
   position: relative;
   width: 100%;
-  min-height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   grid-template-rows: 1fr auto;
   align-items: end;
 }
 
+.akt-4-bg {
+  background: #000;
+}
 .akt-4-bg,
 .akt-4-bg img {
   position: absolute;
@@ -508,7 +514,6 @@
 
 .akt-4-kicker {
   color: var(--c-farina);
-  opacity: 0.7;
   letter-spacing: 3.5px;
 }
 .akt-4-title {
@@ -557,8 +562,8 @@
    Akt 5 · Nicht das Produkt
    ============================================ */
 .akt-5 {
-  min-height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   align-items: center;
 }
@@ -605,15 +610,15 @@
    ============================================ */
 .akt-6 {
   position: relative;
-  min-height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow: clip;
 }
 .akt-6-stage {
   position: sticky;
   top: 0;
-  min-height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
 }
@@ -658,75 +663,143 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100dvh;
   min-height: 100vh;
-}
-.akt-3-labeled-hero {
+  min-height: 100dvh;
   position: relative;
-  width: 100vw;
-  height: 100dvh;
-  height: 100vh;
-  margin: 0;
-  overflow: visible;
 }
-.akt-3-labeled-hero picture,
-.akt-3-labeled-hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.labels-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: visible;
-}
-.labels-svg .ing-dot {
-  fill: var(--c-pane);
-  opacity: 0;
-  transition: opacity 300ms var(--e-out);
-}
-.labels-svg .ing-dot.in { opacity: 1; }
 
-.labels-svg .ing-line {
-  stroke: var(--c-pane);
-  stroke-width: 1;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  fill: none;
-  transition: stroke-dashoffset 700ms var(--e-out);
-}
-.labels-svg .ing-line.in { stroke-dashoffset: 0; }
-
-.labels-text {
+/* ZUTATEN · vertical title left side (Desktop), top (Mobile) */
+.akt-3-title-vert {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.labels-text .ing-text {
-  position: absolute;
-  transform: translate(-50%, -50%);
+  z-index: 3;
+  font-family: var(--ff-display);
+  font-variation-settings: 'opsz' 96, 'wdth' 75, 'wght' 800;
   color: var(--c-farina);
-  font-family: var(--ff-mono);
-  font-size: clamp(9px, 0.8vw, 12px);
-  letter-spacing: 2px;
   text-transform: uppercase;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 400ms var(--e-out);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 6px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.15em;
+  pointer-events: none;
+  opacity: 1;
+  z-index: 1;
 }
-.labels-text .ing-text.in { opacity: 0.95; }
-/* Anchor by edge: labels nahe left edge links-bündig, right edge rechts-bündig */
-.labels-text .ing-text[data-align="left"]  { transform: translate(0, -50%); }
-.labels-text .ing-text[data-align="right"] { transform: translate(-100%, -50%); }
+.akt-3-title-vert span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: opacity 800ms cubic-bezier(.2,.7,.1,1), transform 800ms cubic-bezier(.2,.7,.1,1);
+}
+.akt-3[data-revealed="true"] .akt-3-title-vert span {
+  opacity: 1;
+  transform: translateY(0);
+}
+.akt-3-title-vert span:nth-child(1) { transition-delay: 200ms; }
+.akt-3-title-vert span:nth-child(2) { transition-delay: 320ms; }
+.akt-3-title-vert span:nth-child(3) { transition-delay: 440ms; }
+.akt-3-title-vert span:nth-child(4) { transition-delay: 560ms; }
+.akt-3-title-vert span:nth-child(5) { transition-delay: 680ms; }
+.akt-3-title-vert span:nth-child(6) { transition-delay: 800ms; }
+.akt-3-title-vert span:nth-child(7) { transition-delay: 920ms; }
+/* Desktop: vertikal links, von oben bis unten · liest von unten nach oben */
+@media (min-width: 900px) {
+  .akt-3-title-vert {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    font-size: 16vh;
+    line-height: 1;
+  }
+}
+/* Small Mobile (<=480px): ZUTATEN-Titel im Safe-Band unten, nie Overlap */
+@media (max-width: 480px) {
+  .akt-3 .akt-3-map--mobile {
+    top: 0;
+    bottom: 22%;
+    height: auto;
+  }
+  .akt-3 .akt-3-video {
+    top: 0;
+    bottom: 22%;
+    height: auto;
+  }
+  .akt-3-title-vert {
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    transform: none;
+    height: 22%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(40px, 12vw, 68px);
+    line-height: 1;
+    white-space: nowrap;
+    z-index: 3;
+    background: linear-gradient(to top, var(--c-inchiostro) 60%, rgba(20,16,12,0) 100%);
+    text-shadow: none;
+  }
+}
+/* Larger Mobile (481-899px): Titel als Overlay unten, genug Platz fuer Labels */
+@media (min-width: 481px) and (max-width: 899px) {
+  .akt-3-title-vert {
+    bottom: 3%;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(48px, 14vw, 84px);
+    line-height: 1;
+    white-space: nowrap;
+    z-index: 3;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7);
+  }
+}
+.akt-3-video, .akt-3-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* Bild komplett sichtbar, kein Stretch, minimale Ränder */
+  background: #000;
+  z-index: 2;
+}
+.akt-3-map--mobile { display: none; }
+.akt-3-map--desktop { display: block; }
 
 @media (max-width: 899px) {
-  .labels-text .ing-text { font-size: 9px; letter-spacing: 1.2px; }
+  .akt-3-map--desktop { display: none !important; }
+  .akt-3-map--mobile { display: block !important; }
 }
+/* Dots, lines, labels inside SVG — all in image-pixel coordinates */
+.akt-3-map .ing-dot {
+  fill: var(--c-pane);
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+  transform: scale(0);
+  transition: opacity 1500ms cubic-bezier(.2,.7,.1,1), transform 1500ms cubic-bezier(.2,.7,.1,1);
+}
+.akt-3-map .ing-dot.in { opacity: 1; transform: scale(1); }
+
+.akt-3-map .ing-line {
+  stroke: var(--c-pane);
+  fill: none;
+}
+
+.akt-3-map .ing-label {
+  fill: var(--c-farina);
+  fill-opacity: 0;
+  font-family: var(--ff-mono);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: fill-opacity 2000ms cubic-bezier(.2,.7,.1,1);
+}
+.akt-3-map .ing-label.in { fill-opacity: 0.95; }
 
 /* Entfernte alte akt-3 legacy rules */
 .akt-3-hero,
@@ -765,10 +838,7 @@
   .akt-3-hero picture, .akt-3-hero img {
     width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; display: block;
   }
-  .akt-3::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-    background: linear-gradient(to top, var(--c-inchiostro) 0%, color-mix(in srgb, var(--c-inchiostro) 40%, transparent) 55%, transparent 80%);
-  }
+  .akt-3::after { display: none; }
   .akt-3-content {
     position: absolute; bottom: var(--sp-5); left: var(--sp-viewport); right: var(--sp-viewport);
     z-index: 2; color: var(--c-farina); display: grid; gap: var(--sp-2);
@@ -1580,14 +1650,30 @@
   .akt-5-ctas .site-modal-trigger { width: 100%; justify-content: space-between; font-size: 11px; padding: 14px 20px; }
 }
 
+/* "Weitere Informationen" · unten mittig Desktop, stacked Mobile */
+.akt-5-info-cta {
+  display: grid;
+  justify-items: center;
+  margin-top: var(--sp-3);
+}
+.akt-5-info-cta .site-modal-trigger {
+  display: inline-flex !important;
+  border-color: color-mix(in srgb, currentColor 40%, transparent);
+  font-size: 11px;
+  padding: 12px 24px;
+  opacity: 0.7;
+}
+.akt-5-info-cta .site-modal-trigger:hover { opacity: 1; }
+
 /* ============================================
    Desktop-Merge · Akt 5 + Akt 6 (≥ 900px)
    Zwei separate <section>s bleiben (Nav/SEO),
    verschränken sich per CSS zu einem Split-View
    ============================================ */
+/* Akt 6 komplett hidden · Desktop + Mobile (alles in Akt 5) */
+.akt-6 { display: none !important; }
+
 @media (min-width: 900px) {
-  /* Akt 6 · Desktop hidden (alles in Akt 5) */
-  .akt-6 { display: none !important; }
 
   .akt-5 { min-height: 100dvh; align-content: center; position: relative; }
   .akt-5-inner {

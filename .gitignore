@@ -22,3 +22,7 @@ private/*.db
 private/*.db-wal
 private/*.db-shm
 _dev_snapshots/
+
+# Local tmp/screenshots
+.tmp/
+.vercel/

@@ -1,40 +1,122 @@
-import { calcPricing, formatChf, RATES } from './pricing.js';
+// Live-Price sidebar for the catering wizard.
+// Builds a stable DOM once and updates the same element references on every
+// state snapshot. Numeric amounts tween via animateCounter() which relies on
+// dataset.currentValue — so element identity must be preserved.
+
+import { calcPricing, formatChf, animateCounter } from './pricing.js';
 import { subscribe } from './state.js';
-import { createEl, empty, qs } from '../lib/dom.js';
+import { createEl, qs, setText } from '../lib/dom.js';
 
 export function initPricingView() {
-  const root = qs('#wizard-pricing');
-  if (!root) return;
+  const sidebar = qs('#wizard-sidebar');
+  if (!sidebar) return;
+
+  // Build static structure once.
+  const head = createEl('div', { class: 'wizard-sidebar-head' }, [
+    createEl('div', { class: 'wizard-sidebar-kicker' }, ['Live-Preis']),
+    createEl('div', { class: 'wizard-sidebar-title' }, [
+      'CHF ',
+      createEl('span', { class: 'live-total', 'data-total': 'true' }, ['0.00']),
+    ]),
+  ]);
+
+  const list = createEl('ul', { class: 'wizard-price-list' });
+
+  const rule = createEl('hr', { class: 'wizard-price-rule' });
+
+  const sub = createEl('div', { class: 'wizard-price-sub' }, [
+    createEl('div', { class: 'wizard-price-line' }, [
+      createEl('span', { class: 'wizard-price-label' }, ['Netto']),
+      createEl('span', { class: 'wizard-price-amount', 'data-netto': 'true' }, ['0.00']),
+    ]),
+    createEl('div', { class: 'wizard-price-line' }, [
+      createEl('span', { class: 'wizard-price-label' }, ['8.1 % MwSt']),
+      createEl('span', { class: 'wizard-price-amount', 'data-vat': 'true' }, ['0.00']),
+    ]),
+  ]);
+
+  const total = createEl('div', { class: 'wizard-price-total' }, [
+    createEl('span', { class: 'wizard-price-total-label' }, ['Total CHF']),
+    createEl('span', { class: 'wizard-price-total-amount', 'data-grand': 'true' }, ['0.00']),
+  ]);
+
+  const note = createEl('p', { class: 'wizard-price-note' }, [
+    'Verbindlich nach CHF 250.– Anzahlung per TWINT.',
+  ]);
+
+  // Clear any prior content (e.g. from a previous mount) and append.
+  while (sidebar.firstChild) sidebar.removeChild(sidebar.firstChild);
+  sidebar.appendChild(head);
+  sidebar.appendChild(list);
+  sidebar.appendChild(rule);
+  sidebar.appendChild(sub);
+  sidebar.appendChild(total);
+  sidebar.appendChild(note);
+
+  // Stable element references for animated updates.
+  const totalEl = head.querySelector('[data-total]');
+  const nettoEl = sub.querySelector('[data-netto]');
+  const vatEl = sub.querySelector('[data-vat]');
+  const grandEl = total.querySelector('[data-grand]');
+
+  // Mobile visibility badge (lives outside the sidebar).
+  const toggleAmount = qs('#wizard-sidebar-toggle-amount');
+
+  // Build a single line <li> with stable label + amount spans.
+  function buildLine(line) {
+    const labelEl = createEl('span', { class: 'wizard-price-label' }, [line.label]);
+    const amountEl = createEl('span', { class: 'wizard-price-amount' }, ['0.00']);
+    const li = createEl('li', {
+      class: 'wizard-price-line',
+      'data-dim': line.dim ? 'true' : 'false',
+    }, [labelEl, amountEl]);
+    return { li, labelEl, amountEl };
+  }
+
+  // Cache of line element refs, index-aligned with lines[].
+  let lineRefs = [];
+
+  function renderLines(lines) {
+    // Recreate if length mismatches (defensive — pricing.js currently emits 4).
+    if (lineRefs.length !== lines.length) {
+      while (list.firstChild) list.removeChild(list.firstChild);
+      lineRefs = lines.map((ln) => {
+        const refs = buildLine(ln);
+        list.appendChild(refs.li);
+        return refs;
+      });
+      return;
+    }
+    // Otherwise just update labels + dim state in place; amounts tween below.
+    for (let i = 0; i < lines.length; i++) {
+      const ln = lines[i];
+      const ref = lineRefs[i];
+      setText(ref.labelEl, ln.label);
+      const dim = ln.dim ? 'true' : 'false';
+      if (ref.li.getAttribute('data-dim') !== dim) {
+        ref.li.setAttribute('data-dim', dim);
+      }
+    }
+  }
 
   subscribe((s) => {
     const p = calcPricing(s);
-    empty(root);
 
-    root.appendChild(createEl('div', { class: 'kicker', style: 'color: var(--c-fuoco);' }, ['Aktuelle Schätzung']));
-    root.appendChild(createEl('div', { style: 'font-family: var(--ff-display); font-variation-settings: \'wdth\' 82, \'wght\' 700; font-size: 34px; line-height: 1; margin: 4px 0 2px;' }, [`CHF ${formatChf(p.total)}`]));
-    root.appendChild(createEl('div', { class: 'meta', style: 'opacity: 0.6; margin-bottom: 14px;' }, [`inkl. ${RATES.vatPercent}% MwSt`]));
+    renderLines(p.lines);
 
-    for (const ln of p.lines) {
-      const row = createEl('div', { style: `display:flex; justify-content:space-between; padding: 6px 0; border-top: 1px dashed var(--c-line); opacity: ${ln.dim ? '0.4' : '1'};` });
-      row.appendChild(createEl('span', {}, [ln.label]));
-      row.appendChild(createEl('span', { style: 'font-variant-numeric: tabular-nums;' }, [ln.amount != null ? formatChf(ln.amount) : '—']));
-      root.appendChild(row);
+    // Animate per-line amounts (null → 0 for counter purposes).
+    for (let i = 0; i < p.lines.length; i++) {
+      const target = p.lines[i].amount != null ? p.lines[i].amount : 0;
+      animateCounter(lineRefs[i].amountEl, target, 500);
     }
 
-    root.appendChild(sep());
-    root.appendChild(kv('Zwischensumme', formatChf(p.subtotal)));
-    root.appendChild(kv(`MwSt ${RATES.vatPercent}%`, formatChf(p.vat)));
-    root.appendChild(sepBold());
-    root.appendChild(kv('Total', formatChf(p.total), true));
-    root.appendChild(createEl('div', { class: 'meta', style: 'opacity: 0.55; text-align:right; margin-top: 4px;' }, ['Anzahlung folgt nach Rücksprache']));
-  });
-}
+    // Animate aggregate amounts.
+    animateCounter(nettoEl, p.netto, 500);
+    animateCounter(vatEl, p.vat, 500);
+    animateCounter(grandEl, p.total, 500);
+    animateCounter(totalEl, p.total, 500);
 
-function sep() { return createEl('hr', { style: 'border: 0; border-top: 1px solid var(--c-line); margin: 8px 0 0;' }); }
-function sepBold() { return createEl('hr', { style: 'border: 0; border-top: 1px solid var(--c-inchiostro); margin: 10px 0 6px;' }); }
-function kv(k, v, bold = false) {
-  const row = createEl('div', { style: `display:flex; justify-content:space-between; padding: 4px 0; font-weight: ${bold ? '700' : '400'};` });
-  row.appendChild(createEl('span', {}, [k]));
-  row.appendChild(createEl('span', { style: 'font-variant-numeric: tabular-nums;' }, [v]));
-  return row;
+    // Mobile badge (static label — no animation needed).
+    if (toggleAmount) setText(toggleAmount, formatChf(p.total));
+  });
 }

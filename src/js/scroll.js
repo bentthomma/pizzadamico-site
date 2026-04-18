@@ -1,13 +1,14 @@
 // Full-page style section-scrolling.
-// Wheel/Touch/Keyboard = genau eine Section pro Geste · 900ms cooldown.
-// CSS scroll-snap proximity als fallback alignment.
+// Wheel/Touch/Keyboard = genau eine Section pro Geste.
+// Dispatches 'section-settled' ONLY after intentional scrollToSection completes.
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const COOLDOWN_MS = 900;
-const WHEEL_THRESHOLD = 15;
+const COOLDOWN_MS = 500;
+const WHEEL_THRESHOLD = 20;
+const WHEEL_BIG = 180;
 const TOUCH_THRESHOLD = 40;
 
 let sections = [];
@@ -42,39 +43,54 @@ function currentFromScrollY() {
   return 0;
 }
 
+function dispatchSettled(idx) {
+  window.dispatchEvent(new CustomEvent('section-settled', {
+    detail: { idx, section: sections[idx] },
+  }));
+}
+
 function scrollToSection(idx) {
   if (idx < 0) idx = 0;
   if (idx >= sections.length) idx = sections.length - 1;
   if (idx === currentIdx) return;
   locked = true;
   currentIdx = idx;
+  // Sofort-Dispatch fuer Header-Highlight (keine Verzoegerung bis settled)
+  if (idx !== lastActiveIdx) {
+    lastActiveIdx = idx;
+    dispatchActive(idx);
+  }
   sections[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
   clearTimeout(lockTimer);
-  lockTimer = setTimeout(() => { locked = false; }, COOLDOWN_MS);
+  lockTimer = setTimeout(() => {
+    locked = false;
+    dispatchSettled(idx);
+  }, COOLDOWN_MS);
+}
+
+function isMobile() {
+  return window.matchMedia('(max-width: 899px)').matches;
 }
 
 function onWheel(e) {
+  if (isMobile()) return;  // Mobile: native CSS scroll-snap — kein JS override
   if (isModalOpen()) return;
-  // If wheel target is inside a scrollable modal element, allow native
   if (e.target.closest('.site-modal-shell')) return;
   e.preventDefault();
   if (locked) return;
-  if (Math.abs(e.deltaY) < WHEEL_THRESHOLD) return;
-  if (e.deltaY > 0) scrollToSection(currentIdx + 1);
-  else scrollToSection(currentIdx - 1);
+  const absY = Math.abs(e.deltaY);
+  if (absY < WHEEL_THRESHOLD) return;
+  const jump = absY > WHEEL_BIG ? 2 : 1;
+  if (e.deltaY > 0) scrollToSection(currentIdx + jump);
+  else scrollToSection(currentIdx - jump);
 }
 
 function onTouchStart(e) {
   touchStartY = e.touches[0].clientY;
 }
 
-function onTouchEnd(e) {
-  if (isModalOpen()) return;
-  if (locked) return;
-  const dy = touchStartY - e.changedTouches[0].clientY;
-  if (Math.abs(dy) < TOUCH_THRESHOLD) return;
-  if (dy > 0) scrollToSection(currentIdx + 1);
-  else scrollToSection(currentIdx - 1);
+function onTouchEnd() {
+  // Mobile: no-op — scroll idle detection in onScroll handles settled dispatch
 }
 
 function onKeyDown(e) {
@@ -94,21 +110,47 @@ function onKeyDown(e) {
   }
 }
 
+let idleTimer = null;
+let lastSettledIdx = -1;
+
+let lastActiveIdx = -1;
+
+function dispatchActive(idx) {
+  window.dispatchEvent(new CustomEvent('section-active', {
+    detail: { idx, section: sections[idx] },
+  }));
+}
+
 function onScroll() {
-  // Throttled sync
   const now = performance.now();
   if (now - lastSyncTime < 100) return;
   lastSyncTime = now;
   if (!locked) {
-    currentIdx = currentFromScrollY();
+    const newIdx = currentFromScrollY();
+    if (newIdx !== currentIdx) {
+      currentIdx = newIdx;
+    }
+    if (newIdx !== lastActiveIdx) {
+      lastActiveIdx = newIdx;
+      dispatchActive(newIdx);
+    }
   }
+
+  // Scroll idle → dispatch section-settled (Desktop + Mobile)
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    const idx = currentFromScrollY();
+    if (idx !== lastSettledIdx) {
+      lastSettledIdx = idx;
+      dispatchSettled(idx);
+    }
+  }, 300);
 }
 
 export function initScroll() {
   collectSections();
   currentIdx = currentFromScrollY();
 
-  // Wheel event — use capture phase + passive false so preventDefault works
   window.addEventListener('wheel', onWheel, { passive: false });
   window.addEventListener('touchstart', onTouchStart, { passive: true });
   window.addEventListener('touchend', onTouchEnd, { passive: true });
@@ -117,6 +159,11 @@ export function initScroll() {
   window.addEventListener('resize', () => {
     collectSections();
     ScrollTrigger.refresh();
+  });
+
+  // Initial: announce Akt 1 (for header state only, reveal skips akt-1)
+  requestAnimationFrame(() => {
+    dispatchSettled(currentFromScrollY());
   });
 }
 

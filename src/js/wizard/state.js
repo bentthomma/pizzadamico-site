@@ -1,25 +1,40 @@
-const LS_KEY = 'damico.wizard.v1';
+// Wizard State mit localStorage-Persistence (Draft-Save)
+// Auto-restore bei Reload, auto-clear nach Submit
+
+const LS_KEY = 'damico.wizard.v3';
 
 const DEFAULT_STATE = {
   step: 1,
-  eventType: null,          // 'hochzeit' | 'firma' | 'geburtstag' | 'privat' | 'sonstiges'
+  // Event
+  eventType: null,          // 'hochzeit' | 'firma' | 'geburtstag' | 'privat'
+  // Datum
   date: null,               // ISO yyyy-mm-dd
   time: null,               // HH:MM
-  duration: null,           // '2h' | '3h' | '4h' | 'long'
-  address: null,            // string (google places formatted)
-  addressPlaceId: null,     // string
-  distanceKm: null,         // number
+  durationHours: null,      // number (3, 4, 5)
+  availabilityChecked: false,
+  availabilityResult: null, // { available, conflictOn, alternativesSameDay, nextAvailableDays }
+  // Ort
+  address: null,            // string (formatted)
+  addressCoords: null,      // [lon, lat]
+  distanceKm: null,         // number (rounded)
+  // Gäste
   adults: 0,
   children: 0,              // 5-10 Jahre
-  vegPercent: 0,            // 0..100
-  toppings: [],             // max 6 aus Pool
-  setup: { power: null, space: null, shelter: null }, // tri-state true/false/null
+  vegetarian: 0,            // number of vegetarian guests
+  // Zutaten
+  toppings: [],             // 0–6 aus Pool (optional)
+  // Setup
+  setup: { power: null, space: null, shelter: null, access: null },
+  // Kontakt
   name: null,
   email: null,
   phone: null,
   note: null,
+  // Submit
+  acceptedTerms: false,
   submitted: false,
   submittedAt: null,
+  reference: null,
 };
 
 let state = { ...DEFAULT_STATE };
@@ -27,7 +42,11 @@ const listeners = new Set();
 
 try {
   const raw = localStorage.getItem(LS_KEY);
-  if (raw) state = { ...DEFAULT_STATE, ...JSON.parse(raw) };
+  if (raw) {
+    const saved = JSON.parse(raw);
+    // Nur unsubmitted drafts wiederherstellen
+    if (!saved.submitted) state = { ...DEFAULT_STATE, ...saved };
+  }
 } catch { /* ignore */ }
 
 function persist() {
@@ -39,7 +58,14 @@ function notify() {
   for (const fn of listeners) fn(snapshot);
 }
 
-export function getState() { return { ...state, toppings: [...state.toppings], setup: { ...state.setup } }; }
+export function getState() {
+  return {
+    ...state,
+    toppings: [...state.toppings],
+    setup: { ...state.setup },
+    addressCoords: state.addressCoords ? [...state.addressCoords] : null,
+  };
+}
 
 export function setField(key, value) {
   if (!(key in DEFAULT_STATE)) throw new Error(`unknown wizard field: ${key}`);
@@ -69,4 +95,22 @@ export function reset() {
   notify();
 }
 
-export function totalGuests() { return (state.adults || 0) + (state.children || 0); }
+export function totalGuests() {
+  return (state.adults || 0) + (state.children || 0);
+}
+
+// Helper: kombiniere date + time zu ISO mit Zürich-Zeitzone
+export function getStartDateTimeISO() {
+  if (!state.date || !state.time) return null;
+  return `${state.date}T${state.time}:00`;
+}
+
+export function getEndDateTimeISO() {
+  if (!state.date || !state.time || !state.durationHours) return null;
+  const [h, m] = state.time.split(':').map(Number);
+  const endH = h + state.durationHours;
+  const hh = String(endH % 24).padStart(2, '0');
+  const mm = String(m).padStart(2, '0');
+  // Note: spans midnight → we keep same date for simplicity; adjust if needed
+  return `${state.date}T${hh}:${mm}:00`;
+}

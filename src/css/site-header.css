@@ -52,7 +52,6 @@
   line-height: 1;
 }
 .site-brand-sub {
-  opacity: 0.7;
   letter-spacing: 2.5px;
   font-size: 10px;
 }
@@ -74,16 +73,48 @@
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.72;
-  transition: opacity var(--t-fast), background var(--t-fast), color var(--t-fast);
 }
-.site-nav a:hover,
-.site-nav a:focus-visible {
+
+/* Stagger Reveal · brand → sub → nav links nacheinander einblenden */
+.site-header .site-brand-mark,
+.site-header .site-brand-sub,
+.site-header .site-nav a {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 1100ms cubic-bezier(.2,.7,.1,1),
+              transform 1100ms cubic-bezier(.2,.7,.1,1),
+              background var(--t-fast) var(--e-out),
+              color var(--t-fast) var(--e-out);
+}
+.site-header[data-hidden="false"] .site-brand-mark {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 200ms;
+}
+.site-header[data-hidden="false"] .site-brand-sub {
+  opacity: 0.7;
+  transform: translateY(0);
+  transition-delay: 380ms;
+}
+.site-header[data-hidden="false"] .site-nav a {
+  opacity: 0.72;
+  transform: translateY(0);
+}
+.site-header[data-hidden="false"] .site-nav a:nth-child(1) { transition-delay: 560ms; }
+.site-header[data-hidden="false"] .site-nav a:nth-child(2) { transition-delay: 700ms; }
+.site-header[data-hidden="false"] .site-nav a:nth-child(3) { transition-delay: 840ms; }
+.site-header[data-hidden="false"] .site-nav a:nth-child(4) { transition-delay: 980ms; }
+.site-header[data-hidden="false"] .site-nav a:nth-child(5) { transition-delay: 1120ms; }
+
+.site-header[data-hidden="false"] .site-nav a:hover,
+.site-header[data-hidden="false"] .site-nav a:focus-visible {
   opacity: 1;
   background: color-mix(in srgb, currentColor 10%, transparent);
   outline: none;
+  transition: opacity var(--t-fast) var(--e-out),
+              background var(--t-fast) var(--e-out);
 }
-.site-nav a[data-active="true"] {
+.site-header[data-hidden="false"] .site-nav a[data-active="true"] {
   opacity: 1;
   background: color-mix(in srgb, currentColor 12%, transparent);
 }
@@ -127,13 +158,23 @@
   color: var(--c-bg);
 }
 
-/* Mobile Menu · fullscreen overlay */
+/* Burger X visible on dark menu background */
+.site-burger[aria-expanded="true"] {
+  color: var(--c-farina);
+  border-color: color-mix(in srgb, var(--c-farina) 40%, transparent);
+  background: color-mix(in srgb, var(--c-farina) 10%, transparent);
+  opacity: 1 !important;
+  z-index: 200;
+  position: relative;
+}
+
+/* Mobile Menu · fullscreen overlay · warm dark */
 .site-mobile-menu {
   position: fixed;
   inset: 0;
   z-index: 95;
-  background: var(--c-farina);
-  color: var(--c-inchiostro);
+  background: var(--c-inchiostro);
+  color: var(--c-farina);
   display: grid;
   grid-template-rows: 1fr auto;
   padding: var(--sp-7) var(--sp-viewport) var(--sp-5);
@@ -170,9 +211,9 @@
 }
 .site-mobile-tel {
   text-decoration: none;
-  color: inherit;
+  color: var(--c-farina);
   padding: 12px 20px;
-  border: 1px solid var(--c-inchiostro);
+  border: 1px solid color-mix(in srgb, var(--c-farina) 30%, transparent);
   border-radius: 999px;
   text-align: center;
   letter-spacing: 2.5px;
@@ -186,4 +227,22 @@
   .site-burger { display: inline-flex; }
   .site-header { padding: 12px var(--sp-viewport); justify-content: flex-end; }
   .site-brand { display: none; }
+
+  /* Burger hidden wenn Popup offen · kein Versehen beim Schliessen */
+  body:has(.site-modal[aria-hidden="false"]) .site-burger {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Burger immer sichtbar auf Mobile — auch in Akt 1/3 (header data-hidden) */
+  .site-header[data-hidden="true"] {
+    opacity: 1;
+    transform: none;
+    background: transparent;
+    pointer-events: none;
+  }
+  .site-header[data-hidden="true"] .site-burger {
+    pointer-events: auto;
+    opacity: 0.7;
+  }
 }
