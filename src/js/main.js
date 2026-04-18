@@ -18,14 +18,27 @@ const ZUTATEN_IMAGES = [
   'thunfisch','sardellen','rahm','gorgonzola'
 ];
 function preloadZutaten() {
-  const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 600));
+  // Hidden-DOM-Scaffold: mountet alle 17 Bilder als 1x1px <img> an body-Ende.
+  // Browser dekodiert + komponiert sie → wenn Step 6 (Wizard) oder Akt 3 dieselben
+  // URLs wiederverwendet, ist der Render instant (GPU-Textur bereits da).
+  const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 400));
   schedule(() => {
+    const host = document.createElement('div');
+    host.setAttribute('aria-hidden', 'true');
+    host.setAttribute('data-zutaten-preload', '');
+    host.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;pointer-events:none;';
     ZUTATEN_IMAGES.forEach((id) => {
-      const img = new Image();
+      const img = document.createElement('img');
       img.src = `/zutaten/${id}.png`;
-      // Erzwingt decode in Memory -> bei Step 6 instant paint, kein pop-in.
-      img.decode().catch(() => { /* fallback: browser will decode on demand */ });
+      img.alt = '';
+      img.width = 1;
+      img.height = 1;
+      img.loading = 'eager';
+      img.decoding = 'sync';
+      img.fetchPriority = 'high';
+      host.appendChild(img);
     });
+    document.body.appendChild(host);
   }, { timeout: 2500 });
 }
 

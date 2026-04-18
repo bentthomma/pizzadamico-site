@@ -117,21 +117,24 @@
       </div>
     </section>
 
-    <!-- Akt 3 · Zutaten · Desktop SVG (tuning) · Mobile Video -->
+    <!-- Akt 3 · Zutaten · Grid + Click-Popup -->
     <section class="akt akt-3" id="akt-3" data-akt="3" data-theme="brace" data-nav-label="Zutaten">
-      <svg class="akt-3-map akt-3-map--desktop" id="akt-3-map-desktop"
-           viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice">
-        <image href="/src/images/zutaten-labeled-desktop-16-9.png" width="1672" height="941" preserveAspectRatio="xMidYMid slice"/>
-        <g class="akt-3-ingredients"></g>
-      </svg>
+      <div class="akt-3-bg" aria-hidden="true"></div>
+      <div class="akt-3-veil" aria-hidden="true"></div>
 
-      <svg class="akt-3-map akt-3-map--mobile" id="akt-3-map-mobile"
-           viewBox="0 0 941 1672" preserveAspectRatio="xMidYMid meet">
-        <image href="/src/images/zutaten-labeled-mobile-9-16.png" width="941" height="1672" preserveAspectRatio="xMidYMid meet"/>
-        <g class="akt-3-ingredients"></g>
-      </svg>
+      <div class="akt-3-title-side" aria-hidden="true">
+        <div class="akt-3-title-side-inner">
+          <span class="kicker-vert"><span lang="it">Atto III</span> · 17 Zutaten</span>
+          <span class="title-vert">Was auf deiner Pizza landet.</span>
+        </div>
+      </div>
 
-      <div class="akt-3-title-vert" aria-hidden="true"><span>Z</span><span>u</span><span>t</span><span>a</span><span>t</span><span>e</span><span>n</span></div>
+      <div class="akt-3-header">
+        <div class="kicker"><span lang="it">Atto III</span> · 17 Zutaten</div>
+        <h2 class="akt-title">Was auf deiner Pizza landet.</h2>
+      </div>
+
+      <div class="akt-3-grid" id="akt-3-grid" role="list"></div>
     </section>
 
     <!-- Akt 4 · Foodtruck -->
@@ -293,7 +296,7 @@
 
             <label class="form-consent">
               <input type="checkbox" name="consent" required>
-              <span>Ich akzeptiere die <a href="#modal-agb" class="site-modal-trigger" data-modal-target="modal-agb">AGB</a> und die <a href="#modal-datenschutz" class="site-modal-trigger" data-modal-target="modal-datenschutz">Datenschutzerkl&auml;rung</a>.</span>
+              <span>Ich akzeptiere die <a href="#modal-agb" class="site-modal-trigger" data-modal-target="modal-agb">AGB</a> und die <a href="#modal-datenschutz" class="site-modal-trigger" data-modal-target="modal-datenschutz">Datenschutzerklärung</a>.</span>
             </label>
 
             <button type="submit" class="contact-submit">Senden →</button>
@@ -329,9 +332,9 @@
         </div>
 
         <footer class="wizard-footer">
-          <button class="wizard-btn wizard-btn-secondary" id="wizard-prev" type="button" aria-label="Zur&uuml;ck">
+          <button class="wizard-btn wizard-btn-secondary" id="wizard-prev" type="button" aria-label="Zurück">
             <span aria-hidden="true">&larr;</span>
-            <span>Zur&uuml;ck</span>
+            <span>Zurück</span>
           </button>
           <div class="wizard-footer-meta meta" id="wizard-footer-meta" aria-live="polite"></div>
           <button class="wizard-btn wizard-btn-primary" id="wizard-next" type="button">
@@ -357,19 +360,19 @@
         <div class="site-modal-body">
           <div class="info-section">
             <div class="kicker info-kicker">Reservation &amp; Anzahlung</div>
-            <p class="editorial">Mit dem Absenden einer Anfrage &uuml;ber dieses Formular wird noch kein verbindlicher Vertrag geschlossen. Die Reservation wird erst nach Eingang der Anzahlung von CHF 250.&ndash; per TWINT definitiv best&auml;tigt. Bis dahin bleibt das Datum unter Vorbehalt und kann durch andere, bereits bezahlte Anfragen &uuml;berschrieben werden.</p>
+            <p class="editorial">Mit dem Absenden einer Anfrage über dieses Formular wird noch kein verbindlicher Vertrag geschlossen. Die Reservation wird erst nach Eingang der Anzahlung von CHF 250.&ndash; per TWINT definitiv bestätigt. Bis dahin bleibt das Datum unter Vorbehalt und kann durch andere, bereits bezahlte Anfragen überschrieben werden.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Abrechnung</div>
-            <p class="editorial">Der Endbetrag berechnet sich aus: CHF 250.&ndash; Reservation + CHF 25.&ndash; pro Erwachsener + CHF 12.&ndash; pro Kind (5&ndash;10 Jahre) + CHF 1.50 pro Strassenkilometer (hin &amp; zur&uuml;ck ab Schlossstrasse 15, 3110 M&uuml;nsingen). Auf den Gesamtbetrag werden 8.1 % MwSt. erhoben.</p>
+            <p class="editorial">Der Endbetrag berechnet sich aus: CHF 250.&ndash; Reservation + CHF 25.&ndash; pro Erwachsener + CHF 12.&ndash; pro Kind (5&ndash;10 Jahre) + CHF 1.50 pro Strassenkilometer (hin &amp; zurück ab Schlossstrasse 15, 3110 Münsingen). Auf den Gesamtbetrag werden 8.1 % MwSt. erhoben.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Verschiebung durch Pietro</div>
-            <p class="editorial">Pietro beh&auml;lt sich das Recht vor, aus wichtigem Grund (Krankheit, technischer Defekt am Foodtruck, h&ouml;here Gewalt) das Event zu verschieben. In diesem Fall wird ein Ersatztermin in Absprache gefunden oder die Anzahlung vollumf&auml;nglich zur&uuml;ckerstattet.</p>
+            <p class="editorial">Pietro behält sich das Recht vor, aus wichtigem Grund (Krankheit, technischer Defekt am Foodtruck, höhere Gewalt) das Event zu verschieben. In diesem Fall wird ein Ersatztermin in Absprache gefunden oder die Anzahlung vollumfänglich zurückerstattet.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Storno</div>
-            <p class="editorial">Bei Absage &uuml;ber 30 Tage vor Event wird die Anzahlung zu 50 % zur&uuml;ckerstattet. Bei Absage 30&ndash;7 Tage vorher wird die Anzahlung einbehalten. Bei Absage unter 7 Tagen k&ouml;nnen zus&auml;tzliche Materialkosten anfallen.</p>
+            <p class="editorial">Bei Absage über 30 Tage vor Event wird die Anzahlung zu 50 % zurückerstattet. Bei Absage 30&ndash;7 Tage vorher wird die Anzahlung einbehalten. Bei Absage unter 7 Tagen können zusätzliche Materialkosten anfallen.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Datenschutz</div>
@@ -377,7 +380,7 @@
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Kontakt</div>
-            <p class="editorial">Pietro D'Amico &middot; Schlossstrasse 15 &middot; 3110 M&uuml;nsingen &middot; <a href="tel:+41763313259">076 331 32 59</a> &middot; <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a></p>
+            <p class="editorial">Pietro D'Amico &middot; Schlossstrasse 15 &middot; 3110 Münsingen &middot; <a href="tel:+41763313259">076 331 32 59</a> &middot; <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a></p>
           </div>
         </div>
       </div>
@@ -390,40 +393,40 @@
         <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">&times;</button>
         <div class="site-modal-head">
           <div class="kicker">Rechtliches</div>
-          <h3 class="display site-modal-title" id="modal-datenschutz-title">Datenschutzerkl&auml;rung</h3>
+          <h3 class="display site-modal-title" id="modal-datenschutz-title">Datenschutzerklärung</h3>
         </div>
         <div class="site-modal-body">
           <div class="info-section">
             <div class="kicker info-kicker">Verantwortlicher</div>
-            <p class="editorial">Pietro D'Amico, Schlossstrasse 15, 3110 M&uuml;nsingen, Schweiz. E-Mail: <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a> &middot; Telefon: <a href="tel:+41763313259">076 331 32 59</a>.</p>
+            <p class="editorial">Pietro D'Amico, Schlossstrasse 15, 3110 Münsingen, Schweiz. E-Mail: <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a> &middot; Telefon: <a href="tel:+41763313259">076 331 32 59</a>.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Erhobene Daten</div>
-            <p class="editorial">&Uuml;ber das Catering-Formular und das Kontaktformular auf dieser Website erheben wir: Name, E-Mail-Adresse, Telefonnummer, Event-Adresse, Anzahl G&auml;ste, gew&uuml;nschte Zutaten, Datum und Uhrzeit des Events sowie optionale Nachrichten.</p>
+            <p class="editorial">Über das Catering-Formular und das Kontaktformular auf dieser Website erheben wir: Name, E-Mail-Adresse, Telefonnummer, Event-Adresse, Anzahl Gäste, gewünschte Zutaten, Datum und Uhrzeit des Events sowie optionale Nachrichten.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Zweck der Verarbeitung</div>
             <p class="editorial">Die erhobenen Daten dienen ausschliesslich der Bearbeitung Ihrer Anfrage, der Koordination des Catering-Events sowie der Rechnungsstellung. Eine Weitergabe an Dritte erfolgt nicht.</p>
           </div>
           <div class="info-section">
-            <div class="kicker info-kicker">Speicherung &amp; L&ouml;schung</div>
-            <p class="editorial">Anfragen werden im Google-Kalender von Pietro D'Amico sowie per E-Mail bei uns gespeichert. Nach Abschluss des Events oder definitiver Absage werden personenbezogene Daten nach 12 Monaten gel&ouml;scht, ausgenommen Rechnungen (10 Jahre Aufbewahrungspflicht).</p>
+            <div class="kicker info-kicker">Speicherung &amp; Löschung</div>
+            <p class="editorial">Anfragen werden im Google-Kalender von Pietro D'Amico sowie per E-Mail bei uns gespeichert. Nach Abschluss des Events oder definitiver Absage werden personenbezogene Daten nach 12 Monaten gelöscht, ausgenommen Rechnungen (10 Jahre Aufbewahrungspflicht).</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Eingesetzte Dienste</div>
-            <p class="editorial"><strong>Google Calendar &amp; Apps Script</strong> &ndash; zur Speicherung der Reservation. <strong>OpenRouteService</strong> &ndash; anonyme Distanz-Berechnung (nur Koordinaten, keine Personendaten). <strong>FormSubmit.co</strong> &ndash; zur E-Mail-Weiterleitung von Kontaktanfragen. <strong>TWINT</strong> &ndash; f&uuml;r die Anzahlung (keine Speicherung von Zahlungsdaten bei uns).</p>
+            <p class="editorial"><strong>Google Calendar &amp; Apps Script</strong> &ndash; zur Speicherung der Reservation. <strong>OpenRouteService</strong> &ndash; anonyme Distanz-Berechnung (nur Koordinaten, keine Personendaten). <strong>FormSubmit.co</strong> &ndash; zur E-Mail-Weiterleitung von Kontaktanfragen. <strong>TWINT</strong> &ndash; für die Anzahlung (keine Speicherung von Zahlungsdaten bei uns).</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Ihre Rechte</div>
-            <p class="editorial">Sie haben das Recht auf Auskunft, Berichtigung und L&ouml;schung Ihrer Daten sowie auf Widerruf Ihrer Einwilligung. Wenden Sie sich dazu per E-Mail an <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a>.</p>
+            <p class="editorial">Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer Daten sowie auf Widerruf Ihrer Einwilligung. Wenden Sie sich dazu per E-Mail an <a href="mailto:damicopietro69@hotmail.it">damicopietro69@hotmail.it</a>.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Cookies</div>
-            <p class="editorial">Diese Website setzt keine Tracking- oder Marketing-Cookies. F&uuml;r die Funktion des Catering-Formulars wird ein lokaler Speicher (<code>localStorage</code>) verwendet, um Ihre Eingaben zwischenzuspeichern, falls Sie das Formular erneut &ouml;ffnen. Diese Daten verlassen Ihr Ger&auml;t nicht.</p>
+            <p class="editorial">Diese Website setzt keine Tracking- oder Marketing-Cookies. Für die Funktion des Catering-Formulars wird ein lokaler Speicher (<code>localStorage</code>) verwendet, um Ihre Eingaben zwischenzuspeichern, falls Sie das Formular erneut öffnen. Diese Daten verlassen Ihr Gerät nicht.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Anwendbares Recht</div>
-            <p class="editorial">Es gilt das schweizerische Bundesgesetz &uuml;ber den Datenschutz (DSG) sowie die EU-Datenschutz-Grundverordnung (DSGVO), soweit anwendbar. Gerichtsstand ist M&uuml;nsingen.</p>
+            <p class="editorial">Es gilt das schweizerische Bundesgesetz über den Datenschutz (DSG) sowie die EU-Datenschutz-Grundverordnung (DSGVO), soweit anwendbar. Gerichtsstand ist Münsingen.</p>
           </div>
         </div>
       </div>
@@ -442,38 +445,38 @@
           <div class="story-hero">
             <img src="/pietro-hero.png" alt="Pietro D'Amico beim Teig-Schwingen vor dem Holzofen" width="1200" height="1200" loading="eager" decoding="async">
           </div>
-          <p class="editorial lede story-lede">Ich komme aus Neapel. Und ich mache Pizza seit &uuml;ber 30 Jahren.</p>
+          <p class="editorial lede story-lede">Ich komme aus Neapel. Und ich mache Pizza seit über 30 Jahren.</p>
           <p class="editorial story-intro">Mein Name ist <strong>Pietro D'Amico</strong>. Drei Jahrzehnte Handwerk &mdash; erst in den Gassen meiner Heimatstadt, dann weiter in der Schweiz. Was ich gelernt habe, steckt in jedem Teig, jedem Ofen-Shot, jedem Belag.</p>
           <p class="editorial story-intro">Es beginnt nicht mit der Pizza. Es beginnt mit dem Teig.</p>
 
           <div class="info-section">
             <div class="kicker info-kicker">Der Teig</div>
-            <p class="editorial">Ich setze ihn an mit <strong>Biga</strong>, dem klassischen Vorteig aus Italien. Mehl, Wasser, ein bisschen Hefe. Dann lasse ich ihn <strong>30 Stunden</strong> reifen. Diese Zeit kann ich nicht abkuerzen &mdash; sie gibt der Pizza ihre Luftigkeit, ihr Aroma, die leichte Bekoemmlichkeit, die man spaeter beim Essen spuert.</p>
+            <p class="editorial">Ich setze ihn an mit <strong>Biga</strong>, dem klassischen Vorteig aus Italien. Mehl, Wasser, ein bisschen Hefe. Dann lasse ich ihn <strong>30 Stunden</strong> reifen. Diese Zeit kann ich nicht abkürzen &mdash; sie gibt der Pizza ihre Luftigkeit, ihr Aroma, die leichte Bekömmlichkeit, die man später beim Essen spürt.</p>
           </div>
 
           <div class="info-section">
             <div class="kicker info-kicker">Das Mehl</div>
-            <p class="editorial">Fuer die Basis nutze ich nur <strong>Caputo Rossa Typ 00</strong> aus Neapel. Es gibt Mehle die guenstiger sind &mdash; aber keines das sich so verhaelt im Ofen.</p>
+            <p class="editorial">Für die Basis nutze ich nur <strong>Caputo Rossa Typ 00</strong> aus Neapel. Es gibt Mehle die günstiger sind &mdash; aber keines das sich so verhält im Ofen.</p>
           </div>
 
           <div class="info-section">
             <div class="kicker info-kicker">Das Feuer</div>
-            <p class="editorial">Das <strong>Doppel-Back-System</strong> habe ich ueber Jahre entwickelt. Zwei kontrollierte Back-Phasen bei verschiedenen Temperaturen. Der Teig wird aussen leicht knusprig, bleibt innen luftig und zart. Es ist das, was meine Pizza von anderen unterscheidet. Mein Handwerk.</p>
+            <p class="editorial">Das <strong>Doppel-Back-System</strong> habe ich über Jahre entwickelt. Zwei kontrollierte Back-Phasen bei verschiedenen Temperaturen. Der Teig wird aussen leicht knusprig, bleibt innen luftig und zart. Es ist das, was meine Pizza von anderen unterscheidet. Mein Handwerk.</p>
           </div>
 
           <div class="info-section">
             <div class="kicker info-kicker">Obenauf</div>
-            <p class="editorial"><strong>Fior di Latte</strong>, sanfter Mozzarella der schmilzt ohne zu schwimmen. Sonnengereifte Tomaten aus Sueditalien. Basilikum, Olivenoel extra vergine. Wenig. Genau richtig.</p>
+            <p class="editorial"><strong>Fior di Latte</strong>, sanfter Mozzarella der schmilzt ohne zu schwimmen. Sonnengereifte Tomaten aus Süditalien. Basilikum, Olivenöl extra vergine. Wenig. Genau richtig.</p>
           </div>
 
           <div class="info-section">
             <div class="kicker info-kicker">Der Anlass</div>
-            <p class="editorial">Ich komme zu euch. Mit dem Foodtruck, dem Ofen, dem Teig. Firmenfeier, Hochzeit, Geburtstag, privates Fest &mdash; ich baue das auf wo ihr steht. <strong>100 Pizzen pro Stunde</strong>, 30 Zentimeter Durchmesser. Die Gaeste waehlen aus 17 Zutaten, jede Pizza frisch gebacken.</p>
+            <p class="editorial">Ich komme zu euch. Mit dem Foodtruck, dem Ofen, dem Teig. Firmenfeier, Hochzeit, Geburtstag, privates Fest &mdash; ich baue das auf wo ihr steht. <strong>100 Pizzen pro Stunde</strong>, 30 Zentimeter Durchmesser. Die Gäste wählen aus 17 Zutaten, jede Pizza frisch gebacken.</p>
           </div>
 
           <div class="info-section">
             <div class="kicker info-kicker">Das Kleingedruckte</div>
-            <p class="editorial">Ab 30 Personen. CHF 25 pro Person <em>&agrave; discr&eacute;tion</em>, Kinder zwischen 5 und 10 Jahren CHF 12. Anfahrt CHF 1.50 pro Kilometer, hin und zurueck ab Muensingen. Reservationsgebuehr CHF 250 &mdash; fuer Vorbereitung, Material, Organisation. Alle Preise exkl. 8.1 % MwSt.</p>
+            <p class="editorial">Ab 30 Personen. CHF 25 pro Person <em>à discrétion</em>, Kinder zwischen 5 und 10 Jahren CHF 12. Anfahrt CHF 1.50 pro Kilometer, hin und zurück ab Münsingen. Reservationsgebühr CHF 250 &mdash; für Vorbereitung, Material, Organisation. Alle Preise exkl. 8.1 % MwSt.</p>
           </div>
 
           <p class="editorial story-signature">&mdash; Pietro D'Amico</p>
@@ -495,13 +498,29 @@
 
           <div class="gallery-instagram">
             <div class="kicker info-kicker">Mehr auf Instagram</div>
-            <p class="editorial gallery-instagram-text">Pietro postet regelmaessig neue Pizzen, Events und Momente aus dem Foodtruck. Folg ihm fuer die aktuellsten Fotos.</p>
+            <p class="editorial gallery-instagram-text">Pietro postet regelmässig neue Pizzen, Events und Momente aus dem Foodtruck. Folg ihm für die aktuellsten Fotos.</p>
             <a class="gallery-instagram-cta" href="https://instagram.com/pizzadamico.ch" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
               <span>@pizzadamico.ch</span>
               <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zutat-Detail Modal -->
+    <div class="site-modal site-modal-overlay" id="modal-zutat" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-zutat-title">
+      <div class="site-modal-backdrop" data-modal-close></div>
+      <div class="site-modal-shell">
+        <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">&times;</button>
+        <div class="site-modal-head">
+          <div class="kicker"><span lang="it">Atto III</span> · Zutat</div>
+          <h3 class="display site-modal-title" id="modal-zutat-title">—</h3>
+        </div>
+        <div class="site-modal-body" id="modal-zutat-body">
+          <div class="zutat-modal-img" id="zutat-modal-img"></div>
+          <p class="editorial zutat-modal-desc" id="zutat-modal-desc">—</p>
         </div>
       </div>
     </div>
@@ -531,7 +550,7 @@
         <div class="site-modal-body">
           <div class="info-section">
             <div class="kicker info-kicker">Betreiber</div>
-            <p class="editorial"><strong>Pietro D'Amico</strong><br>Schlossstrasse 15<br>3110 M&uuml;nsingen<br>Schweiz</p>
+            <p class="editorial"><strong>Pietro D'Amico</strong><br>Schlossstrasse 15<br>3110 Münsingen<br>Schweiz</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Kontakt</div>
@@ -539,11 +558,11 @@
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Haftungsausschluss</div>
-            <p class="editorial">Pietro D'Amico &uuml;bernimmt keine Gew&auml;hr f&uuml;r die Richtigkeit, Vollst&auml;ndigkeit oder Aktualit&auml;t der auf dieser Website zur Verf&uuml;gung gestellten Informationen. Haftungsanspr&uuml;che gegen den Autor wegen Sch&auml;den materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung der Website entstehen, sind ausgeschlossen.</p>
+            <p class="editorial">Pietro D'Amico übernimmt keine Gewähr für die Richtigkeit, Vollständigkeit oder Aktualität der auf dieser Website zur Verfügung gestellten Informationen. Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung der Website entstehen, sind ausgeschlossen.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Urheberrecht</div>
-            <p class="editorial">Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf dieser Website geh&ouml;ren ausschliesslich Pietro D'Amico oder den speziell genannten Rechteinhabern. F&uuml;r die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung des Urheberrechtstr&auml;gers im Voraus einzuholen.</p>
+            <p class="editorial">Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf dieser Website gehören ausschliesslich Pietro D'Amico oder den speziell genannten Rechteinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung des Urheberrechtsträgers im Voraus einzuholen.</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Website</div>

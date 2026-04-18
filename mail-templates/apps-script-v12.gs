@@ -89,13 +89,13 @@ function isFree(cal, start, end) {
 }
 
 function formatConflict(ev) {
+  // Privacy: kein Event-Titel (enthaelt Kundennamen) — nur Zeiten.
   try {
-    var t = ev.getTitle() || 'Event';
-    if (ev.isAllDayEvent()) return t + ' (ganztaegig)';
+    if (ev.isAllDayEvent()) return 'Bereits belegt (ganztägig)';
     var s = Utilities.formatDate(ev.getStartTime(), TIMEZONE, 'HH:mm');
     var e = Utilities.formatDate(ev.getEndTime(), TIMEZONE, 'HH:mm');
-    return t + ' (' + s + '-' + e + ')';
-  } catch (_) { return 'Event'; }
+    return 'Bereits belegt (' + s + '–' + e + ')';
+  } catch (_) { return 'Bereits belegt'; }
 }
 
 function findAlternatives(cal, start, end) {
@@ -570,7 +570,7 @@ function debugInfo() {
   var fut = new Date(now.getTime() + 60 * 86400 * 1000);
   var events = cal.getEvents(now, fut);
   return json({
-    version: 'v11-twint-qr',
+    version: 'v12-conflict-privacy',
     testMode: TEST_MODE,
     templateCustomerSet: !!TEMPLATE_CUSTOMER_ID,
     templateOwnerSet: !!TEMPLATE_OWNER_ID,
