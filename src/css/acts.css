@@ -773,12 +773,7 @@
 }
 
 .akt-3-card {
-  appearance: none;
-  -webkit-appearance: none;
-  background: transparent;
-  border: none;
   padding: 4px;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -826,49 +821,6 @@
   text-align: center;
   line-height: 1.2;
   opacity: 0.85;
-}
-.akt-3-card:hover .akt-3-card-img,
-.akt-3-card:focus-visible .akt-3-card-img {
-  transform: scale(1.08);
-  border-color: var(--c-pane);
-  box-shadow: 0 10px 30px -8px color-mix(in srgb, var(--c-pane) 55%, transparent);
-}
-.akt-3-card:hover .akt-3-card-name,
-.akt-3-card:focus-visible .akt-3-card-name {
-  opacity: 1;
-  color: var(--c-pane);
-}
-.akt-3-card:focus-visible { outline: none; }
-
-/* Zutat-Modal content */
-.zutat-modal-img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto var(--sp-3);
-  background: radial-gradient(circle at 30% 30%,
-    hsl(var(--zutat-hue, 36) 65% 60%),
-    hsl(var(--zutat-hue, 36) 55% 22%));
-  box-shadow: 0 12px 36px -12px rgba(0, 0, 0, 0.6);
-}
-.zutat-modal-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.zutat-modal-title {
-  text-align: center;
-  margin: 0 0 var(--sp-2);
-  font-size: clamp(28px, 3vw, 40px);
-}
-.zutat-modal-desc {
-  max-width: 48ch;
-  margin-inline: auto;
-  text-align: center;
-  font-size: clamp(15px, 1.15vw, 17px);
-  line-height: 1.6;
 }
 
 /* ============================================
