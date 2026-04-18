@@ -235,8 +235,6 @@ function buildDescription(d, reference) {
   lines.push('');
   lines.push('SETUP');
   lines.push('  Strom:   ' + (s.power || '-'));
-  lines.push('  Platz:   ' + (s.space || '-'));
-  lines.push('  Dach:    ' + (s.shelter || '-'));
   lines.push('');
   lines.push('KOSTEN-AUFSCHLUESSELUNG');
   lines.push(padRight('  Reservation & Organisation', 32) + '  CHF ' + formatChf(b.deposit));
@@ -343,8 +341,6 @@ function buildMailVars(d, reference) {
     toppings: htmlEscape(toppingsStr),
     toppingsRow: toppingsRow,
     setupPower: htmlEscape(s.power || '-'),
-    setupSpace: htmlEscape(s.space || '-'),
-    setupShelter: htmlEscape(s.shelter || '-'),
     breakdownRows: buildBreakdownRowsHtml(b),
     netto: formatChf(b.netto),
     vat: formatChf(b.vat),
@@ -506,8 +502,6 @@ function ownerText(d, reference, eventId) {
   lines.push('');
   lines.push('SETUP');
   lines.push('  Strom:    ' + (s.power || '-'));
-  lines.push('  Platz:    ' + (s.space || '-'));
-  lines.push('  Dach:     ' + (s.shelter || '-'));
   lines.push('');
   lines.push('KOSTEN');
   lines.push(padRight('  Reservation', 24) + '  CHF ' + formatChf(b.deposit));
@@ -570,7 +564,7 @@ function debugInfo() {
   var fut = new Date(now.getTime() + 60 * 86400 * 1000);
   var events = cal.getEvents(now, fut);
   return json({
-    version: 'v12-conflict-privacy',
+    version: 'v13-setup-power-only',
     testMode: TEST_MODE,
     templateCustomerSet: !!TEMPLATE_CUSTOMER_ID,
     templateOwnerSet: !!TEMPLATE_OWNER_ID,
