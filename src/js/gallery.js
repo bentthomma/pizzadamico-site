@@ -22,8 +22,6 @@ const GALLERY_IMAGES = [
   'dd029010-cf76-4922-ab15-3bf24c8a5189',
   'f82bba34-ece5-4120-8e8a-0de3bb1949ea',
   'f9b69ab4-ff4e-44c2-9ca5-390a86bfa6cd',
-  'fior-di-latte',
-  'hand-3',
 ];
 
 // Galerie-Bilder im idle-callback preloaden damit das erste Modal-Open
