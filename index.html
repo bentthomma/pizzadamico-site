@@ -79,6 +79,10 @@
 
     <!-- Akt 2 · Diptych only · pure black canvas matches dark images -->
     <section class="akt akt-2" id="akt-2" data-akt="2" data-theme="brace" data-nav-label="Pizza">
+      <button class="akt-2-story-btn" type="button" data-modal-target="modal-geschichte" aria-haspopup="dialog" aria-controls="modal-geschichte">
+        <span class="akt-2-story-btn-label">Meine Geschichte</span>
+        <span class="akt-2-story-btn-arrow" aria-hidden="true">&rarr;</span>
+      </button>
       <div class="akt-2-diptych">
         <figure class="akt-2-panel akt-2-panel-teig reveal-image">
           <picture>
@@ -149,6 +153,10 @@
             <li>7 × 3 m</li>
             <li>100 Pizzen / h</li>
           </ul>
+          <button class="akt-4-gallery-btn reveal" type="button" data-modal-target="modal-gallery" aria-haspopup="dialog" aria-controls="modal-gallery">
+            <span>Fotogalerie</span>
+            <span aria-hidden="true">&rarr;</span>
+          </button>
         </div>
       </div>
     </section>
@@ -419,6 +427,81 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Meine Geschichte Modal -->
+    <div class="site-modal site-modal-overlay" id="modal-geschichte" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-geschichte-title">
+      <div class="site-modal-backdrop" data-modal-close></div>
+      <div class="site-modal-shell" style="overflow-y:auto">
+        <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">&times;</button>
+        <div class="site-modal-head">
+          <div class="kicker"><span lang="it">Atto II</span> &middot; Intermezzo</div>
+          <h3 class="display site-modal-title" id="modal-geschichte-title">Meine Geschichte</h3>
+        </div>
+        <div class="site-modal-body">
+          <p class="editorial lede story-lede">Es beginnt mit dem Teig. Nicht mit der Pizza.</p>
+
+          <div class="info-section">
+            <div class="kicker info-kicker">Der Teig</div>
+            <p class="editorial">Ich setze ihn an mit <strong>Biga</strong>, dem klassischen Vorteig aus Italien. Mehl, Wasser, ein bisschen Hefe. Dann lasse ich ihn <strong>30 Stunden</strong> reifen. Diese Zeit kann ich nicht abkuerzen &mdash; sie gibt der Pizza ihre Luftigkeit, ihr Aroma, die leichte Bekoemmlichkeit, die man spaeter beim Essen spuert.</p>
+          </div>
+
+          <div class="info-section">
+            <div class="kicker info-kicker">Das Mehl</div>
+            <p class="editorial">Fuer die Basis nutze ich nur <strong>Caputo Rossa Typ 00</strong> aus Neapel. Es gibt Mehle die guenstiger sind &mdash; aber keines das sich so verhaelt im Ofen.</p>
+          </div>
+
+          <div class="info-section">
+            <div class="kicker info-kicker">Das Feuer</div>
+            <p class="editorial">Das <strong>Doppel-Back-System</strong> habe ich ueber Jahre entwickelt. Zwei kontrollierte Back-Phasen bei verschiedenen Temperaturen. Der Teig wird aussen leicht knusprig, bleibt innen luftig und zart. Es ist das, was meine Pizza von anderen unterscheidet. Mein Handwerk.</p>
+          </div>
+
+          <div class="info-section">
+            <div class="kicker info-kicker">Obenauf</div>
+            <p class="editorial"><strong>Fior di Latte</strong>, sanfter Mozzarella der schmilzt ohne zu schwimmen. Sonnengereifte Tomaten aus Sueditalien. Basilikum, Olivenoel extra vergine. Wenig. Genau richtig.</p>
+          </div>
+
+          <div class="info-section">
+            <div class="kicker info-kicker">Der Anlass</div>
+            <p class="editorial">Ich komme zu euch. Mit dem Foodtruck, dem Ofen, dem Teig. Firmenfeier, Hochzeit, Geburtstag, privates Fest &mdash; ich baue das auf wo ihr steht. <strong>100 Pizzen pro Stunde</strong>, 30 Zentimeter Durchmesser. Die Gaeste waehlen aus 17 Zutaten, jede Pizza frisch gebacken.</p>
+          </div>
+
+          <div class="info-section">
+            <div class="kicker info-kicker">Das Kleingedruckte</div>
+            <p class="editorial">Ab 30 Personen. CHF 25 pro Person <em>&agrave; discr&eacute;tion</em>, Kinder zwischen 5 und 10 Jahren CHF 12. Anfahrt CHF 1.50 pro Kilometer, hin und zurueck ab Muensingen. Reservationsgebuehr CHF 250 &mdash; fuer Vorbereitung, Material, Organisation. Alle Preise exkl. 8.1 % MwSt.</p>
+          </div>
+
+          <p class="editorial story-signature">&mdash; Pietro D'Amico</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fotogalerie Modal -->
+    <div class="site-modal site-modal-overlay" id="modal-gallery" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-gallery-title">
+      <div class="site-modal-backdrop" data-modal-close></div>
+      <div class="site-modal-shell" style="overflow-y:auto">
+        <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">&times;</button>
+        <div class="site-modal-head">
+          <div class="kicker"><span lang="it">Atto IV</span> &middot; Galerie</div>
+          <h3 class="display site-modal-title" id="modal-gallery-title">Fotogalerie</h3>
+        </div>
+        <div class="site-modal-body">
+          <div class="gallery-grid" id="gallery-grid" role="list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox (above all modals) -->
+    <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Bild-Ansicht">
+      <button class="gallery-lightbox-close" type="button" aria-label="Schliessen">&times;</button>
+      <button class="gallery-lightbox-nav gallery-lightbox-prev" type="button" aria-label="Voriges Bild">&larr;</button>
+      <picture class="gallery-lightbox-picture">
+        <source id="gallery-lightbox-src-avif" srcset="" type="image/avif">
+        <source id="gallery-lightbox-src-webp" srcset="" type="image/webp">
+        <img class="gallery-lightbox-img" id="gallery-lightbox-img" alt="" decoding="async">
+      </picture>
+      <button class="gallery-lightbox-nav gallery-lightbox-next" type="button" aria-label="Naechstes Bild">&rarr;</button>
+      <div class="gallery-lightbox-counter" id="gallery-lightbox-counter" aria-live="polite"></div>
     </div>
 
     <!-- Impressum Modal -->

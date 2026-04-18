@@ -1723,3 +1723,248 @@
 @media (max-width: 899px) {
   .akt-5-twint { display: none !important; }
 }
+
+/* ============================================
+   Akt 2 · "Meine Geschichte" CTA · floating mitte
+   ============================================ */
+.akt-2-story-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--c-farina) 55%, transparent);
+  background: color-mix(in srgb, var(--c-inchiostro) 55%, transparent);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  color: var(--c-farina);
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 900ms cubic-bezier(.2,.7,.1,1) 1200ms,
+              background var(--t-fast) var(--e-out),
+              color var(--t-fast) var(--e-out),
+              border-color var(--t-fast) var(--e-out),
+              transform var(--t-fast) var(--e-out);
+}
+.akt-2[data-revealed="true"] .akt-2-story-btn { opacity: 1; }
+.akt-2-story-btn:hover,
+.akt-2-story-btn:focus-visible {
+  background: var(--c-farina);
+  color: var(--c-inchiostro);
+  border-color: var(--c-farina);
+  outline: none;
+  transform: translate(-50%, calc(-50% - 2px));
+}
+.akt-2-story-btn-arrow { display: inline-block; transition: transform var(--t-fast); }
+.akt-2-story-btn:hover .akt-2-story-btn-arrow { transform: translateX(3px); }
+@media (max-width: 480px) {
+  .akt-2-story-btn { font-size: 11px; padding: 12px 22px; letter-spacing: 2px; }
+}
+
+/* ============================================
+   Akt 4 · "Fotogalerie" CTA · rechts unten
+   ============================================ */
+.akt-4-gallery-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border: 1px solid color-mix(in srgb, var(--c-farina) 45%, transparent);
+  background: transparent;
+  color: var(--c-farina);
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background var(--t-fast) var(--e-out),
+              color var(--t-fast) var(--e-out),
+              border-color var(--t-fast) var(--e-out);
+}
+.akt-4-gallery-btn:hover,
+.akt-4-gallery-btn:focus-visible {
+  background: var(--c-farina);
+  color: var(--c-inchiostro);
+  border-color: var(--c-farina);
+  outline: none;
+}
+@media (max-width: 899px) {
+  .akt-4-gallery-btn {
+    justify-self: stretch;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+}
+
+/* ============================================
+   Fotogalerie Grid (innerhalb #modal-gallery)
+   ============================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+.gallery-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 1 / 1;
+  transition: transform 300ms var(--e-out);
+  position: relative;
+}
+.gallery-thumb picture,
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 600ms cubic-bezier(.2,.7,.1,1);
+}
+.gallery-thumb:hover,
+.gallery-thumb:focus-visible {
+  outline: 1px solid var(--c-farina);
+  outline-offset: 2px;
+}
+.gallery-thumb:hover img { transform: scale(1.04); }
+@media (max-width: 640px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+
+/* ============================================
+   Lightbox · fullscreen ueber allen Modals
+   ============================================ */
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1500; /* ueber .site-modal-overlay (1400) und wizard-modal (1200) */
+  background: rgba(20, 16, 12, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--t-med) var(--e-out), visibility 0s linear var(--t-med);
+  padding: 48px 72px;
+}
+.gallery-lightbox[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s, 0s;
+}
+.gallery-lightbox-picture {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+.gallery-lightbox-img {
+  max-width: 100%;
+  max-height: calc(100vh - 96px);
+  max-height: calc(100dvh - 96px);
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+}
+.gallery-lightbox-close,
+.gallery-lightbox-nav {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  background: color-mix(in srgb, var(--c-farina) 12%, transparent);
+  color: var(--c-farina);
+  border: 1px solid color-mix(in srgb, var(--c-farina) 35%, transparent);
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.gallery-lightbox-close:hover,
+.gallery-lightbox-nav:hover,
+.gallery-lightbox-close:focus-visible,
+.gallery-lightbox-nav:focus-visible {
+  background: var(--c-farina);
+  color: var(--c-inchiostro);
+  outline: none;
+}
+.gallery-lightbox-close {
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  line-height: 1;
+}
+.gallery-lightbox-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  font-size: 18px;
+  line-height: 1;
+}
+.gallery-lightbox-prev { left: 16px; }
+.gallery-lightbox-next { right: 16px; }
+.gallery-lightbox-nav:hover { transform: translateY(-50%) scale(1.06); }
+.gallery-lightbox-counter {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c-farina) 65%, transparent);
+}
+@media (max-width: 640px) {
+  .gallery-lightbox { padding: 24px 10px; }
+  .gallery-lightbox-img { max-height: calc(100dvh - 140px); }
+  .gallery-lightbox-nav { width: 40px; height: 40px; }
+  .gallery-lightbox-prev { left: 8px; }
+  .gallery-lightbox-next { right: 8px; }
+}
+
+/* Story-Modal Hilfsklassen */
+.story-lede {
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.35;
+  margin-bottom: var(--sp-3);
+  color: var(--c-farina);
+  font-style: italic;
+}
+.story-signature {
+  text-align: right;
+  font-style: italic;
+  opacity: 0.75;
+  margin-top: var(--sp-3);
+  color: color-mix(in srgb, var(--c-farina) 80%, transparent);
+}

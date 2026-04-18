@@ -7,6 +7,7 @@ import { initContactForm } from './contact-form.js';
 import { initSiteModal } from './site-modal.js';
 import { initReveal } from './reveal.js';
 import { initWizard } from './wizard/mount.js';
+import { initGallery } from './gallery.js';
 
 // Echte JS-Bild-Preloads fuer Wizard-Schritt 6 (Zutaten). Prefetch-Links
 // im HTML sind nur Browser-Hints — oft ignoriert. Mit new Image() erzwingen
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initReveal();
   initWizard();
+  initGallery();
   preloadZutaten();
 });
 

@@ -10,15 +10,16 @@ let prevBodyOverflow = '';
 let prevFocus = null;
 
 export function initSiteModal() {
-  const triggers = document.querySelectorAll('.site-modal-trigger[data-modal-target]');
-  triggers.forEach(t => {
-    t.addEventListener('click', (e) => {
-      e.preventDefault();
-      const id = t.dataset.modalTarget;
-      const modal = document.getElementById(id);
-      if (!modal) return;
-      openModal(modal);
-    });
+  // Delegation: jedes Element mit [data-modal-target] oeffnet das entsprechende Modal.
+  // Vorher nur '.site-modal-trigger' — damit neue Buttons (Gallery, Geschichte) auch funktionieren.
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-modal-target]');
+    if (!trigger) return;
+    e.preventDefault();
+    const id = trigger.dataset.modalTarget;
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    openModal(modal);
   });
 
   // Delegate close handlers (backdrop, close button, custom)
