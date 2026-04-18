@@ -201,11 +201,10 @@ export function renderStep8(stage) {
   // Gäste (step 5)
   const adults = Number(s.adults) || 0;
   const children = Number(s.children) || 0;
-  const vegetarian = Number(s.vegetarian) || 0;
   summary.appendChild(buildGroup({
     kicker: 'Gäste',
     gotoStep: 5,
-    body: `${adults} Erwachsene · ${children} Kinder · ${vegetarian} vegi`,
+    body: `${adults} Erwachsene · ${children} Kinder`,
   }));
 
   // Zutaten

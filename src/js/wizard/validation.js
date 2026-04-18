@@ -86,7 +86,6 @@ function validateStep5(state) {
   const errors = [];
   const adults = Number(state.adults) || 0;
   const children = Number(state.children) || 0;
-  const vegetarian = Number(state.vegetarian) || 0;
   const total = adults + children;
 
   if (total < 1) {
@@ -94,9 +93,6 @@ function validateStep5(state) {
   }
   // total < 30 is a soft warning handled in the UI, NOT an error here.
 
-  if (vegetarian > total) {
-    errors.push({ field: 'vegetarian', msg: 'Vegetarisch kann Gäste-Anzahl nicht überschreiten.' });
-  }
   return errors;
 }
 

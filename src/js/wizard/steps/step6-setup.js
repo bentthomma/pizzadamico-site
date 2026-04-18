@@ -12,7 +12,8 @@ const QUESTIONS = [
     field: 'power',
     label: 'Strom vor Ort?',
     options: [
-      { value: 'ja',     title: 'Stromanschluss',   sub: '230V vor Ort' },
+      { value: '230v',   title: '230V',             sub: 'Normaler Hausstrom-Anschluss' },
+      { value: '380v',   title: '380V Starkstrom',  sub: 'CEE-Stecker, 3-phasig' },
       { value: 'nein',   title: 'Kein Strom',       sub: 'Nicht verfügbar' },
       { value: 'unklar', title: 'Unklar',           sub: 'Wir klären das per Telefon' },
     ],

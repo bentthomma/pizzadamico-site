@@ -360,22 +360,8 @@ export function renderStep4(stage) {
     getMax: () => MAX_CHILDREN,
   });
 
-  const vegetarianCounter = buildCounter({
-    field: 'vegetarian',
-    title: 'Vegetarisch',
-    hint: 'davon vegi — Pietro plant entsprechend',
-    ariaLabel: 'Vegetarisch Anzahl',
-    getValue: () => getState().vegetarian || 0,
-    getMin: () => 0,
-    getMax: () => {
-      const s = getState();
-      return (s.adults || 0) + (s.children || 0);
-    },
-  });
-
   countersWrap.appendChild(adultsCounter.el);
   countersWrap.appendChild(childrenCounter.el);
-  countersWrap.appendChild(vegetarianCounter.el);
 
   // Summary
   const totalValueEl = createEl('strong', { class: 'step4-total-value' }, ['0']);
@@ -412,21 +398,10 @@ export function renderStep4(stage) {
     }
   }
 
-  // Clamp vegetarian locally if adults/children drop below it
-  function clampVegetarian() {
-    const s = getState();
-    const maxVeg = (s.adults || 0) + (s.children || 0);
-    if ((s.vegetarian || 0) > maxVeg) {
-      setField('vegetarian', maxVeg);
-    }
-  }
-
   // Subscribe → keep values, disabled states, totals and warning in sync
   const unsub = subscribe(() => {
-    clampVegetarian();
     adultsCounter.sync();
     childrenCounter.sync();
-    vegetarianCounter.sync();
     updateSummary();
   });
 
