@@ -33,27 +33,13 @@ const EVENT_LABELS = {
   sonstiges: 'Sonstiges',
 };
 
-// Must mirror step6-setup.js values (strings, not booleans).
+// Must mirror step6-setup.js values.
 const SETUP_LABELS = {
   power: {
-    ja: 'Stromanschluss 230V',
+    '230v': '230V · Hausstrom-Anschluss',
+    '380v': '380V Starkstrom · CEE, 3-phasig',
     nein: 'Kein Strom verfügbar',
     unklar: 'Unklar · wir klären telefonisch',
-  },
-  space: {
-    gross: 'Grosszügig · ≥ 4 × 4 m',
-    klein: 'Kompakt · 3 × 3 m',
-    eng: 'Enger Platz',
-  },
-  shelter: {
-    dach: 'Festes Dach vorhanden',
-    zelt: 'Zelt / Pavillon',
-    keins: 'Offener Platz',
-  },
-  access: {
-    direkt: 'Anfahrt direkt zum Aufstellort',
-    kurz: 'max. 20 m Umschlag',
-    lang: 'Längere Strecke (Tragen nötig)',
   },
 };
 
@@ -234,12 +220,9 @@ export function renderStep8(stage) {
     body: toppingsBodyEls,
   }));
 
-  // Setup
+  // Setup (nur Strom)
   const setup = s.setup || {};
-  const setupBody =
-    `Strom: ${setupLabel('power', setup.power)} · ` +
-    `Platz: ${setupLabel('space', setup.space)} · ` +
-    `Dach: ${setupLabel('shelter', setup.shelter)}`;
+  const setupBody = `Strom: ${setupLabel('power', setup.power)}`;
   summary.appendChild(buildGroup({
     kicker: 'Setup',
     gotoStep: 7,

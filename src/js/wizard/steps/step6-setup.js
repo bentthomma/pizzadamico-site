@@ -18,24 +18,6 @@ const QUESTIONS = [
       { value: 'unklar', title: 'Unklar',           sub: 'Wir klären das per Telefon' },
     ],
   },
-  {
-    field: 'space',
-    label: 'Wie viel Platz?',
-    options: [
-      { value: 'gross', title: 'Grosszügig',    sub: '≥ 4 × 4 Meter' },
-      { value: 'klein', title: 'Kompakt',       sub: '3 × 3 Meter' },
-      { value: 'eng',   title: 'Enger Platz',   sub: 'Bitte in Notiz beschreiben' },
-    ],
-  },
-  {
-    field: 'shelter',
-    label: 'Überdachung?',
-    options: [
-      { value: 'dach',  title: 'Festes Dach',   sub: 'Überdacht vorhanden' },
-      { value: 'zelt',  title: 'Zelt / Pavillon', sub: 'Temporärer Schutz' },
-      { value: 'keins', title: 'Offener Platz', sub: 'Kein Schutz vorhanden' },
-    ],
-  },
 ];
 
 function ensureStyles() {

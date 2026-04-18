@@ -106,19 +106,12 @@ function validateStep6(state) {
   return errors;
 }
 
-// Step 7: Setup (was step 6)
+// Step 7: Setup (was step 6) — nur Strom
 function validateStep7(state) {
   const errors = [];
   const setup = state.setup || {};
-  const checks = [
-    ['power', 'Strom'],
-    ['space', 'Platz'],
-    ['shelter', 'Überdachung'],
-  ];
-  for (const [key, label] of checks) {
-    if (setup[key] == null) {
-      errors.push({ field: `setup.${key}`, msg: `Frage beantworten: ${label}.` });
-    }
+  if (setup.power == null) {
+    errors.push({ field: 'setup.power', msg: 'Frage beantworten: Strom.' });
   }
   return errors;
 }
