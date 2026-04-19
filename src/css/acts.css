@@ -389,65 +389,6 @@
 }
 
 /* ============================================
-   Akt 3 · Die 30 Stunden
-   ============================================ */
-.akt-3-pin {
-  height: 100vh;
-  height: 100dvh;
-  position: relative;
-  overflow: clip;
-}
-.akt-3-stage {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  display: grid;
-  place-items: center;
-  background: var(--c-farina);
-}
-.akt-3-biga {
-  width: min(80vw, 900px);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border: 1px solid var(--c-line);
-  background: var(--c-semola);
-}
-.akt-3-readout {
-  position: absolute;
-  bottom: var(--sp-5);
-  left: var(--sp-viewport);
-  display: flex;
-  gap: var(--sp-3);
-  font-size: 14px;
-  letter-spacing: 2.5px;
-  font-variant-numeric: tabular-nums;
-}
-.akt-3-hour { font-weight: 500; }
-.akt-3-phase { opacity: 0.6; }
-.akt-3-bridge {
-  padding: var(--sp-7) var(--sp-viewport);
-  max-width: 1520px;
-  margin-inline: auto;
-}
-.akt-3-hands-grid {
-  margin-top: var(--sp-4);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-2);
-}
-@media (max-width: 720px) {
-  .akt-3-hands-grid { grid-template-columns: 1fr; }
-}
-.akt-3-hands-grid figure { margin: 0; }
-.akt-3-hands-grid img {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-}
-
-/* ============================================
    Akt 4 · Doppel-Back
    ============================================ */
 /* Akt 4 · Full-Bleed Foodtruck Hero + Text-Overlay */
@@ -1467,7 +1408,7 @@
     linear-gradient(to bottom,
       color-mix(in srgb, var(--c-inchiostro) 50%, transparent) 0%,
       color-mix(in srgb, var(--c-inchiostro) 30%, transparent) 100%),
-    url('/src/images/bg-stone.png') center/cover no-repeat,
+    url('/bg-stone.jpg') center/cover no-repeat,
     var(--c-inchiostro);
   position: relative;
   color: var(--c-farina);
@@ -1479,7 +1420,7 @@
       linear-gradient(to bottom,
         color-mix(in srgb, var(--c-inchiostro) 55%, transparent) 0%,
         color-mix(in srgb, var(--c-inchiostro) 30%, transparent) 100%),
-      url('/src/images/bg-stone.png') center/cover no-repeat,
+      url('/bg-stone.jpg') center/cover no-repeat,
       var(--c-inchiostro);
   }
 }
@@ -1489,7 +1430,7 @@
     linear-gradient(to bottom,
       color-mix(in srgb, var(--c-inchiostro) 65%, transparent) 0%,
       var(--c-inchiostro) 100%),
-    url('/src/images/bg-stone.png') center/cover no-repeat,
+    url('/bg-stone.jpg') center/cover no-repeat,
     var(--c-inchiostro);
 }
 .akt-5 > *, .akt-6 > * { position: relative; z-index: 1; }

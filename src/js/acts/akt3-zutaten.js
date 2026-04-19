@@ -36,6 +36,13 @@ function buildCard(z, idx) {
   imgWrap.className = 'akt-3-card-img';
   imgWrap.style.setProperty('--akt3-hue', String(z.hue));
 
+  const pic = document.createElement('picture');
+  const sAvif = document.createElement('source');
+  sAvif.srcset = `/zutaten/${z.id}.avif`;
+  sAvif.type = 'image/avif';
+  const sWebp = document.createElement('source');
+  sWebp.srcset = `/zutaten/${z.id}.webp`;
+  sWebp.type = 'image/webp';
   const img = document.createElement('img');
   img.src = `/zutaten/${z.id}.png`;
   img.alt = '';
@@ -43,7 +50,8 @@ function buildCard(z, idx) {
   img.height = 150;
   img.loading = 'eager';
   img.decoding = 'sync';
-  imgWrap.appendChild(img);
+  pic.append(sAvif, sWebp, img);
+  imgWrap.appendChild(pic);
 
   const name = document.createElement('span');
   name.className = 'akt-3-card-name';

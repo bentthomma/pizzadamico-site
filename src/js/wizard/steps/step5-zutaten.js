@@ -291,6 +291,13 @@ export function renderStep5(stage) {
       'aria-hidden': 'true',
     });
 
+    const picEl = document.createElement('picture');
+    const srcAvif = document.createElement('source');
+    srcAvif.srcset = `/zutaten/${t.id}.avif`;
+    srcAvif.type = 'image/avif';
+    const srcWebp = document.createElement('source');
+    srcWebp.srcset = `/zutaten/${t.id}.webp`;
+    srcWebp.type = 'image/webp';
     const photoEl = createEl('img', {
       class: 'wz-topping-photo',
       src: `/zutaten/${t.id}.png`,
@@ -302,7 +309,8 @@ export function renderStep5(stage) {
       fetchpriority: 'high',
     });
     photoEl.onerror = () => imageEl.setAttribute('data-img-failed', 'true');
-    imageEl.appendChild(photoEl);
+    picEl.append(srcAvif, srcWebp, photoEl);
+    imageEl.appendChild(picEl);
     imageEl.appendChild(createEl('span', { class: 'wz-topping-emoji', 'aria-hidden': 'true' }, [t.emoji]));
 
     const nameEl = createEl('span', { class: 'wz-topping-name' }, [t.label]);

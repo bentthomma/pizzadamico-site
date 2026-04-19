@@ -18,9 +18,8 @@ const ZUTATEN_IMAGES = [
   'thunfisch','sardellen','rahm','gorgonzola'
 ];
 function preloadZutaten() {
-  // Hidden-DOM-Scaffold: mountet alle 17 Bilder als 1x1px <img> an body-Ende.
-  // Browser dekodiert + komponiert sie → wenn Step 6 (Wizard) oder Akt 3 dieselben
-  // URLs wiederverwendet, ist der Render instant (GPU-Textur bereits da).
+  // Hidden-DOM-Scaffold mit <picture>: AVIF-first, WebP-fallback.
+  // Browser dekodiert + komponiert. Bei Step 6 / Akt 3 sofortiger Render.
   const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 400));
   schedule(() => {
     const host = document.createElement('div');
@@ -28,6 +27,13 @@ function preloadZutaten() {
     host.setAttribute('data-zutaten-preload', '');
     host.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;pointer-events:none;';
     ZUTATEN_IMAGES.forEach((id) => {
+      const pic = document.createElement('picture');
+      const sAvif = document.createElement('source');
+      sAvif.srcset = `/zutaten/${id}.avif`;
+      sAvif.type = 'image/avif';
+      const sWebp = document.createElement('source');
+      sWebp.srcset = `/zutaten/${id}.webp`;
+      sWebp.type = 'image/webp';
       const img = document.createElement('img');
       img.src = `/zutaten/${id}.png`;
       img.alt = '';
@@ -35,8 +41,8 @@ function preloadZutaten() {
       img.height = 1;
       img.loading = 'eager';
       img.decoding = 'sync';
-      img.fetchPriority = 'high';
-      host.appendChild(img);
+      pic.append(sAvif, sWebp, img);
+      host.appendChild(pic);
     });
     document.body.appendChild(host);
   }, { timeout: 2500 });

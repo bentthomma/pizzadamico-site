@@ -3,8 +3,84 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Pizza D'Amico</title>
-  <meta name="description" content="Neapolitanische Pizza aus dem Pferdeanhänger. Catering in der Schweiz. Schlossstrasse 15, Münsingen.">
+  <title>Pizza D'Amico · Catering & Foodtruck · Münsingen</title>
+  <meta name="description" content="Authentische neapolitanische Pizza aus dem Pferdeanhänger. Catering für Hochzeiten, Firmenfeste und Events in der Schweiz. 30 Jahre Handwerk, Biga-Teig, Holzofen.">
+  <meta name="author" content="Pietro D'Amico">
+  <meta name="theme-color" content="#14100C">
+  <link rel="canonical" href="https://pizzadamico.ch/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="restaurant.restaurant">
+  <meta property="og:locale" content="de_CH">
+  <meta property="og:site_name" content="Pizza D'Amico">
+  <meta property="og:title" content="Pizza D'Amico · Neapolitanisches Catering · Münsingen">
+  <meta property="og:description" content="Authentische neapolitanische Pizza live vor Ort. Foodtruck & Catering für Hochzeiten, Firmenfeste, Geburtstage in der Schweiz.">
+  <meta property="og:url" content="https://pizzadamico.ch/">
+  <meta property="og:image" content="https://pizzadamico.ch/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pizza D'Amico · Authentische neapolitanische Pizza">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pizza D'Amico · Catering & Foodtruck">
+  <meta name="twitter:description" content="Authentische neapolitanische Pizza live vor Ort. Catering in der Schweiz.">
+  <meta name="twitter:image" content="https://pizzadamico.ch/og-image.jpg">
+
+  <!-- Preconnect fuer 3rd-parties (Wizard + Distance) -->
+  <link rel="preconnect" href="https://script.google.com" crossorigin>
+  <link rel="preconnect" href="https://api.openrouteservice.org" crossorigin>
+
+  <!-- Schema.org LocalBusiness / Restaurant JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Pizza & Pasta D'Amico",
+    "alternateName": "Pizza D'Amico",
+    "description": "Authentische neapolitanische Pizza aus dem Pferdeanhänger. Catering für Hochzeiten, Firmenfeste und private Events in der Schweiz.",
+    "image": "https://pizzadamico.ch/og-image.jpg",
+    "url": "https://pizzadamico.ch/",
+    "telephone": "+41763313259",
+    "email": "damicopietro69@hotmail.it",
+    "servesCuisine": ["Italian", "Neapolitan", "Pizza"],
+    "priceRange": "CHF",
+    "paymentAccepted": ["TWINT", "Cash"],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Schlossstrasse 15",
+      "addressLocality": "Münsingen",
+      "postalCode": "3110",
+      "addressRegion": "BE",
+      "addressCountry": "CH"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 46.8746647,
+      "longitude": 7.560187
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.4",
+      "reviewCount": "13",
+      "bestRating": "5"
+    },
+    "sameAs": [
+      "https://www.facebook.com/pietro.damico.332",
+      "https://instagram.com/pizzadamico.ch",
+      "https://www.tiktok.com/@amico5809"
+    ],
+    "hasMenu": "https://pizzadamico.ch/#akt-3",
+    "acceptsReservations": true,
+    "founder": {
+      "@type": "Person",
+      "name": "Pietro D'Amico"
+    }
+  }
+  </script>
+
   <link rel="stylesheet" href="/src/css/tokens.css">
   <link rel="stylesheet" href="/src/css/base.css">
   <link rel="stylesheet" href="/src/css/layout.css">
@@ -56,7 +132,7 @@
     <section class="akt akt-1" id="akt-1" data-akt="1" data-theme="brace">
       <div class="akt-1-yt-wrap" aria-hidden="true">
         <img class="akt-1-poster" src="/src/media/hero-poster.jpg" alt="" width="1280" height="720" fetchpriority="high">
-        <video class="akt-1-video" id="akt1-video" playsinline muted loop preload="auto">
+        <video class="akt-1-video" id="akt1-video" playsinline muted loop preload="none" fetchpriority="low">
           <source src="/src/media/hero.mp4" type="video/mp4">
           <source src="/src/media/hero.webm" type="video/webm">
         </video>

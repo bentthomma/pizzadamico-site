@@ -41,10 +41,13 @@ async function main() {
     jsBundle += await fs.readFile(abs, 'utf8') + '\n';
   }
 
-  // 5. Rewrite asset URLs inside JS/CSS bundles (references to fonts/images/videos from our src/)
-  //    During vite build, these got hashed into /assets/foo.<hash>.<ext>. We keep those and upload them via SFTP to /assets/.
-  //    For *source-relative* paths the build emits — they already live under /assets/, so prefix with BASE.
-  const assetRewrite = (s) => s.replace(/(["'(])\/assets\//g, `$1${BASE}/assets/`);
+  // 5. Rewrite asset URLs inside JS/CSS bundles.
+  //    Hashed /assets/* (Vite-bundled) + public/* top-level files → jsdelivr CDN.
+  //    Match only root-relative URLs that aren't protocol-relative (//) or anchor (#).
+  const assetRewrite = (s) => s.replace(
+    /(["'`(])\/(?!\/)(assets|gallery|zutaten|fonts|media|images|api|pietro-hero\.|akt3-bg\.|bg-stone\.|twint-qr\.|og-image\.|favicon\.)([^"'`)]*)/g,
+    (_m, pre, first, rest) => `${pre}${BASE}/${first}${rest}`,
+  );
   cssBundle = assetRewrite(cssBundle);
   jsBundle = assetRewrite(jsBundle);
 
@@ -58,15 +61,33 @@ async function main() {
   // Rewrite asset URLs in markup
   bodyMarkup = assetRewrite(bodyMarkup);
 
-  // 7. Extract head fragments we want to keep: <meta name="description">, preloads for fonts (convert to absolute URLs)
+  // 7. Extract head fragments we want to keep — SEO + Social + Icon + Preload.
   const headMatch = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
   let headFragments = '';
   if (headMatch) {
     const h = headMatch[1];
-    const keep = h.match(/<meta name="description"[^>]*>/i);
-    if (keep) headFragments += keep[0] + '\n';
-    const preloads = [...h.matchAll(/<link rel="preload"[^>]*>/g)].map((m) => m[0]);
-    for (const p of preloads) headFragments += assetRewrite(p) + '\n';
+    const patterns = [
+      /<meta name="description"[^>]*>/gi,
+      /<meta name="author"[^>]*>/gi,
+      /<meta name="theme-color"[^>]*>/gi,
+      /<meta property="og:[^"]+"[^>]*>/gi,
+      /<meta name="twitter:[^"]+"[^>]*>/gi,
+      /<link rel="canonical"[^>]*>/gi,
+      /<link rel="icon"[^>]*>/gi,
+      /<link rel="apple-touch-icon"[^>]*>/gi,
+      /<link rel="preconnect"[^>]*>/gi,
+      /<link rel="preload"[^>]*>/gi,
+    ];
+    for (const pat of patterns) {
+      for (const m of h.matchAll(pat)) {
+        headFragments += assetRewrite(m[0]) + '\n';
+      }
+    }
+    // JSON-LD structured data (kann mehrzeilig sein)
+    const jsonLd = h.match(/<script type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi);
+    if (jsonLd) {
+      for (const block of jsonLd) headFragments += block + '\n';
+    }
   }
 
   // 8. Hoststar-Reset inline (FIRST in head — must load before our styles)
@@ -89,13 +110,19 @@ async function main() {
   await fs.writeFile(path.join(DIST, 'head-inject.html'), headInject, 'utf8');
   await fs.writeFile(path.join(DIST, 'body-inject.html'), bodyInject, 'utf8');
 
-  // 12. Prepare dist/static/ for SFTP (fonts, media, images, api, vite-emitted assets)
+  // 12. Prepare dist/static/ for SFTP/CDN (alles was on /)
   const staticDir = path.join(DIST, 'static');
   await fs.rm(staticDir, { recursive: true, force: true });
   await fs.mkdir(staticDir, { recursive: true });
+  // Vite-bundled hashed assets
   await copyDir(path.join(VITE_DIST, 'assets'), path.join(staticDir, 'assets'));
+  // public/-Inhalte (pietro-hero, akt3-bg, bg-stone, favicon, og-image, gallery/, zutaten/, twint-qr)
+  await copyDir(path.join(ROOT, 'public'),      staticDir);
+  // Font-Dateien (Vite bundled, aber preload-URLs referenzieren /fonts/ direkt)
   await copyDir(path.join(ROOT, 'src/fonts'),   path.join(staticDir, 'fonts'));
+  // Media (hero videos, aber die werden jetzt auch via assets gebundelt)
   await copyDir(path.join(ROOT, 'src/media'),   path.join(staticDir, 'media'));
+  // Src images als fallback (sollten durch /assets/ ersetzt sein aber als safety net)
   await copyDir(path.join(ROOT, 'src/images'),  path.join(staticDir, 'images'));
   await copyDir(path.join(ROOT, 'api'),          path.join(staticDir, 'api'));
 
