@@ -700,9 +700,54 @@
   place-items: center;
   box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.5);
   border: 2px solid transparent;
-  transition: transform 300ms cubic-bezier(.2,.7,.1,1),
-              border-color 200ms, box-shadow 300ms;
+  transition: transform 500ms cubic-bezier(.2, .7, .1, 1),
+              border-color 300ms cubic-bezier(.2, .7, .1, 1),
+              box-shadow 500ms cubic-bezier(.2, .7, .1, 1);
   position: relative;
+  will-change: transform;
+}
+
+/* Desktop-Hover · lift + subtle rotate + warm glow + name highlight */
+@media (hover: hover) and (min-width: 900px) {
+  .akt-3-card { cursor: default; }
+  .akt-3-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%,
+      color-mix(in srgb, var(--c-farina) 18%, transparent),
+      transparent 60%);
+    opacity: 0;
+    transition: opacity 400ms cubic-bezier(.2, .7, .1, 1);
+    pointer-events: none;
+  }
+  .akt-3-card:hover .akt-3-card-img {
+    transform: translateY(-8px) scale(1.12) rotate(-3deg);
+    border-color: color-mix(in srgb, var(--c-pane) 75%, transparent);
+    box-shadow:
+      0 20px 44px -14px color-mix(in srgb, var(--c-pane) 50%, transparent),
+      0 0 0 4px color-mix(in srgb, var(--c-pane) 18%, transparent),
+      0 8px 18px -8px rgba(0, 0, 0, 0.5);
+  }
+  .akt-3-card:hover .akt-3-card-img::after { opacity: 1; }
+  .akt-3-card-name {
+    transition: color 300ms cubic-bezier(.2, .7, .1, 1),
+                opacity 300ms cubic-bezier(.2, .7, .1, 1),
+                letter-spacing 400ms cubic-bezier(.2, .7, .1, 1);
+  }
+  .akt-3-card:hover .akt-3-card-name {
+    color: var(--c-pane);
+    opacity: 1;
+    letter-spacing: 1.5px;
+  }
+  /* Geschwister leicht abdunkeln damit fokus auf gehoverte card liegt */
+  .akt-3-grid:hover .akt-3-card:not(:hover) .akt-3-card-img { opacity: 0.75; }
+  .akt-3-grid .akt-3-card-img { transition-property: transform, border-color, box-shadow, opacity; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .akt-3-card-img, .akt-3-card-name { transition: none !important; }
+  .akt-3-card:hover .akt-3-card-img { transform: none !important; }
 }
 .akt-3-card-img img {
   width: 100%;
