@@ -1944,6 +1944,11 @@
   margin: 0 0 var(--sp-2) 0;
   color: color-mix(in srgb, var(--c-farina) 85%, transparent);
 }
+.gallery-social-ctas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 .gallery-instagram-cta {
   display: inline-flex;
   align-items: center;

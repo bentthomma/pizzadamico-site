@@ -128,10 +128,11 @@ async function ensureBackup(srcJpg) {
   }
 }
 
-async function listJpgs() {
+async function listJpgs(filter) {
   const files = await readdir(GALLERY);
   return files
     .filter(f => f.endsWith('.jpg'))
+    .filter(f => filter ? f.startsWith(filter) : true)
     .sort();
 }
 
@@ -154,6 +155,19 @@ if (mode === '--preview') {
     console.log(`  ✓ ${f}`);
   }
   console.log(`\nVergleich: ${PREVIEW}/<id>__before.jpg ↔ <id>__after.jpg`);
+} else if (mode === '--filter') {
+  const prefix = process.argv[3] || '';
+  if (!prefix) { console.error('--filter braucht Prefix, z.B. pd-'); process.exit(1); }
+  const jpgs = await listJpgs(prefix);
+  console.log(`Grading ${jpgs.length} Bilder mit Prefix "${prefix}"`);
+  for (const f of jpgs) {
+    const src = path.join(GALLERY, f);
+    await ensureBackup(src);
+    const graded = await gradeOne(src);
+    await writeAllFormats(graded, src);
+    console.log(`  ✓ ${f}`);
+  }
+  console.log(`✅ Fertig.`);
 } else if (mode === '--all') {
   const jpgs = await listJpgs();
   console.log(`Grading ${jpgs.length} Bilder (+ 3 Formate je) → ${jpgs.length * 3} Files total`);
