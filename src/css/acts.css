@@ -1644,6 +1644,7 @@
   appearance: none;
   -webkit-appearance: none;
   justify-self: end;
+  align-self: center;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -1660,6 +1661,13 @@
   transition: background var(--t-fast) var(--e-out),
               color var(--t-fast) var(--e-out),
               border-color var(--t-fast) var(--e-out);
+}
+@media (min-width: 900px) {
+  /* Desktop: Specs links, Gallery-Button rechts — gleiche Reihe */
+  .akt-4-overlay { grid-template-columns: 1fr auto; }
+  .akt-4-overlay .akt-head { grid-column: 1 / -1; }
+  .akt-4-specs { grid-column: 1; grid-row: 2; }
+  .akt-4-gallery-btn { grid-column: 2; grid-row: 2; }
 }
 .akt-4-gallery-btn:hover,
 .akt-4-gallery-btn:focus-visible {
