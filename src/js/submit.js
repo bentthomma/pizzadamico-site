@@ -1,7 +1,6 @@
 // Submit-Handler für den Catering-Wizard
 // Hört auf CustomEvent 'wizard:submit' am document
-// Ruft reserveSlot() auf (Apps Script = Source of Truth)
-// Parallel: FormSubmit-Mailbenachrichtigung an benedikt@thomma.ch
+// Ruft reserveSlot() auf (Apps Script = Source of Truth, sendet alle Mails)
 //
 // Events dispatched on document:
 //   'wizard:submitting' → UI should show loading state
@@ -10,9 +9,8 @@
 
 import { getState, patch, getStartDateTimeISO, getEndDateTimeISO } from './wizard/state.js';
 import { reserveSlot } from './wizard/calendar-api.js';
-import { calcPricing, formatChf } from './wizard/pricing.js';
+import { calcPricing } from './wizard/pricing.js';
 
-const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/benedikt@thomma.ch';
 const ERR_GENERIC = 'Reservation konnte nicht gespeichert werden. Bitte noch einmal versuchen.';
 const ERR_OFFLINE = 'Keine Internetverbindung. Versuchen Sie es gleich nochmal.';
 const ERR_TIMEOUT = 'Zeitüberschreitung — bitte nochmal versuchen.';
@@ -32,41 +30,6 @@ function withTimeout(promise, ms, timeoutMsg) {
       (e) => { clearTimeout(timer); reject(e); },
     );
   });
-}
-
-async function sendFormSubmitNotification(state, pricing, reference) {
-  try {
-    const formData = new FormData();
-    formData.append('_subject', `Pizza D'Amico · Catering-Anfrage ${reference} · ${state.date}`);
-    formData.append('_template', 'table');
-    formData.append('_captcha', 'false');
-    // Customer confirmation is sent by Apps Script (beautiful HTML email).
-    // FormSubmit stays as owner-internal backup notification only.
-    formData.append('Anlass', state.eventType);
-    formData.append('Datum', state.date);
-    formData.append('Uhrzeit', state.time);
-    formData.append('Dauer', `${state.durationHours} h`);
-    formData.append('Ort', state.address);
-    formData.append('Distanz km', String(state.distanceKm));
-    formData.append('Erwachsene', String(state.adults));
-    formData.append('Kinder', String(state.children));
-    formData.append('Vegi', String(state.vegetarian));
-    formData.append('Zutaten', state.toppings.join(', '));
-    formData.append('Setup Strom', state.setup.power);
-    formData.append('Setup Platz', state.setup.space);
-    formData.append('Setup Dach', state.setup.shelter);
-    formData.append('Setup Zugang', state.setup.access);
-    formData.append('Name', state.name);
-    formData.append('Email', state.email);
-    formData.append('Telefon', state.phone);
-    formData.append('Notiz', state.note || '—');
-    formData.append('Total CHF', formatChf(pricing.total));
-    formData.append('Referenz', reference);
-
-    await fetch(FORMSUBMIT_URL, { method: 'POST', body: formData });
-  } catch (err) {
-    console.warn('[submit] FormSubmit notification failed:', err);
-  }
 }
 
 async function handleSubmit() {
@@ -140,10 +103,7 @@ async function handleSubmit() {
       result.ref ||
       ('PZ-' + Date.now().toString(36).toUpperCase());
 
-    // 3. Mail-Benachrichtigung (darf die Flow nicht blockieren).
-    await sendFormSubmitNotification(state, pricing, reference);
-
-    // 4. Persist success flag.
+    // 3. Persist success flag.
     patch({
       submitted: true,
       submittedAt: new Date().toISOString(),
