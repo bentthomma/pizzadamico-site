@@ -26,3 +26,6 @@ _dev_snapshots/
 # Local tmp/screenshots
 .tmp/
 .vercel/
+
+# Gallery backup (Rollback-Kopie, zu gross fuer Repo)
+public/gallery/_originals/
