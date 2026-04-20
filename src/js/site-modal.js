@@ -51,10 +51,9 @@ export function initSiteModal() {
     }
   });
 
-  // Consent-Labels: click auf <a> darin darf NICHT checkbox toggeln
-  document.querySelectorAll('.form-consent a, .wz-check a, .step8-agb a').forEach((link) => {
-    link.addEventListener('click', (e) => { e.stopPropagation(); });
-  });
+  // Hinweis: <a>-Links in <label>-Elementen sind "interactive content" — Browser
+  // toggelt bei Click auf interactive child das Checkbox NICHT. Kein JS-Fix nötig.
+  // (vorher hatten wir stopPropagation, das blockierte aber den document-level openModal handler)
 }
 
 export function openModal(modal) {

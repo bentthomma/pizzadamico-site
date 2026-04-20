@@ -1293,9 +1293,12 @@
   text-transform: uppercase;
   cursor: pointer;
   border-radius: 4px;
+  /* opacity + transform mit dabei — sonst überschreibt transition die reveal-Animation */
   transition: background var(--t-fast) var(--e-out),
               color var(--t-fast) var(--e-out),
-              border-color var(--t-fast) var(--e-out);
+              border-color var(--t-fast) var(--e-out),
+              opacity 700ms cubic-bezier(.2, .7, .1, 1),
+              transform 700ms cubic-bezier(.2, .7, .1, 1);
 }
 .akt-4-standorte-btn {
   appearance: none;
@@ -1315,9 +1318,12 @@
   text-transform: uppercase;
   cursor: pointer;
   border-radius: 4px;
+  /* opacity + transform mit dabei — sonst überschreibt transition die reveal-Animation */
   transition: background var(--t-fast) var(--e-out),
               color var(--t-fast) var(--e-out),
-              border-color var(--t-fast) var(--e-out);
+              border-color var(--t-fast) var(--e-out),
+              opacity 700ms cubic-bezier(.2, .7, .1, 1),
+              transform 700ms cubic-bezier(.2, .7, .1, 1);
 }
 .akt-4-standorte-btn:hover,
 .akt-4-standorte-btn:focus-visible {
