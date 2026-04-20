@@ -1,25 +1,50 @@
-/* Hoststar-Override: blendet nur Builder-eigene Top-Level-Wrapper aus.
-   Wird nur im Produktions-Head-Inject eingebunden (build-inject.js), nicht im Dev.
-   VORSICHT: Zu aggressive Selektoren killen unsere eigenen Elemente —
-   wir scopen auf direkte Body-Kinder (Hoststar's own chrome). */
+/* Hoststar-Override: blendet ALLE Builder-Chrome aus, lässt nur unsere eigenen Elemente.
+   Strategie: Whitelist via :not() — jeder direkter body-child der nicht zu unserer
+   Seite gehört, wird komplett ausgeblendet (inkl. Mobile-Nav, Mobile-Header, etc).
+   Wird nur im Produktions-Head-Inject eingebunden (build-inject.js), nicht im Dev. */
 
-/* Builder-Chrome ausblenden · nur DIREKTE Body-Kinder,
-   damit unsere eigenen <header>, <nav>, <footer> innerhalb <section>/<main> unberührt bleiben */
-body > header,
-body > footer,
-body > nav {
+body > *:not(.skip-link):not(.site-header):not(.site-mobile-menu):not(main):not(#scroll-root):not(.site-modal):not(.wizard-modal):not(.gallery-lightbox):not(script):not(style):not(noscript):not(template):not(link):not(meta):not(ins):not(iframe[name*="google"]):not([data-damico-keep]) {
   display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  max-height: 0 !important;
+  max-width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
 }
 
-/* Hoststar-typische Builder-Wrapper · nur als direkte Body-Kinder */
-body > [id*="hoststar"],
-body > [class*="hoststar"],
-body > [id*="builder"],
-body > [class*="builder"] {
+/* Fallback für bekannte Hoststar/BaseKit/Builder-Klassen (auch wenn tiefer verschachtelt) */
+.hs-builder-header,
+.hs-builder-footer,
+.hs-mobile-header,
+.hs-mobile-nav,
+.hs-mobile-footer,
+.ptr-header,
+.ptr-footer,
+.ptr-mobile,
+[class*="hoststar-header"],
+[class*="hoststar-footer"],
+[class*="hoststar-mobile"],
+[class*="basekit-header"],
+[class*="basekit-footer"],
+[class*="builder-header"],
+[class*="builder-footer"],
+[id*="hs-mobile"],
+[id*="mobile-header"],
+[id*="mobile-footer"],
+[id*="mobile-nav"]:not(.site-mobile-menu):not([class*="site-"]) {
   display: none !important;
+  visibility: hidden !important;
 }
 
 /* Default-Abstände auf Body/Main entfernen */
+html,
 body,
 main,
 #main,
@@ -27,8 +52,12 @@ main,
 .site,
 #wrapper,
 #content {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Body Basics — unser Design übernimmt ab hier */
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
