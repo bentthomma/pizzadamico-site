@@ -322,7 +322,9 @@ function reserveSlot(data) {
   if (!isFree(cal, start, end)) return json({ success: false, error: 'Slot nicht mehr frei' });
 
   var reference = 'REF-' + Utilities.formatDate(new Date(), TIMEZONE, 'yyyyMMdd') + '-' + Math.floor(Math.random() * 1000);
-  var title = 'Evento - ' + (data.name || 'Anfrage') + ' (' + (data.adults || 0) + '+' + (data.children || 0) + ')';
+  var guestCount = (data.adults || 0) + (data.children || 0);
+  var eventTypeLabel = cap(data.eventType || 'Event');
+  var title = eventTypeLabel + ' · ' + (data.name || 'Anfrage') + ' (' + guestCount + ' Gäste)';
   var description = buildDescription(data, reference);
   var event = cal.createEvent(title, start, end, { description: description });
 
@@ -357,55 +359,68 @@ function calcBreakdown(d) {
 function buildDescription(d, reference) {
   var s = d.setup || {};
   var b = calcBreakdown(d);
-  var z = (d.toppings || []).join(', ') || '-';
+  var z = (d.toppings || []).map(cap).join(', ') || '—';
   var lines = [];
-  lines.push('CATERING  ' + reference);
+
+  lines.push('CATERING · ' + reference);
+  lines.push('────────────────────────────────────');
   lines.push('');
-  lines.push('ANZAHLUNG CHF 250.-');
-  lines.push('  [ ] erhalten     [ ] offen');
-  lines.push('  (hier editieren nach TWINT)');
+
+  lines.push('ANZAHLUNG');
+  lines.push('CHF ' + formatChf(b.deposit) + ' · [ ] erhalten   [ ] offen');
   lines.push('');
-  lines.push('KONTAKT');
-  lines.push('  ' + (d.name || '-'));
-  lines.push('  ' + (d.email || '-'));
-  lines.push('  ' + (d.phone || '-'));
+
+  lines.push('KUNDE');
+  lines.push((d.name || '—'));
+  lines.push((d.email || '—'));
+  lines.push((d.phone || '—'));
   lines.push('');
+
   lines.push('EVENT');
-  lines.push('  Anlass:  ' + cap(d.eventType || '-'));
-  lines.push('  Termin:  ' + formatDeDateTime(d.startISO, d.durationHours));
-  lines.push('  Ort:     ' + (d.address || '-'));
-  if (d.distanceKm != null) lines.push('           ' + d.distanceKm + ' km');
-  lines.push('  Gaeste:  ' + (d.adults || 0) + ' Erw + ' + (d.children || 0) + ' Kinder');
-  if (d.vegetarian) lines.push('           ' + d.vegetarian + ' davon vegetarisch');
+  lines.push('Anlass: ' + cap(d.eventType || '—'));
+  lines.push('Termin: ' + formatDeDateTime(d.startISO, d.durationHours));
+  var ortLine = 'Ort: ' + (d.address || '—');
+  if (d.distanceKm != null) ortLine += ' (' + d.distanceKm + ' km)';
+  lines.push(ortLine);
+  var gaeste = 'Gäste: ' + (d.adults || 0) + ' Erw';
+  if ((d.children || 0) > 0) gaeste += ' + ' + d.children + ' Kinder';
+  if (d.vegetarian) gaeste += ' (' + d.vegetarian + ' vegetarisch)';
+  lines.push(gaeste);
   lines.push('');
+
   lines.push('ZUTATEN');
-  lines.push('  ' + z);
+  lines.push(z);
   lines.push('');
+
   lines.push('SETUP');
-  lines.push('  Strom:   ' + (s.power || '-'));
+  lines.push('Strom: ' + (s.power || '—'));
   lines.push('');
-  lines.push('KOSTEN-AUFSCHLUESSELUNG');
-  lines.push(padRight('  Reservation & Organisation', 32) + '  CHF ' + formatChf(b.deposit));
-  lines.push(padRight('  ' + b.adults + ' Erwachsene x CHF 25.-', 32) + '  CHF ' + formatChf(b.adultsTotal));
+
+  lines.push('KOSTEN');
+  lines.push('Reservation — CHF ' + formatChf(b.deposit));
+  lines.push(b.adults + ' Erwachsene × 25.– — CHF ' + formatChf(b.adultsTotal));
   if (b.children > 0) {
-    lines.push(padRight('  ' + b.children + ' Kinder x CHF 12.-', 32) + '  CHF ' + formatChf(b.childrenTotal));
+    lines.push(b.children + ' Kinder × 12.– — CHF ' + formatChf(b.childrenTotal));
   }
-  lines.push(padRight('  ' + b.km + ' km x 2 x CHF 1.50', 32) + '  CHF ' + formatChf(b.travelTotal));
-  lines.push('  ' + repeat('-', 40));
-  lines.push(padRight('  Netto', 32) + '  CHF ' + formatChf(b.netto));
-  lines.push(padRight('  + 8.1 % MwSt', 32) + '  CHF ' + formatChf(b.vat));
-  lines.push('  ' + repeat('=', 40));
-  lines.push(padRight('  TOTAL', 32) + '  CHF ' + formatChf(b.total));
+  lines.push(b.km + ' km × 1.50 (hin & zurück) — CHF ' + formatChf(b.travelTotal));
+  lines.push('────');
+  lines.push('Netto — CHF ' + formatChf(b.netto));
+  lines.push('+ MwSt 8.1 % — CHF ' + formatChf(b.vat));
+  lines.push('= TOTAL — CHF ' + formatChf(b.total));
   lines.push('');
-  lines.push(padRight('  Davon Anzahlung TWINT', 32) + '  CHF ' + formatChf(b.deposit));
-  lines.push(padRight('  Restbetrag bei Event', 32) + '  CHF ' + formatChf(b.restbetrag));
+  lines.push('Anzahlung TWINT — CHF ' + formatChf(b.deposit));
+  lines.push('Restbetrag bei Event — CHF ' + formatChf(b.restbetrag));
+
   if (d.note) {
     lines.push('');
-    lines.push('NOTIZ VOM KUNDEN');
-    lines.push('  ' + d.note);
+    lines.push('NOTIZ');
+    lines.push(d.note);
   }
+
   lines.push('');
+  lines.push('────────────────────────────────────');
   lines.push('via pizzadamico.ch');
+
   return lines.join('\n');
 }
 
@@ -521,12 +536,12 @@ function sendCustomerMail(d, reference) {
 
   var opts = {
     to: d.email,
-    cc: NOTIFY_BENEDIKT,
     subject: 'Ihre Catering-Anfrage bei Pizza DAmico - ' + reference,
     body: textBody,
     name: "Pizza D'Amico",
     replyTo: OWNER_EMAIL
   };
+  // Kein CC auf Kunden-Mail — Ben bekommt separate Owner-Mail.
   if (htmlBody) opts.htmlBody = htmlBody;
   MailApp.sendEmail(opts);
 }

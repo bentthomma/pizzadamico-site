@@ -1075,7 +1075,8 @@
 /* Shared form Mobile · betrifft contact-form in modal-kontakt */
 @media (max-width: 899px) {
   .contact-form { gap: var(--sp-1); }
-  .contact-form input, .contact-form textarea { padding: 9px 12px; font-size: 15px; }
+  /* 16px min auf Mobile — verhindert iOS-Zoom beim Focus */
+  .contact-form input, .contact-form textarea { padding: 10px 12px; font-size: 16px; }
   .contact-form textarea { min-height: 60px; }
   .contact-submit { padding: 10px 20px; }
 }

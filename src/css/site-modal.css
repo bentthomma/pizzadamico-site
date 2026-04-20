@@ -94,7 +94,8 @@
   border: 1px solid color-mix(in srgb, var(--c-farina) 14%, transparent);
   width: clamp(540px, 76vw, 1120px);
   max-height: 92dvh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   transform: translateY(12px);
   transition: transform var(--t-med) var(--e-out);
 }
@@ -399,6 +400,16 @@
   .site-modal-head { margin-top: 0; padding-right: 36px; }
   .site-modal-head .kicker { margin-top: 6px; }
   .site-modal-title { margin-top: 2px; }
+}
+
+/* modal-kontakt · schmaler + Form-zentriert (sonst wirkt's wie Dashboard) */
+.site-modal.site-modal-overlay#modal-kontakt .site-modal-shell {
+  width: clamp(420px, 58vw, 680px);
+}
+@media (max-width: 899px) {
+  .site-modal.site-modal-overlay#modal-kontakt .site-modal-shell {
+    width: min(94vw, 540px);
+  }
 }
 
 /* Contact Form · message-form (Apps Script v14 sendMessage) */
