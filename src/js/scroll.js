@@ -75,7 +75,7 @@ function isMobile() {
 }
 
 function onWheel(e) {
-  if (isMobile()) return;  // Mobile: touch-events statt wheel
+  if (isMobile()) return;  // Mobile: CSS scroll-snap mandatory übernimmt
   if (isModalOpen()) return;
   if (e.target.closest('.site-modal-shell')) return;
   e.preventDefault();
@@ -86,36 +86,14 @@ function onWheel(e) {
   else scrollToSection(currentIdx - 1);
 }
 
-// Mobile Touch-Handler: 1 Section pro Swipe (wie Desktop-Wheel)
-let touchStartTime = 0;
-let touchSwipeFired = false;
-
+// Touch-Events: Mobile nutzt native CSS scroll-snap: y mandatory.
+// JS macht nur noch idle-settle detection via onScroll.
 function onTouchStart(e) {
   touchStartY = e.touches[0].clientY;
-  touchStartTime = performance.now();
-  touchSwipeFired = false;
-}
-
-function onTouchMove(e) {
-  if (touchSwipeFired) return;
-  if (isModalOpen()) return;
-  // Scroll innerhalb Modal/Wizard-Shell/Lightbox unberührt lassen
-  if (e.target.closest('.site-modal-shell, .wizard-shell, .gallery-lightbox, .gallery-grid')) return;
-  if (locked) return;
-
-  const dy = touchStartY - e.touches[0].clientY;  // pos = swipe up = scroll down
-  if (Math.abs(dy) < TOUCH_THRESHOLD) return;
-
-  touchSwipeFired = true;
-  // preventDefault stoppt native scroll — wir übernehmen
-  if (e.cancelable) e.preventDefault();
-  if (dy > 0) scrollToSection(currentIdx + 1);
-  else scrollToSection(currentIdx - 1);
 }
 
 function onTouchEnd() {
-  // Reset — falls touchmove nie gefired hat (kurzer tap)
-  touchSwipeFired = false;
+  // no-op — onScroll idle-timer triggert section-settled
 }
 
 function onKeyDown(e) {
@@ -178,7 +156,6 @@ export function initScroll() {
 
   window.addEventListener('wheel', onWheel, { passive: false });
   window.addEventListener('touchstart', onTouchStart, { passive: true });
-  window.addEventListener('touchmove', onTouchMove, { passive: false });  // non-passive für preventDefault
   window.addEventListener('touchend', onTouchEnd, { passive: true });
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -208,7 +185,6 @@ export function scrollTo(target) {
 export function destroyScroll() {
   window.removeEventListener('wheel', onWheel);
   window.removeEventListener('touchstart', onTouchStart);
-  window.removeEventListener('touchmove', onTouchMove);
   window.removeEventListener('touchend', onTouchEnd);
   window.removeEventListener('keydown', onKeyDown);
   window.removeEventListener('scroll', onScroll);

@@ -415,30 +415,74 @@
   .site-modal-title { margin-top: 2px; }
 }
 
-/* modal-standorte · Desktop: 2×2 grid + host-CTA fit in viewport */
+/* modal-standorte · Desktop: breit + 2×2 grid + horizontal CTA-Zeile · fit ohne scroll */
 .site-modal.site-modal-overlay#modal-standorte .site-modal-shell {
-  width: min(92vw, 880px);
-  padding: var(--sp-4) var(--sp-4) var(--sp-3);
+  width: min(94vw, 1080px);
+  padding: var(--sp-3) var(--sp-4) var(--sp-3);
   gap: var(--sp-2);
+}
+.site-modal.site-modal-overlay#modal-standorte .site-modal-head {
+  gap: 4px;
 }
 .site-modal.site-modal-overlay#modal-standorte .standorte-lede {
   font-size: clamp(14px, 1vw, 16px);
   margin: 0;
 }
+.site-modal.site-modal-overlay#modal-standorte .site-modal-body {
+  gap: var(--sp-2);
+}
 .site-modal.site-modal-overlay#modal-standorte .standort-card {
   padding: var(--sp-2);
   gap: 2px;
 }
-.site-modal.site-modal-overlay#modal-standorte .standorte-host-cta {
-  margin-top: var(--sp-2);
-  padding-top: var(--sp-2);
+.site-modal.site-modal-overlay#modal-standorte .standort-day {
+  font-size: 11px;
 }
-.site-modal.site-modal-overlay#modal-standorte .standorte-host-title {
-  font-size: clamp(16px, 1.4vw, 22px);
+.site-modal.site-modal-overlay#modal-standorte .standort-time {
+  font-size: 12px;
 }
-.site-modal.site-modal-overlay#modal-standorte .standorte-host-cta .editorial {
-  font-size: clamp(13px, 0.9vw, 15px);
-  line-height: 1.5;
+.site-modal.site-modal-overlay#modal-standorte .standort-address {
+  font-size: 13px;
+  line-height: 1.35;
+}
+.site-modal.site-modal-overlay#modal-standorte .standort-link {
+  font-size: 10px;
+}
+
+/* Host-CTA als horizontaler Balken: Text links + Button rechts */
+@media (min-width: 720px) {
+  .site-modal.site-modal-overlay#modal-standorte .standorte-host-cta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--sp-3);
+    align-items: center;
+    margin-top: var(--sp-2);
+    padding-top: var(--sp-2);
+  }
+  .site-modal.site-modal-overlay#modal-standorte .standorte-host-cta > .kicker {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  .site-modal.site-modal-overlay#modal-standorte .standorte-host-title {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: clamp(15px, 1.2vw, 18px);
+    line-height: 1.2;
+    max-width: 100%;
+    margin: 0;
+  }
+  .site-modal.site-modal-overlay#modal-standorte .standorte-host-cta .editorial {
+    grid-column: 1;
+    grid-row: 3;
+    font-size: clamp(12px, 0.85vw, 14px);
+    line-height: 1.4;
+    margin: 0;
+  }
+  .site-modal.site-modal-overlay#modal-standorte .standorte-host-btn {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: center;
+  }
 }
 
 /* modal-kontakt · kompakt + fit-in-viewport ohne scroll auf Desktop */

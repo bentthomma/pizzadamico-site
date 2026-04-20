@@ -4,6 +4,10 @@ html {
   scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }
+/* Mobile: native mandatory snap — erzwingt 1 Section pro Geste ohne JS-Konflikt */
+@media (max-width: 899px) {
+  html { scroll-snap-type: y mandatory; }
+}
 /* Disable mandatory snap on reduced-motion + when a modal is open (content inside scrolls) */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-snap-type: none; scroll-behavior: auto; }
