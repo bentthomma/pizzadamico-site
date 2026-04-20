@@ -53,9 +53,10 @@ function ensureStyle() {
     }
     .step3-address-badge {
       display: flex;
-      gap: 12px;
+      flex-wrap: wrap;
+      gap: 8px 12px;
       align-items: center;
-      padding: 16px 20px;
+      padding: 14px 16px;
       border: 1px solid var(--wz-accent);
       border-radius: 12px;
       background: color-mix(in srgb, var(--wz-accent) 8%, transparent);

@@ -70,9 +70,11 @@ body {
 }
 
 /* Hoststar-Wrapper haben oft width:1200px oder max-width:1200px fixed → killt responsive.
-   AGGRESSIV: Jeder Wrapper der unser #scroll-root enthält wird auf full-width gezwungen. */
+   AGGRESSIV: Jeder Wrapper der unser #scroll-root enthält wird auf full-width gezwungen.
+   WICHTIG: NICHT unser #wizard-stage treffen — das ist auch <main> aber tief im Wizard-Modal
+   und braucht eigenes padding aus wizard.css. */
 #main,
-main:not(#scroll-root),
+body > main:not(#scroll-root),
 .page,
 .site,
 .container,
