@@ -6,8 +6,9 @@ import { initSiteHeader } from './site-header.js';
 import { initContactForm } from './contact-form.js';
 import { initSiteModal } from './site-modal.js';
 import { initReveal } from './reveal.js';
-import { initWizard } from './wizard/mount.js';
 import { initGallery } from './gallery.js';
+// Wizard ist ~50-80 KB gzip — lazy-load on first trigger-click statt eager.
+// Spart das Bundle wenn User Catering nicht öffnet (~80% Besucher).
 
 // Echte JS-Bild-Preloads fuer Wizard-Schritt 6 (Zutaten). Prefetch-Links
 // im HTML sind nur Browser-Hints — oft ignoriert. Mit new Image() erzwingen
@@ -66,6 +67,28 @@ window.scrollTo(0, 0);
 window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 window.addEventListener('pageshow', (e) => { if (e.persisted) window.scrollTo(0, 0); });
 
+// Wizard-Lazy-Loader: lädt mount.js + 9 Steps erst bei erstem Click auf [data-wizard-open].
+let wizardLoading = false;
+async function lazyLoadWizard(e) {
+  if (wizardLoading) return;
+  wizardLoading = true;
+  e.preventDefault();
+  const trigger = e.currentTarget;
+  try {
+    const { initWizard } = await import('./wizard/mount.js');
+    initWizard();
+    // Loader-Listeners entfernen; wizard mount.js hat jetzt eigene.
+    document.querySelectorAll('[data-wizard-open]').forEach((el) =>
+      el.removeEventListener('click', lazyLoadWizard)
+    );
+    // Click replay: wizard-mount hat seinen Handler jetzt registriert.
+    requestAnimationFrame(() => trigger.click());
+  } catch (err) {
+    console.error('[wizard] lazy-load failed:', err);
+    wizardLoading = false;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   requestAnimationFrame(() => {
     window.scrollTo(0, 0);
@@ -79,8 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initSiteModal();
   initContactForm();
   initReveal();
-  initWizard();
   initGallery();
+  // Wizard lazy: klick-trigger bekommen Loader-Listener. Erst bei echtem Klick wird wizard/mount.js dyn. geladen.
+  document.querySelectorAll('[data-wizard-open]').forEach((el) =>
+    el.addEventListener('click', lazyLoadWizard)
+  );
   preloadZutaten();
 });
 

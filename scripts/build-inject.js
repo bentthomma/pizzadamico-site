@@ -48,8 +48,14 @@ async function main() {
     /(["'`(])\/(?!\/)(assets|gallery|zutaten|fonts|media|images|api|pietro-hero\.|akt3-bg\.|bg-stone\.|twint-qr\.|og-image\.|favicon\.|favicon-|apple-touch-icon|site\.webmanifest|robots\.txt|sitemap\.xml)([^"'`)]*)/g,
     (_m, pre, first, rest) => `${pre}${BASE}/${first}${rest}`,
   );
+  // Dynamic imports + module preload paths are relative (`./name-hash.js`) nach Vite build.
+  // Inline-Script in body-inject.html hat kein Module-base, also MUSS absolute URL gesetzt werden.
+  const chunkRewrite = (s) => s.replace(
+    /(["'`])\.\/([A-Za-z0-9_-]+-[A-Za-z0-9_]{8,}\.(js|css))(["'`])/g,
+    (_m, q1, file, _ext, q2) => `${q1}${BASE}/assets/${file}${q2}`
+  );
   cssBundle = assetRewrite(cssBundle);
-  jsBundle = assetRewrite(jsBundle);
+  jsBundle = chunkRewrite(assetRewrite(jsBundle));
 
   // 6. Extract body markup (main/pill/modal) from built index.html
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
