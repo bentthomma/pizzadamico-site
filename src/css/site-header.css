@@ -146,6 +146,9 @@
   height: 1.5px;
   background: currentColor;
   display: block;
+  /* Explicit default — sonst bleibt transform hängen nach X→Burger-Rückkehr */
+  transform: translateY(0) rotate(0deg);
+  opacity: 1;
   transition: transform var(--t-med) var(--e-out), opacity var(--t-med) var(--e-out);
 }
 .site-burger[aria-expanded="true"] .site-burger-bar:nth-child(1) {
@@ -157,10 +160,16 @@
 .site-burger[aria-expanded="true"] .site-burger-bar:nth-child(3) {
   transform: translateY(-5.5px) rotate(-45deg);
 }
-.site-burger:hover, .site-burger:focus-visible {
-  outline: none;
-  background: currentColor;
-  color: var(--c-bg);
+/* Hover nur auf echten pointer-Geräten (touch-device-hover-stuck vermeiden) */
+@media (hover: hover) and (pointer: fine) {
+  .site-burger:hover {
+    background: currentColor;
+    color: var(--c-bg);
+  }
+}
+.site-burger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 /* Burger X visible on dark menu background */

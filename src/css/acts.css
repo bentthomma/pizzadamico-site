@@ -1360,11 +1360,9 @@
   grid-template-columns: 1fr;
   gap: var(--sp-2);
 }
+/* Desktop: 2×2 für 4 Cards — kompakter + kein scroll */
 @media (min-width: 640px) {
   .standorte-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1000px) {
-  .standorte-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 .standort-card {

@@ -35,9 +35,11 @@ function revealAkt2(section) {
   }
   measurePanelLines();
 
+  // Einheitliches Reveal-Tempo zu anderen Akten: ~1200ms total statt 3650ms.
+  // Beide Panels zeigen sich parallel (diptych-Natur), nicht sequentiell.
   const panels = [
     { sel: '.akt-2-panel-teig', baseDelay: 0 },
-    { sel: '.akt-2-panel-boden', baseDelay: 1600 },
+    { sel: '.akt-2-panel-boden', baseDelay: 200 },  // leichter stagger fürs Auge
   ];
 
   panels.forEach(({ sel, baseDelay }) => {
@@ -49,22 +51,22 @@ function revealAkt2(section) {
     const text = panel.querySelector('figcaption .akt-2-panel-text');
 
     setTimeout(() => {
-      if (dot) showEl(dot, { opacity: '1', transform: 'scale(1)' }, 320);
+      if (dot) showEl(dot, { opacity: '1', transform: 'scale(1)' }, 300);
     }, baseDelay);
 
     setTimeout(() => {
       if (line) {
-        line.style.transition = 'stroke-dashoffset 900ms cubic-bezier(.2,.7,.1,1)';
+        line.style.transition = 'stroke-dashoffset 500ms cubic-bezier(.2,.7,.1,1)';
         requestAnimationFrame(() => line.setAttribute('stroke-dashoffset', '0'));
       }
-    }, baseDelay + 380);
+    }, baseDelay + 180);
 
     setTimeout(() => {
       if (kicker) showEl(kicker, { opacity: '1', transform: 'translateY(0)' }, 500);
-    }, baseDelay + 1400);
+    }, baseDelay + 400);
     setTimeout(() => {
       if (text) showEl(text, { opacity: '1', transform: 'translateY(0)' }, 500);
-    }, baseDelay + 1550);
+    }, baseDelay + 520);
   });
 }
 
