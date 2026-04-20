@@ -46,33 +46,30 @@ async function main() {
     jsBundle += await fs.readFile(path.join(VITE_DIST, p), 'utf8') + '\n';
   }
 
-  // 5. Rewrite relative + root-relative asset URLs → jsDelivr absolute.
-  //    Im inline-JS-bundle sind dynamic imports "./name-hash.js" oder
-  //    preload-manifest strings "assets/name.js" — beide zu absolut machen.
-  //    Plus public/ assets mit /-prefix ("/favicon.svg" etc.).
-  //    Vite base='./' generiert "./assets/name" in index.html und "assets/name"
-  //    im JS-bundle (preload-manifest).
+  // 5. Rewrite ALLE asset URLs → jsDelivr absolute.
+  //    Handhabt ALLE Prefix-Varianten: "./", "../", "/", keinen prefix.
+  //    Handhabt ALLE Asset-Types (js/css/bilder/fonts/video).
+  const EXT = 'js|mjs|css|jpg|jpeg|png|webp|avif|gif|svg|woff2|woff|mp4|webm|ogg|ico';
+  const PUBLIC_NAMES = 'gallery\\/[^"\'`)\\s]+|zutaten\\/[^"\'`)\\s]+|fonts\\/[^"\'`)\\s]+|api\\/[^"\'`)\\s]+|pietro-hero[^"\'`)\\s]*|akt3-bg[^"\'`)\\s]*|bg-stone[^"\'`)\\s]*|twint-qr[^"\'`)\\s]*|og-image[^"\'`)\\s]*|favicon[-.][^"\'`)\\s]*|apple-touch-icon[^"\'`)\\s]*|site\\.webmanifest|robots\\.txt|sitemap\\.xml';
+
   const assetRewrite = (s) => {
     let out = s;
-    // "./name-hash.js|css" (dynamic imports) → jsDelivr absolute
+    // 1. assets/name.ext — mit optionalem prefix "./", "../", "/", oder ohne
     out = out.replace(
-      /(["'`])\.\/(assets\/[A-Za-z0-9_.-]+\.(?:js|css))(["'`])/g,
-      (_m, q1, file, q2) => `${q1}${BASE}/${file}${q2}`
+      new RegExp(`(["'\`(])(?:\\.{1,2}\\/|\\/(?!\\/))?(assets\\/[A-Za-z0-9_.-]+\\.(?:${EXT}))`, 'g'),
+      (_m, pre, file) => `${pre}${BASE}/${file}`
     );
-    // "./mount-hash.js" (dynamic import OHNE assets/ prefix — rare)
+    // 2. Hashed chunks ohne assets/-prefix: "./name-HASH.ext" oder "url(./name-HASH.ext)"
+    //    Hash required (min 8 chars incl. hyphen — Vite hashes können "-" enthalten).
+    //    Vor PUBLIC_NAMES ausgeführt damit favicon-32.png (kein echter hash) nicht gematcht wird.
     out = out.replace(
-      /(["'`])\.\/([A-Za-z0-9_-]+\.(?:js|css))(["'`])/g,
-      (_m, q1, file, q2) => `${q1}${BASE}/assets/${file}${q2}`
+      new RegExp(`(["'\`(])(?:\\.{1,2}\\/|\\/(?!\\/))?([A-Za-z0-9_-]+-[A-Za-z0-9_-]{8,}\\.(?:${EXT}))`, 'g'),
+      (_m, pre, file) => `${pre}${BASE}/assets/${file}`
     );
-    // "assets/name-hash.js|css" (preload-manifest strings in chunks) → jsDelivr
+    // 3. Public assets — mit prefix "./", "../", "/", oder ohne
     out = out.replace(
-      /(["'`])(assets\/[A-Za-z0-9_.-]+\.(?:js|css))(["'`])/g,
-      (_m, q1, file, q2) => `${q1}${BASE}/${file}${q2}`
-    );
-    // "/favicon.svg" etc. (public assets) → jsDelivr
-    out = out.replace(
-      /(["'`(])\/(?!\/)(gallery|zutaten|fonts|api|pietro-hero\.|akt3-bg\.|bg-stone\.|twint-qr\.|og-image\.|favicon\.|favicon-|apple-touch-icon|site\.webmanifest|robots\.txt|sitemap\.xml)([^"'`)]*)/g,
-      (_m, pre, first, rest) => `${pre}${BASE}/${first}${rest}`,
+      new RegExp(`(["'\`(])(?:\\.{1,2}\\/|\\/(?!\\/))?(${PUBLIC_NAMES})`, 'g'),
+      (_m, pre, rest) => `${pre}${BASE}/${rest}`
     );
     return out;
   };
@@ -90,16 +87,28 @@ async function main() {
       const p = path.join(viteAssetsDir, f);
       let content = await fs.readFile(p, 'utf8');
       const original = content;
-      // "assets/name.js|css" → jsDelivr absolute
+      // Alle ext + alle prefix-varianten via assetRewrite-ähnliche logic
+      const CHUNK_EXT = 'js|mjs|css|jpg|jpeg|png|webp|avif|gif|svg|woff2|woff|mp4|webm|ogg|ico';
+      // "assets/name.ext" mit optionalem ./ ../ / prefix
       content = content.replace(
-        /"assets\/([A-Za-z0-9_.-]+\.(?:js|css))"/g,
+        new RegExp(`(["'\`])(?:\\.{1,2}\\/|\\/(?!\\/))?(assets\\/[A-Za-z0-9_.-]+\\.(?:${CHUNK_EXT}))`, 'g'),
+        (_m, pre, file) => `${pre}${BASE}/${file}`
+      );
+      // Hashed chunk imports OHNE assets/ prefix: "./name-HASH.ext"
+      content = content.replace(
+        new RegExp(`"\\.\\/([A-Za-z0-9_-]+-[A-Za-z0-9_]{6,}\\.(?:js|mjs|css))"`, 'g'),
         `"${BASE}/assets/$1"`
       );
-      // "./name.js|css" dynamic imports → jsDelivr absolute (damit Vite preload
-      // helper nicht auf document-base resolvt wenn chunk von jsDelivr läuft)
+      // CSS url() — alle prefix-varianten, file in assets/ oder root (public)
       content = content.replace(
-        /"\.\/([A-Za-z0-9_.-]+\.(?:js|css))"/g,
-        `"${BASE}/assets/$1"`
+        new RegExp(`url\\((['"]?)((?:\\.{1,2}\\/|\\/)?(?:assets\\/)?[A-Za-z0-9_.-]+\\.(?:${CHUNK_EXT}))(['"]?)\\)`, 'g'),
+        (_m, q1, urlPart, q2) => {
+          // Strip prefix
+          const clean = urlPart.replace(/^\.{1,2}\//, '').replace(/^\//, '');
+          // Wenn clean nicht mit assets/ startet → public asset → direkt an BASE hängen
+          const final = clean.startsWith('assets/') ? clean : clean;
+          return `url(${q1}${BASE}/${final}${q2})`;
+        }
       );
       if (content !== original) await fs.writeFile(p, content, 'utf8');
     }
