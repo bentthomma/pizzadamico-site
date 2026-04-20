@@ -60,4 +60,31 @@ main,
 body {
   min-height: 100vh;
   min-height: 100dvh;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: hidden !important;
+}
+
+/* Hoststar-Wrapper haben oft width:1200px oder max-width:1200px fixed → killt responsive.
+   Alle Wrapper-Klassen auf 100% zwingen, damit media-queries greifen. */
+#main,
+main:not(#scroll-root),
+.page,
+.site,
+.container,
+.content,
+#content,
+#wrapper,
+.wrapper,
+.hs-content,
+.hs-page,
+.ptr-content,
+[class*="hoststar-content"],
+[class*="builder-content"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin-inline: 0 !important;
+  padding-inline: 0 !important;
 }

@@ -55,6 +55,22 @@ function preloadZutaten() {
   }, { timeout: 2500 });
 }
 
+// Hoststar-Viewport-Fix: Der Hoststar-Designer injectet oft eine eigene
+// viewport-meta ohne `width=device-width` → Mobile rendert Desktop-Layout.
+// Wir überschreiben SOFORT bei Script-Load, bevor andere meta-tags greifen.
+(function forceResponsiveViewport() {
+  const CONTENT = 'width=device-width, initial-scale=1, viewport-fit=cover';
+  let vp = document.querySelector('meta[name="viewport"]');
+  if (vp) {
+    if (vp.getAttribute('content') !== CONTENT) vp.setAttribute('content', CONTENT);
+  } else {
+    vp = document.createElement('meta');
+    vp.name = 'viewport';
+    vp.content = CONTENT;
+    document.head.appendChild(vp);
+  }
+})();
+
 // Force scroll to top on every load/reload — strict.
 // Hash preservation: Wir behalten #akt-*-Deeplinks damit Social-Shares funktionieren.
 // Nur interne modal-hashes (#modal-*) werden gestrippt weil die vom site-modal.js
