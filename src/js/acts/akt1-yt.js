@@ -8,6 +8,12 @@ export function initAkt1Yt() {
   const v = document.getElementById('akt1-video');
   if (!v) return;
 
+  // Respect saveData / slow networks / reduced-motion → poster only, kein Video-Download
+  const conn = navigator.connection || navigator.webkitConnection;
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const slowNetwork = conn && (conn.saveData === true || ['slow-2g', '2g'].includes(conn.effectiveType));
+  if (prefersReduced || slowNetwork) return;  // Poster-Image bleibt sichtbar, ~16MB gespart
+
   const apply = () => {
     try { v.playbackRate = RATE; } catch { /* ignore */ }
   };

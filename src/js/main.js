@@ -20,6 +20,12 @@ const ZUTATEN_IMAGES = [
 function preloadZutaten() {
   // Hidden-DOM-Scaffold mit <picture>: AVIF-first, WebP-fallback.
   // Browser dekodiert + komponiert. Bei Step 6 / Akt 3 sofortiger Render.
+  // Respect saveData + slow connections — skip 400KB background-download.
+  const conn = navigator.connection || navigator.webkitConnection;
+  if (conn) {
+    if (conn.saveData === true) return;
+    if (['slow-2g', '2g'].includes(conn.effectiveType)) return;
+  }
   const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 400));
   schedule(() => {
     const host = document.createElement('div');
