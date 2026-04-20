@@ -13,6 +13,28 @@ async function main() {
   // 1. Vite production build into dist/vite/
   await build({ configFile: path.join(ROOT, 'vite.config.js') });
 
+  // 1b. Post-process Vite-chunks: preload-manifest strings ("assets/name.js")
+  //     → absolute jsDelivr URLs. Sonst resolvt der Browser sie relativ zu
+  //     pizzadamico.ch statt zu mount-*.js Modul-URL → 404.
+  const viteAssetsDir = path.join(VITE_DIST, 'assets');
+  try {
+    const chunkFiles = await fs.readdir(viteAssetsDir);
+    for (const f of chunkFiles) {
+      if (!/\.(js|css)$/.test(f)) continue;
+      const p = path.join(viteAssetsDir, f);
+      let content = await fs.readFile(p, 'utf8');
+      const original = content;
+      // "assets/name-hash.js" oder "assets/name-hash.css" → jsDelivr URL
+      content = content.replace(
+        /"assets\/([A-Za-z0-9_-]+\.(?:js|css))"/g,
+        `"${BASE}/assets/$1"`
+      );
+      if (content !== original) await fs.writeFile(p, content, 'utf8');
+    }
+  } catch (err) {
+    console.warn('[build] chunk post-process warning:', err.message);
+  }
+
   // 2. Read built index.html
   const html = await fs.readFile(path.join(VITE_DIST, 'index.html'), 'utf8');
 

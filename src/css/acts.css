@@ -632,11 +632,18 @@
 @media (min-width: 900px) and (max-width: 1099px) {
   .akt-3-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
+/* Mobile Portrait <899: 3 cols — 17 items = 6 Reihen, fit in 100dvh mit kleinen Cards */
 @media (max-width: 899px) {
-  .akt-3-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(6px, 1vh, 10px); }
+  .akt-3-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(6px, 1vh, 10px); }
+  .akt-3 { padding: clamp(16px, 2.5vh, 28px) var(--sp-viewport) clamp(12px, 2vh, 20px); }
+  .akt-3 .akt-head { gap: 2px; }
+  .akt-3-card-img { max-width: clamp(48px, 13vw, 80px); }
+  .akt-3-card-name { font-size: clamp(10px, 2.4vw, 12px); letter-spacing: 0.5px; }
 }
+/* Sehr schmal: 3 cols bleiben — nur Text + Image kleiner */
 @media (max-width: 400px) {
-  .akt-3-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .akt-3-card-img { max-width: clamp(44px, 14vw, 72px); }
+  .akt-3-card-name { font-size: 10px; }
 }
 
 .akt-3-card {
