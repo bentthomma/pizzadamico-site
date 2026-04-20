@@ -9,8 +9,7 @@ html {
   html { scroll-snap-type: none; scroll-behavior: auto; }
 }
 body:has(.site-modal[aria-hidden="false"]),
-body:has(.site-mobile-menu[aria-hidden="false"]),
-body:has(#contact-success[aria-hidden="false"]) {
+body:has(.site-mobile-menu[aria-hidden="false"]) {
   overflow: hidden;
 }
 
