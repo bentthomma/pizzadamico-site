@@ -111,9 +111,13 @@
 .site-header[data-hidden="false"] .site-nav a:focus-visible {
   opacity: 1;
   background: color-mix(in srgb, currentColor 10%, transparent);
-  outline: none;
   transition: opacity var(--t-fast) var(--e-out),
-              background var(--t-fast) var(--e-out);
+              background var(--t-fast) var(--e-out),
+              outline var(--t-fast) var(--e-out);
+}
+.site-header[data-hidden="false"] .site-nav a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
 }
 .site-header[data-hidden="false"] .site-nav a[data-active="true"] {
   opacity: 1;

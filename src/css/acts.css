@@ -30,9 +30,12 @@
 .akt-1-yt-wrap .akt-1-video,
 .akt-1-yt-wrap .akt-1-poster {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  /* iframe-cover-hack: min 100% each axis + 16/9 aspect → kein black bar bei 21:9 */
+  width: max(100%, 177.78vh);
+  height: max(100%, 56.25vw);
+  transform: translate(-50%, -50%);
   border: 0;
   pointer-events: none;
   display: block;
@@ -198,7 +201,7 @@
   aspect-ratio: auto;
   min-height: 0;
   min-width: 0;
-  cursor: pointer;
+  /* kein cursor:pointer — die story-btn ist der dedicated Trigger; misleading sonst */
 }
 .akt-2-panel picture,
 .akt-2-panel img {
@@ -1593,8 +1596,9 @@
    ============================================ */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 12px;
+  /* minmax clamp-Target: wächst sanft, verhindert 10+ Cols auf 4K */
+  grid-template-columns: repeat(auto-fill, minmax(clamp(180px, 14vw, 320px), 1fr));
+  gap: clamp(8px, 1vw, 14px);
   width: 100%;
 }
 .gallery-thumb {
@@ -1624,6 +1628,10 @@
   outline-offset: 2px;
 }
 .gallery-thumb:hover img { transform: scale(1.04); }
+/* iPad Portrait / mid-range: 3-col explizit (statt ugly auto-fill-Lücken) */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 640px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
 }

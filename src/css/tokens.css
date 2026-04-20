@@ -20,15 +20,17 @@
   --ff-editorial: 'Tiempos Text', 'Newsreader', Georgia, serif;
   --ff-mono: 'Söhne Mono', 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Type scale · semantic roles (uniformes Design-System) */
+  /* Type scale · semantic roles (uniformes Design-System)
+     Clamp-max hochgezogen für 4K / Ultra-Wide — sonst maxen die Headlines
+     zu früh aus und wirken klein. */
   --fs-kicker: 11px;
   --fs-meta: 11px;
-  --fs-body: clamp(15px, 1.1vw, 17px);
-  --fs-lede: clamp(16px, 1.2vw, 20px);
+  --fs-body: clamp(16px, 1.1vw, 18px);
+  --fs-lede: clamp(16px, 1.3vw, 22px);
   --fs-lead: var(--fs-lede);            /* legacy alias */
-  --fs-title: clamp(32px, 5vw, 72px);
-  --fs-statement: clamp(40px, 6.5vw, 108px);
-  --fs-climax: clamp(44px, 5.8vw, 88px);
+  --fs-title: clamp(32px, 5vw, 96px);
+  --fs-statement: clamp(40px, 6.5vw, 140px);
+  --fs-climax: clamp(44px, 5.8vw, 116px);
 
   /* Spacing (8er) */
   --sp-1: 8px;
@@ -38,7 +40,7 @@
   --sp-5: 56px;
   --sp-6: 88px;
   --sp-7: 140px;
-  --sp-viewport: 7vw;
+  --sp-viewport: clamp(20px, 7vw, 140px);
 
   /* Section rhythm (einheitlich über alle Akte) */
   --sp-akt-y: var(--sp-5);

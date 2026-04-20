@@ -432,6 +432,17 @@ body.wizard-open-lock { overflow: hidden; }
   position: relative;
 }
 
+/* hit-expander: 40px Touch-Target um den 3px-Strich für Keyboard/Touch */
+.wizard-progress-dots li::before {
+  content: "";
+  position: absolute;
+  inset: -18px 0;
+  pointer-events: none;
+}
+.wizard-progress-dots li[data-state="done"]::before {
+  pointer-events: auto;
+}
+
 .wizard-progress-dots li[data-state="done"] {
   background: color-mix(in srgb, var(--wz-accent) 55%, transparent);
   cursor: pointer;
@@ -1149,7 +1160,9 @@ body.wizard-open-lock { overflow: hidden; }
   padding: 5px 0;
   border-bottom: 1px dashed var(--wz-line-soft);
   font-size: 13px;
+  min-width: 0;
 }
+.step1-intro-pricing-row > * { min-width: 0; }
 
 .step1-intro-pricing-row:last-of-type {
   border-bottom: none;

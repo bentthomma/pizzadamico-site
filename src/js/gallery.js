@@ -144,4 +144,29 @@ export function initGallery() {
     else if (e.key === 'ArrowLeft') navigate(-1);
     else if (e.key === 'ArrowRight') navigate(1);
   });
+
+  // Swipe-Gestures (Mobile) — links/rechts wechselt Bild, nach unten schliesst
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchActive = false;
+  const SWIPE_MIN = 40;  // px
+  const SWIPE_MAX_OFF_AXIS = 60;  // px — verhindert accidental bei vertical-scroll
+  lightbox.addEventListener('touchstart', (e) => {
+    if (lightbox.getAttribute('aria-hidden') === 'true') return;
+    if (e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchActive = true;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', (e) => {
+    if (!touchActive) return;
+    touchActive = false;
+    const dx = (e.changedTouches[0].clientX || 0) - touchStartX;
+    const dy = (e.changedTouches[0].clientY || 0) - touchStartY;
+    if (Math.abs(dx) > SWIPE_MIN && Math.abs(dy) < SWIPE_MAX_OFF_AXIS) {
+      navigate(dx < 0 ? 1 : -1);
+    } else if (dy > SWIPE_MIN * 2 && Math.abs(dx) < SWIPE_MAX_OFF_AXIS) {
+      closeLightbox();
+    }
+  }, { passive: true });
 }

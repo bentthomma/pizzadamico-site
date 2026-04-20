@@ -63,9 +63,12 @@ function ensureStyle() {
     }
     .step3-address-badge-text {
       flex: 1;
+      min-width: 0;
       font-size: 17px;
       line-height: 1.35;
       color: var(--wz-fg);
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .step3-address-badge-km {
       font-variant-numeric: tabular-nums;

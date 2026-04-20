@@ -54,7 +54,8 @@ body:has(#contact-success[aria-hidden="false"]) {
 }
 
 .akt-inner {
-  max-width: 1520px;
+  /* Container wächst fluid bis 1800px (statt hart bei 1520) — 4K/Ultra-Wide */
+  max-width: clamp(1520px, 82vw, 1800px);
   margin-inline: auto;
   padding: var(--sp-6) var(--sp-viewport);
 }
