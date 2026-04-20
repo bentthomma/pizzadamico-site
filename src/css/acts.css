@@ -632,18 +632,34 @@
 @media (min-width: 900px) and (max-width: 1099px) {
   .akt-3-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-/* Mobile Portrait <899: 3 cols — 17 items = 6 Reihen, fit in 100dvh mit kleinen Cards */
+/* Mobile Portrait <899: 3 cols — 17 items = 6 Reihen, fit in 100dvh.
+   Ultra-kompakt: kleine Cards, minimal gap, slim akt-head. */
 @media (max-width: 899px) {
-  .akt-3-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(6px, 1vh, 10px); }
-  .akt-3 { padding: clamp(16px, 2.5vh, 28px) var(--sp-viewport) clamp(12px, 2vh, 20px); }
-  .akt-3 .akt-head { gap: 2px; }
-  .akt-3-card-img { max-width: clamp(48px, 13vw, 80px); }
-  .akt-3-card-name { font-size: clamp(10px, 2.4vw, 12px); letter-spacing: 0.5px; }
+  .akt-3-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px 6px;  /* row × col gap — tight */
+  }
+  .akt-3 {
+    padding: clamp(10px, 1.5vh, 18px) var(--sp-viewport) clamp(8px, 1vh, 14px);
+    gap: clamp(8px, 1.5vh, 16px);
+  }
+  .akt-3 .akt-head { gap: 0; }
+  .akt-3 .akt-title { font-size: clamp(22px, 5.5vw, 32px); line-height: 1.05; max-width: 18ch; }
+  .akt-3 .akt-lede { font-size: 13px; line-height: 1.35; max-width: 40ch; }
+  .akt-3-card { gap: 4px; padding: 2px; }
+  .akt-3-card-img { max-width: clamp(42px, 11vw, 64px); }
+  .akt-3-card-name { font-size: clamp(9px, 2.2vw, 11px); letter-spacing: 0.3px; line-height: 1.1; }
 }
-/* Sehr schmal: 3 cols bleiben — nur Text + Image kleiner */
+/* Sehr schmal: Text + Image noch kleiner */
 @media (max-width: 400px) {
-  .akt-3-card-img { max-width: clamp(44px, 14vw, 72px); }
-  .akt-3-card-name { font-size: 10px; }
+  .akt-3-card-img { max-width: clamp(38px, 12vw, 58px); }
+  .akt-3-card-name { font-size: 9px; }
+  .akt-3 .akt-title { font-size: clamp(20px, 5vw, 26px); }
+}
+/* Very-short-height landscape mobile */
+@media (max-width: 899px) and (max-height: 700px) {
+  .akt-3-card-img { max-width: clamp(36px, 10vw, 54px); }
+  .akt-3 .akt-head { margin-bottom: 4px; }
 }
 
 .akt-3-card {

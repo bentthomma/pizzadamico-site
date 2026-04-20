@@ -71,6 +71,14 @@ async function main() {
       new RegExp(`(["'\`(])(?:\\.{1,2}\\/|\\/(?!\\/))?(${PUBLIC_NAMES})`, 'g'),
       (_m, pre, rest) => `${pre}${BASE}/${rest}`
     );
+    // 4. Partial path prefixes für template-literals: "/gallery/", "/zutaten/" etc.
+    //    Vite splittet template-literals (`/zutaten/${id}.avif`) in string-parts.
+    //    Match "/folder/" als partial string — wird zu "https://cdn.../folder/" rewritten,
+    //    dann setzt JS-concat die id + extension dran.
+    out = out.replace(
+      /(["'`])\/(gallery|zutaten|fonts|api|media|images)\//g,
+      (_m, q, folder) => `${q}${BASE}/${folder}/`
+    );
     return out;
   };
   cssBundle = assetRewrite(cssBundle);

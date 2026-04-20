@@ -232,14 +232,24 @@
   line-height: 1.5;
   color: color-mix(in srgb, var(--c-farina) 80%, transparent);
   cursor: pointer;
+  /* Sicher gegen Hoststar-Wrapper pointer-events: auto erzwingen */
+  pointer-events: auto !important;
 }
 .site-modal .contact-form .form-consent input[type="checkbox"] {
   flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   margin-top: 2px;
   accent-color: var(--c-pane);
   cursor: pointer;
+  /* Hoststar-Reset hat manchmal global appearance:none — expliziter override */
+  appearance: auto !important;
+  -webkit-appearance: checkbox !important;
+  pointer-events: auto !important;
+  /* Visuell sichtbar auch wenn Hoststar style drauf ist */
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: static !important;
 }
 .site-modal .contact-form .form-consent a {
   color: var(--c-pane);

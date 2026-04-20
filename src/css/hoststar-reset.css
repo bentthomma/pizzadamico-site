@@ -67,7 +67,7 @@ body {
 }
 
 /* Hoststar-Wrapper haben oft width:1200px oder max-width:1200px fixed → killt responsive.
-   Alle Wrapper-Klassen auf 100% zwingen, damit media-queries greifen. */
+   AGGRESSIV: Jeder Wrapper der unser #scroll-root enthält wird auf full-width gezwungen. */
 #main,
 main:not(#scroll-root),
 .page,
@@ -81,10 +81,26 @@ main:not(#scroll-root),
 .hs-page,
 .ptr-content,
 [class*="hoststar-content"],
-[class*="builder-content"] {
+[class*="builder-content"],
+/* Jeder body-direct-child div der nicht in whitelist */
+body > div:has(#scroll-root),
+body > div:has(.site-header),
+body > div:has(.site-modal),
+/* Parent wrappers unserer Elements */
+:has(> #scroll-root),
+:has(> .site-header):not(body) {
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
   margin-inline: 0 !important;
   padding-inline: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* #scroll-root selbst: full-width */
+#scroll-root {
+  width: 100% !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
