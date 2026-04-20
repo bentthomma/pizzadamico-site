@@ -10,6 +10,11 @@ let prevBodyOverflow = '';
 let prevFocus = null;
 
 export function initSiteModal() {
+  // A11y · alle geschlossenen Modals initial inert setzen (aria-hidden alone erlaubt Tab-Focus).
+  document.querySelectorAll('.site-modal[aria-hidden="true"], .wizard-modal[aria-hidden="true"]').forEach((m) => {
+    m.setAttribute('inert', '');
+  });
+
   // Delegation: jedes Element mit [data-modal-target] oeffnet das entsprechende Modal.
   // Vorher nur '.site-modal-trigger' — damit neue Buttons (Gallery, Geschichte) auch funktionieren.
   document.addEventListener('click', (e) => {
@@ -48,6 +53,7 @@ export function openModal(modal) {
   if (!alwaysOverlay && window.innerWidth >= DESKTOP_BREAKPOINT) return;  // inline on desktop
 
   modal.setAttribute('aria-hidden', 'false');
+  modal.removeAttribute('inert');
   prevBodyOverflow = document.body.style.overflow;
   document.body.style.overflow = 'hidden';
   prevFocus = document.activeElement;
@@ -63,6 +69,7 @@ export function openModal(modal) {
 export function closeModal(modal) {
   if (!modal) return;
   modal.setAttribute('aria-hidden', 'true');
+  modal.setAttribute('inert', '');
   document.body.style.overflow = prevBodyOverflow || '';
   if (prevFocus && typeof prevFocus.focus === 'function') {
     prevFocus.focus();

@@ -108,9 +108,14 @@ export function getStartDateTimeISO() {
 export function getEndDateTimeISO() {
   if (!state.date || !state.time || !state.durationHours) return null;
   const [h, m] = state.time.split(':').map(Number);
-  const endH = h + state.durationHours;
-  const hh = String(endH % 24).padStart(2, '0');
-  const mm = String(m).padStart(2, '0');
-  // Note: spans midnight → we keep same date for simplicity; adjust if needed
-  return `${state.date}T${hh}:${mm}:00`;
+  const startMs = new Date(`${state.date}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:00`).getTime();
+  if (isNaN(startMs)) return null;
+  const endMs = startMs + state.durationHours * 3600 * 1000;
+  const d = new Date(endMs);
+  const yyyy = d.getFullYear();
+  const MM = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  return `${yyyy}-${MM}-${dd}T${hh}:${mm}:00`;
 }

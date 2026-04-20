@@ -45,7 +45,7 @@ async function main() {
   //    Hashed /assets/* (Vite-bundled) + public/* top-level files → jsdelivr CDN.
   //    Match only root-relative URLs that aren't protocol-relative (//) or anchor (#).
   const assetRewrite = (s) => s.replace(
-    /(["'`(])\/(?!\/)(assets|gallery|zutaten|fonts|media|images|api|pietro-hero\.|akt3-bg\.|bg-stone\.|twint-qr\.|og-image\.|favicon\.)([^"'`)]*)/g,
+    /(["'`(])\/(?!\/)(assets|gallery|zutaten|fonts|media|images|api|pietro-hero\.|akt3-bg\.|bg-stone\.|twint-qr\.|og-image\.|favicon\.|favicon-|apple-touch-icon|site\.webmanifest|robots\.txt|sitemap\.xml)([^"'`)]*)/g,
     (_m, pre, first, rest) => `${pre}${BASE}/${first}${rest}`,
   );
   cssBundle = assetRewrite(cssBundle);
@@ -70,11 +70,13 @@ async function main() {
       /<meta name="description"[^>]*>/gi,
       /<meta name="author"[^>]*>/gi,
       /<meta name="theme-color"[^>]*>/gi,
+      /<meta name="robots"[^>]*>/gi,
       /<meta property="og:[^"]+"[^>]*>/gi,
       /<meta name="twitter:[^"]+"[^>]*>/gi,
       /<link rel="canonical"[^>]*>/gi,
       /<link rel="icon"[^>]*>/gi,
       /<link rel="apple-touch-icon"[^>]*>/gi,
+      /<link rel="manifest"[^>]*>/gi,
       /<link rel="preconnect"[^>]*>/gi,
       /<link rel="preload"[^>]*>/gi,
     ];
@@ -134,10 +136,19 @@ async function main() {
   console.log(`[build] static assets in ${staticDir}`);
 }
 
+// Names to skip in any copyDir recursion. Keeps CDN payload lean.
+// _archive / _originals / _ref: source backups, never deployed.
+// *.DS_Store / Thumbs.db: OS cruft.
+const COPY_SKIP = new Set([
+  '_archive', '_originals', '_ref', '_old', '_backup',
+  '.DS_Store', 'Thumbs.db', '.gitkeep'
+]);
+
 async function copyDir(src, dst) {
   try { await fs.access(src); } catch { return; }
   await fs.mkdir(dst, { recursive: true });
   for (const e of await fs.readdir(src, { withFileTypes: true })) {
+    if (COPY_SKIP.has(e.name)) continue;
     const s = path.join(src, e.name);
     const d = path.join(dst, e.name);
     if (e.isDirectory()) await copyDir(s, d);

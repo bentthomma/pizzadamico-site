@@ -6,9 +6,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const COOLDOWN_MS = 500;
+// Eine Section pro Scroll-Geste. COOLDOWN länger als smooth-scroll-Dauer (~700-900ms)
+// damit rapid-fire Wheel-Events nicht 2+ Sections auf einmal skippen.
+const COOLDOWN_MS = 900;
 const WHEEL_THRESHOLD = 20;
-const WHEEL_BIG = 180;
 const TOUCH_THRESHOLD = 40;
 
 let sections = [];
@@ -21,7 +22,8 @@ let lastSyncTime = 0;
 function isModalOpen() {
   return document.querySelector('.site-modal[aria-hidden="false"]') != null
       || document.querySelector('.site-mobile-menu[aria-hidden="false"]') != null
-      || document.querySelector('#contact-success[aria-hidden="false"]') != null;
+      || document.querySelector('.wizard-modal[aria-hidden="false"]') != null
+      || document.querySelector('.wizard-modal.is-open') != null;
 }
 
 function isInputTarget(el) {
@@ -77,12 +79,11 @@ function onWheel(e) {
   if (isModalOpen()) return;
   if (e.target.closest('.site-modal-shell')) return;
   e.preventDefault();
-  if (locked) return;
+  if (locked) return;  // während Cooldown: Wheel komplett stumm. 1 Section pro Geste.
   const absY = Math.abs(e.deltaY);
   if (absY < WHEEL_THRESHOLD) return;
-  const jump = absY > WHEEL_BIG ? 2 : 1;
-  if (e.deltaY > 0) scrollToSection(currentIdx + jump);
-  else scrollToSection(currentIdx - jump);
+  if (e.deltaY > 0) scrollToSection(currentIdx + 1);
+  else scrollToSection(currentIdx - 1);
 }
 
 function onTouchStart(e) {

@@ -48,9 +48,12 @@ function preloadZutaten() {
   }, { timeout: 2500 });
 }
 
-// Force scroll to top on every load/reload — strict
+// Force scroll to top on every load/reload — strict.
+// Hash preservation: Wir behalten #akt-*-Deeplinks damit Social-Shares funktionieren.
+// Nur interne modal-hashes (#modal-*) werden gestrippt weil die vom site-modal.js
+// explizit geöffnet werden sollen und nicht als Scroll-Anker.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-if (window.location.hash) {
+if (window.location.hash && window.location.hash.startsWith('#modal-')) {
   history.replaceState(null, '', window.location.pathname + window.location.search);
 }
 window.scrollTo(0, 0);

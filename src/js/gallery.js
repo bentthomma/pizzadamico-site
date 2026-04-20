@@ -27,8 +27,14 @@ const GALLERY_IMAGES = [
 ];
 
 // Galerie-Bilder im idle-callback preloaden damit das erste Modal-Open
-// ohne pop-in ist. 24 Bilder x ~300KB = ~7MB background — non-blocking.
+// ohne pop-in ist. 37 Bilder x ~300KB = ~11MB background — skip on slow/metered connection.
 function preloadGalleryImages() {
+  // Respect Save-Data + slow connections: kein Preload, lazy-load im Grid tut's.
+  const conn = navigator.connection || navigator.webkitConnection;
+  if (conn) {
+    if (conn.saveData === true) return;
+    if (['slow-2g', '2g'].includes(conn.effectiveType)) return;
+  }
   const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1800));
   schedule(() => {
     GALLERY_IMAGES.forEach((id) => {
@@ -105,6 +111,7 @@ export function initGallery() {
     lbAvif.srcset = `/gallery/${id}.avif`;
     lbWebp.srcset = `/gallery/${id}.webp`;
     lbImg.src = `/gallery/${id}.jpg`;
+    lbImg.alt = `Pizza D'Amico · Bild ${currentIdx + 1} von ${GALLERY_IMAGES.length}`;
     lbCounter.textContent = `${currentIdx + 1} / ${GALLERY_IMAGES.length}`;
   }
 

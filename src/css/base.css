@@ -21,6 +21,38 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 
+/* Universal :focus-visible fallback — sichtbarer Keyboard-Focus auf allen
+   interaktiven Elementen die nicht explizit stylen. */
+:focus-visible {
+  outline: 2px solid var(--c-pane, #C9A66B);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+/* Skip-Link · erstes fokussierbares Element. Unsichtbar bis fokussiert. */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 10000;
+  padding: 10px 16px;
+  background: var(--c-inchiostro);
+  color: var(--c-farina);
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transform: translateY(-200%);
+  transition: transform 180ms ease-out;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--c-pane, #C9A66B);
+  outline-offset: 2px;
+}
+
 /* Scrollbar verstecken · cinematic, distraction-free */
 html { scrollbar-width: none; scroll-padding-top: 0; }
 html::-webkit-scrollbar { display: none; }

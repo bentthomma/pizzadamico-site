@@ -401,6 +401,81 @@
   .site-modal-title { margin-top: 2px; }
 }
 
+/* Contact Form · message-form (Apps Script v14 sendMessage) */
+.site-modal.site-modal-overlay .contact-lede {
+  color: color-mix(in srgb, var(--c-farina) 80%, transparent);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  margin: 6px 0 0;
+  max-width: 56ch;
+}
+.site-modal.site-modal-overlay .contact-form {
+  display: grid;
+  gap: var(--sp-2);
+}
+.site-modal.site-modal-overlay .contact-honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.site-modal.site-modal-overlay .form-label-optional {
+  opacity: 0.6;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 9px;
+  margin-left: 4px;
+}
+.site-modal.site-modal-overlay .contact-feedback {
+  min-height: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--c-farina) 90%, transparent);
+}
+.site-modal.site-modal-overlay .contact-feedback:empty {
+  display: none;
+}
+.site-modal.site-modal-overlay .contact-feedback[data-kind="error"] {
+  color: var(--c-pomodoro, #e9896e);
+  padding: 10px 14px;
+  background: color-mix(in srgb, #e9896e 10%, transparent);
+  border-left: 2px solid #e9896e;
+  border-radius: 2px;
+}
+.site-modal.site-modal-overlay .contact-submit[disabled] {
+  opacity: 0.55;
+  cursor: wait;
+}
+/* Inline success state · replaces form on success */
+.site-modal.site-modal-overlay .contact-success {
+  display: none;
+}
+.site-modal.site-modal-overlay .contact-success[aria-hidden="false"] {
+  display: grid;
+  gap: var(--sp-2);
+}
+.site-modal.site-modal-overlay .contact-success .contact-success-title {
+  font-size: clamp(22px, 2.2vw, 32px);
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: var(--c-farina);
+}
+.site-modal.site-modal-overlay .contact-success .editorial {
+  color: color-mix(in srgb, var(--c-farina) 85%, transparent);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.6;
+  max-width: 56ch;
+  margin: 0;
+}
+.site-modal.site-modal-overlay .contact-success .contact-submit {
+  justify-self: start;
+  margin-top: var(--sp-2);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-modal, .site-modal-shell { transition: none; }
 }

@@ -76,6 +76,7 @@ export function initWizard() {
 
     document.body.classList.add('wizard-open-lock');
     modal.setAttribute('aria-hidden', 'false');
+    modal.removeAttribute('inert');
     modal.classList.remove('is-closing');
     modal.classList.add('is-open');
     if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
@@ -97,6 +98,7 @@ export function initWizard() {
 
     closeTimer = setTimeout(() => {
       modal.setAttribute('aria-hidden', 'true');
+      modal.setAttribute('inert', '');
       modal.classList.remove('is-closing');
       document.body.classList.remove('wizard-open-lock');
       closeTimer = null;

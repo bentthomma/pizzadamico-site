@@ -9,7 +9,10 @@
   <meta name="theme-color" content="#14100C">
   <link rel="canonical" href="https://pizzadamico.ch/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="restaurant.restaurant">
@@ -28,6 +31,10 @@
   <meta name="twitter:title" content="Pizza D'Amico · Catering & Foodtruck">
   <meta name="twitter:description" content="Authentische neapolitanische Pizza live vor Ort. Catering in der Schweiz.">
   <meta name="twitter:image" content="https://pizzadamico.ch/og-image.jpg">
+  <meta name="twitter:image:alt" content="Pizza D'Amico · Authentische neapolitanische Pizza aus dem Pferdeanhänger">
+
+  <!-- Robots -->
+  <meta name="robots" content="index,follow,max-image-preview:large">
 
   <!-- Preconnect fuer 3rd-parties (Wizard + Distance) -->
   <link rel="preconnect" href="https://script.google.com" crossorigin>
@@ -46,7 +53,8 @@
     "telephone": "+41763313259",
     "email": "damicopietro69@hotmail.it",
     "servesCuisine": ["Italian", "Neapolitan", "Pizza"],
-    "priceRange": "CHF",
+    "priceRange": "$$",
+    "currenciesAccepted": "CHF",
     "paymentAccepted": ["TWINT", "Cash"],
     "address": {
       "@type": "PostalAddress",
@@ -61,18 +69,19 @@
       "latitude": 46.8746647,
       "longitude": 7.560187
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.4",
-      "reviewCount": "13",
-      "bestRating": "5"
-    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+        "opens": "11:30",
+        "closes": "13:00"
+      }
+    ],
     "sameAs": [
       "https://www.facebook.com/pietro.damico.332",
       "https://instagram.com/pizzadamico.ch",
       "https://www.tiktok.com/@amico5809"
     ],
-    "hasMenu": "https://pizzadamico.ch/#akt-3",
     "acceptsReservations": true,
     "founder": {
       "@type": "Person",
@@ -99,6 +108,7 @@
   <!-- Zutaten-Bilder: JS-Preload via main.js im idle-callback (echt garantiert). -->
 </head>
 <body>
+  <a class="skip-link" href="#scroll-root">Zum Inhalt</a>
   <header class="site-header" data-hidden="true">
     <a href="#top" class="site-brand" aria-label="Pizza D'Amico — Home">
       <span class="site-brand-mark">Pizza D'Amico</span>
@@ -117,7 +127,7 @@
     </button>
   </header>
 
-  <aside class="site-mobile-menu" id="site-mobile-menu" aria-hidden="true">
+  <aside class="site-mobile-menu" id="site-mobile-menu" aria-hidden="true" inert>
     <nav aria-label="Mobile Sektionen">
       <a href="#akt-2" data-nav-target="2">Pizza</a>
       <a href="#akt-3" data-nav-target="3">Zutaten</a>
@@ -198,7 +208,7 @@
       <div class="akt-3-veil" aria-hidden="true"></div>
 
       <div class="akt-3-header">
-        <div class="kicker"><span lang="it">Atto III</span> · 20 Zutaten</div>
+        <div class="kicker"><span lang="it">Atto III</span> · 17 Zutaten</div>
         <h2 class="akt-title">Was auf deiner Pizza landet.</h2>
       </div>
 
@@ -211,7 +221,7 @@
         <picture class="akt-4-bg">
           <source srcset="/src/images/foodtruck.avif" type="image/avif">
           <source srcset="/src/images/foodtruck.webp" type="image/webp">
-          <img src="/src/images/foodtruck.jpg" alt="Pizza D'Amico Foodtruck bei Nacht — Pferdeanhänger mit Holzofen und warmem Glow">
+          <img src="/src/images/foodtruck.jpg" alt="Pizza D'Amico Foodtruck bei Nacht — Pferdeanhänger mit Holzofen und warmem Glow" width="2000" height="1333" loading="lazy" decoding="async">
         </picture>
         <div class="akt-4-veil"></div>
         <div class="akt-4-overlay">
@@ -262,38 +272,6 @@
       </div>
     </section>
 
-    <!-- Akt 6 · Kontakt + TWINT · dark premium kitchen -->
-    <section class="akt akt-6" id="akt-6" data-akt="6" data-theme="brace" data-nav-label="Kontakt">
-      <div class="akt-inner akt-6-inner">
-        <div class="akt-6-form-col">
-          <div class="akt-head">
-            <div class="kicker reveal"><span lang="it">Atto VI</span> · Kontakt</div>
-            <h2 class="akt-title akt-6-title reveal">Schreibt uns.</h2>
-            <p class="akt-lede editorial akt-6-lede reveal">Anfragen, Termine, Rückfragen — Pietro meldet sich persönlich innerhalb von 48 Stunden.</p>
-          </div>
-
-          <button class="site-modal-trigger reveal" type="button" data-modal-target="modal-kontakt">
-            <span>Nachricht schreiben</span>
-            <span class="site-modal-trigger-arrow" aria-hidden="true">→</span>
-          </button>
-
-        </div>
-
-        <aside class="akt-6-twint reveal">
-          <div class="kicker akt-6-twint-kicker">Anzahlung per TWINT</div>
-          <picture class="akt-6-twint-qr">
-            <img src="/src/images/twint-qr-cropped.png" alt="TWINT QR-Code · Anzahlung an Pizza D'Amico" width="520" height="660">
-          </picture>
-          <p class="meta akt-6-twint-note">Scannen · Betrag eingeben · bestätigen. Die Reservation wird nach Eingang definitiv bestätigt.</p>
-          <a class="akt-6-twint-applink" href="https://go.twint.ch/1/e/tw?tw=acq.erLxqXuzQa2zND3B2wKBNM3KxDVpHFhbX6N8FjLRvWMv8epCovCoo1PWmZRIX7c0" target="_blank" rel="noopener">
-            <span>Mit TWINT App bezahlen</span>
-            <span aria-hidden="true">→</span>
-          </a>
-          <p class="meta akt-6-direct">Oder direkt: <a href="tel:+41763313259">076 331 32 59</a></p>
-        </aside>
-      </div>
-    </section>
-
     <!-- Footer · Socials + Google Review + Contact -->
     <footer class="site-footer" data-theme="brace">
       <div class="site-footer-inner">
@@ -340,39 +318,53 @@
       </div>
     </footer>
 
-    <!-- modal-kontakt · aus akt-6 herausgenommen damit es auch funktioniert wenn akt-6 Desktop-hidden ist -->
+    <!-- modal-kontakt · Nachricht an Pietro (Apps Script sendMessage) -->
     <div class="site-modal site-modal-overlay" id="modal-kontakt" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-kontakt-title">
       <div class="site-modal-backdrop" data-modal-close></div>
       <div class="site-modal-shell">
         <button class="site-modal-close" type="button" data-modal-close aria-label="Schliessen">×</button>
         <div class="site-modal-head">
-          <div class="kicker"><span lang="it">Atto VI</span> · Kontakt</div>
-          <h3 class="display site-modal-title" id="modal-kontakt-title">Schreibt uns.</h3>
+          <div class="kicker">Kontakt</div>
+          <h3 class="display site-modal-title" id="modal-kontakt-title">Schreib uns.</h3>
+          <p class="editorial contact-lede">Anfragen, Termine, Rückfragen — Pietro meldet sich persönlich innerhalb von 48 Stunden.</p>
         </div>
         <div class="site-modal-body">
-          <form class="contact-form" action="https://formsubmit.co/benedikt@thomma.ch" method="POST">
-            <input type="hidden" name="_subject" value="Neue Anfrage · pizzadamico.ch">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_autoresponder" value="false">
-            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <form class="contact-form" id="contact-form" novalidate>
+            <input type="text" name="website" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <label class="form-field">
+              <span class="form-label">Name</span>
+              <input type="text" name="name" id="contact-name" required autocomplete="name" placeholder="Dein Name">
+            </label>
+            <label class="form-field">
               <span class="form-label">E-Mail</span>
-              <input type="email" name="email" required autocomplete="email" placeholder="deine@mail.ch">
+              <input type="email" name="email" id="contact-email" required autocomplete="email" placeholder="deine@mail.ch">
+            </label>
+            <label class="form-field">
+              <span class="form-label">Telefon <span class="form-label-optional">· optional</span></span>
+              <input type="tel" name="phone" id="contact-phone" autocomplete="tel" placeholder="076 123 45 67">
             </label>
             <label class="form-field">
               <span class="form-label">Nachricht</span>
-              <textarea name="message" rows="5" required placeholder="Datum, Anlass, Personenzahl, Ort, Besonderheiten …"></textarea>
+              <textarea name="message" id="contact-message" rows="5" required placeholder="Datum, Anlass, Personenzahl, Ort, Besonderheiten …"></textarea>
             </label>
 
             <label class="form-consent">
-              <input type="checkbox" name="consent" required>
+              <input type="checkbox" name="consent" id="contact-consent" required>
               <span>Ich akzeptiere die <a href="#modal-agb" class="site-modal-trigger" data-modal-target="modal-agb">AGB</a> und die <a href="#modal-datenschutz" class="site-modal-trigger" data-modal-target="modal-datenschutz">Datenschutzerklärung</a>.</span>
             </label>
 
+            <div class="contact-feedback" id="contact-feedback" aria-live="polite" role="status"></div>
+
             <button type="submit" class="contact-submit">Senden →</button>
           </form>
+
+          <div class="contact-success" id="contact-success-inline" aria-hidden="true">
+            <div class="kicker">Grazie!</div>
+            <h4 class="display contact-success-title">Nachricht ist bei uns.</h4>
+            <p class="editorial">Pietro meldet sich persönlich innerhalb von 48 Stunden. Check kurz dein Postfach — die Eingangs-Bestätigung kann im Spam-Ordner landen.</p>
+            <button type="button" class="contact-submit" data-modal-close>Schliessen</button>
+          </div>
         </div>
       </div>
     </div>
@@ -486,7 +478,7 @@
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Eingesetzte Dienste</div>
-            <p class="editorial"><strong>Google Calendar &amp; Apps Script</strong> &ndash; zur Speicherung der Reservation. <strong>OpenRouteService</strong> &ndash; anonyme Distanz-Berechnung (nur Koordinaten, keine Personendaten). <strong>FormSubmit.co</strong> &ndash; zur E-Mail-Weiterleitung von Kontaktanfragen. <strong>TWINT</strong> &ndash; für die Anzahlung (keine Speicherung von Zahlungsdaten bei uns).</p>
+            <p class="editorial"><strong>Google Calendar &amp; Apps Script</strong> &ndash; zur Speicherung der Reservation und zur E-Mail-Weiterleitung von Kontaktanfragen. <strong>OpenRouteService</strong> &ndash; anonyme Distanz-Berechnung (nur Koordinaten, keine Personendaten). <strong>TWINT</strong> &ndash; für die Anzahlung (keine Speicherung von Zahlungsdaten bei uns).</p>
           </div>
           <div class="info-section">
             <div class="kicker info-kicker">Ihre Rechte</div>
@@ -595,6 +587,25 @@
               </div>
               <div class="standort-link">Route planen <span aria-hidden="true">&rarr;</span></div>
             </a>
+            <a class="standort-card" href="https://www.google.com/maps/search/?api=1&amp;query=46.9663368,7.4564756" target="_blank" rel="noopener">
+              <div class="standort-day">Donnerstag</div>
+              <div class="standort-time">11:30 &ndash; 13:00</div>
+              <div class="standort-address">
+                <strong>Foodtrucks @ Bern 131</strong>
+                Stauffacherstrasse 133A, 3014 Bern
+              </div>
+              <div class="standort-link">Route planen <span aria-hidden="true">&rarr;</span></div>
+            </a>
+          </div>
+
+          <div class="standorte-host-cta">
+            <div class="kicker">Neuer Standort gesucht</div>
+            <h4 class="display standorte-host-title">Haben Sie einen festen Platz für unseren Foodtruck?</h4>
+            <p class="editorial">Firmen-Parkplatz, Gewerbezone, Baustelle, Quartier-Platz — wenn bei euch regelmässig Leute vorbeikommen, stellen wir uns gern hin. Schreibt uns kurz, wo und wann es passen würde.</p>
+            <button class="site-modal-trigger standorte-host-btn" type="button" data-modal-target="modal-kontakt">
+              <span>Standort vorschlagen</span>
+              <span class="site-modal-trigger-arrow" aria-hidden="true">&rarr;</span>
+            </button>
           </div>
         </div>
       </div>
@@ -679,17 +690,6 @@
       </div>
     </div>
   </main>
-
-  <div class="success-overlay" id="contact-success" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="success-title">
-    <div class="success-backdrop" data-success-close></div>
-    <div class="success-shell">
-      <button class="success-close" type="button" data-success-close aria-label="Schliessen">×</button>
-      <div class="kicker success-kicker">Anfrage eingegangen</div>
-      <h3 class="display success-title" id="success-title">Grazie!</h3>
-      <p class="lede editorial success-text">Pietro meldet sich persönlich innerhalb von 48 Stunden. Check kurz dein Postfach — allenfalls landet die Bestätigung im Spam-Ordner.</p>
-      <button class="success-ok" type="button" data-success-close>OK</button>
-    </div>
-  </div>
 
   <script type="module" src="/src/js/main.js"></script>
 </body>

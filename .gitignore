@@ -1,8 +1,9 @@
 node_modules/
+# dist/static/** wird zu jsDelivr geshipped (alle assets, rekursiv).
+# Build-Script filtert _archive/_originals/_ref raus (siehe scripts/build-inject.js).
 dist/*
 !dist/static
-dist/static/*
-!dist/static/assets
+!dist/static/**
 !dist/head-inject.html
 !dist/body-inject.html
 .env.local

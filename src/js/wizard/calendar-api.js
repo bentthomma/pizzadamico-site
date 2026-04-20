@@ -1,7 +1,7 @@
 // Apps Script Wrapper für Kalender-Verfügbarkeit + Reservation
 // Mit Retry-Logic bei Netzwerkfehlern
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfwV2lOxu5MPYUYAnyYZDUTE9Cj82mDTgGZonHqs5_BY95TZrcahRenDssWtnvt4hyTA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFrhB32Qam5El0JA1qkI5pnoNFq8BwbFyjHhEqqEyNRQbifXwg8vuP2_FK3NMVjFtC-A/exec';
 
 async function callWithRetry(url, opts = {}, maxRetries = 3) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
@@ -29,6 +29,14 @@ export async function checkAvailability(startISO, endISO) {
 export async function reserveSlot(data) {
   const params = new URLSearchParams({
     action: 'reserve',
+    data: JSON.stringify(data),
+  });
+  return callWithRetry(`${APPS_SCRIPT_URL}?${params}`);
+}
+
+export async function sendContactMessage(data) {
+  const params = new URLSearchParams({
+    action: 'message',
     data: JSON.stringify(data),
   });
   return callWithRetry(`${APPS_SCRIPT_URL}?${params}`);

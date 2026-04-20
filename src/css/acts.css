@@ -547,53 +547,6 @@
 .akt-5-credit { opacity: 0.7; }
 
 /* ============================================
-   Akt 6 · Feuer
-   ============================================ */
-.akt-6 {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow: clip;
-}
-.akt-6-stage {
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-}
-.akt-6-fire {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.85;
-}
-.akt-6-pizza {
-  position: relative;
-  z-index: 2;
-  margin: 0;
-  width: min(70vw, 620px);
-  opacity: 0;
-}
-.akt-6-pizza img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  border-radius: 50%;
-}
-.akt-6-caption {
-  position: absolute;
-  bottom: var(--sp-5);
-  right: var(--sp-viewport);
-  z-index: 2;
-  color: var(--c-fuoco);
-  font-size: clamp(28px, 3.2vw, 48px);
-  font-variation-settings: 'opsz' 96, 'wdth' 80, 'wght' 700;
-}
-
 /* ============================================
    Akt 3 · Zutaten · Grid + Click-Popup
    ============================================ */
@@ -1066,28 +1019,6 @@
   text-transform: none;
 }
 
-/* ============================================
-   Akt 6 · Kontakt + TWINT
-   ============================================ */
-.akt-6-inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-head-body);
-  padding-block: var(--sp-akt-y);
-  align-items: start;
-}
-@media (min-width: 900px) {
-  .akt-6-inner { grid-template-columns: 1.5fr 1fr; gap: var(--sp-6); align-items: center; }
-}
-.akt-6-form-col { display: grid; gap: var(--sp-head-body); }
-.akt-6-title {
-  margin: 0;
-  font-size: clamp(40px, 5.8vw, 96px);
-  line-height: 1;
-  letter-spacing: -2px;
-}
-.akt-6-lede { max-width: 52ch; }
-
 .contact-form {
   display: grid;
   gap: var(--sp-3);
@@ -1141,181 +1072,12 @@
   transform: translateY(-1px);
 }
 
-/* TWINT-Block · restrained editorial card (no dark shadow, no rounded box) */
-.akt-6-twint {
-  padding: var(--sp-4) var(--sp-3);
-  border-top: 1px solid color-mix(in srgb, var(--c-inchiostro) 18%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--c-inchiostro) 18%, transparent);
-  display: grid;
-  gap: var(--sp-2);
-  align-content: start;
-  background: transparent;
-  color: var(--c-inchiostro);
-}
-.akt-6-twint-kicker {
-  color: var(--c-inchiostro);
-  opacity: 0.5;
-  font-weight: 500;
-  letter-spacing: 3px;
-  font-size: 11px;
-}
-.akt-6-twint-qr {
-  display: block;
-  background: var(--c-farina);
-  padding: 14px;
-  max-width: 340px;
-  margin: 0;
-  border-radius: 2px;
-}
-.akt-6-twint-qr img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.akt-6-twint-note {
-  font-family: var(--ff-editorial);
-  font-size: clamp(14px, 1vw, 16px);
-  line-height: 1.5;
-  letter-spacing: 0;
-  text-transform: none;
-  opacity: 0.72;
-  color: var(--c-inchiostro);
-  max-width: 38ch;
-}
-.akt-6-twint-applink {
-  display: none;
-  align-items: baseline;
-  gap: 10px;
-  padding: 8px 0;
-  background: transparent;
-  color: var(--c-inchiostro);
-  text-decoration: none;
-  font-family: var(--ff-mono);
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: 500;
-  width: fit-content;
-  border-bottom: 1px solid var(--c-inchiostro);
-  transition: opacity var(--t-fast);
-}
-.akt-6-twint-applink:hover,
-.akt-6-twint-applink:focus-visible {
-  opacity: 0.65;
-  outline: none;
-}
+/* Shared form Mobile · betrifft contact-form in modal-kontakt */
 @media (max-width: 899px) {
-  .akt-6-twint-applink { display: inline-flex; }
-}
-.akt-6-direct {
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding-top: var(--sp-1);
-  font-size: 11px;
-  color: var(--c-inchiostro);
-  opacity: 0.7;
-}
-.akt-6-direct a {
-  text-decoration: none;
-  color: var(--c-inchiostro);
-  font-family: var(--ff-display);
-  font-variation-settings: 'opsz' 48, 'wdth' 85, 'wght' 600;
-  font-size: clamp(17px, 1.3vw, 22px);
-  letter-spacing: -0.3px;
-  text-transform: none;
-  margin-left: 8px;
-  transition: opacity var(--t-fast);
-}
-.akt-6-direct a:hover, .akt-6-direct a:focus-visible {
-  opacity: 0.7;
-  outline: none;
-}
-
-/* Mobile: Form-Priority · dunkler primary CTA · TWINT eigene editorial card */
-@media (max-width: 899px) {
-  .akt-6 {
-    align-content: start;
-    position: relative;
-    overflow: hidden;
-  }
-  .akt-6-inner {
-    gap: var(--sp-4);
-    padding-block: var(--sp-5) var(--sp-6);
-    position: relative;
-    z-index: 1;
-  }
-  .akt-6-form-col { gap: var(--sp-2); }
-  /* Title-Spezifitäts-Fix · Mobile */
-  .akt-6 .akt-head > .akt-6-title,
-  .akt-6 .akt-title.akt-6-title {
-    font-size: clamp(52px, 13.5vw, 72px);
-    line-height: 0.95;
-    letter-spacing: -2.4px;
-    font-variation-settings: 'opsz' 96, 'wdth' 72, 'wght' 720;
-  }
-  .akt-6-lede { font-size: 15px; line-height: 1.45; }
-  /* Primary CTA: dunkel, dominant */
-  .akt-6 .site-modal-trigger {
-    background: var(--c-inchiostro);
-    color: var(--c-farina);
-    border-color: var(--c-inchiostro);
-    width: 100%;
-    padding: 20px 28px;
-    justify-content: space-between;
-    font-size: 12px;
-    letter-spacing: 3px;
-  }
-  .akt-6 .site-modal-trigger:hover,
-  .akt-6 .site-modal-trigger:focus-visible {
-    background: var(--c-fuoco);
-    border-color: var(--c-fuoco);
-    color: var(--c-farina);
-  }
   .contact-form { gap: var(--sp-1); }
   .contact-form input, .contact-form textarea { padding: 9px 12px; font-size: 15px; }
   .contact-form textarea { min-height: 60px; }
   .contact-submit { padding: 10px 20px; }
-  /* TWINT als eigenständige editorial card */
-  .akt-6-twint {
-    padding: var(--sp-3) var(--sp-2);
-    background: color-mix(in srgb, var(--c-brace) 4%, var(--c-farina));
-    border: 1px solid color-mix(in srgb, var(--c-brace) 16%, transparent);
-    border-radius: 2px;
-    gap: var(--sp-2);
-  }
-  .akt-6-twint-kicker {
-    opacity: 1;
-    color: var(--c-fuoco);
-    font-weight: 600;
-    letter-spacing: 3.5px;
-    font-size: 10px;
-  }
-  .akt-6-twint-qr {
-    max-width: 100%;
-    background: var(--c-farina);
-    padding: 12px;
-    justify-self: start;
-    width: 260px;
-    border-radius: 2px;
-  }
-  .akt-6-twint-qr img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .akt-6-twint-note { font-size: 13px; line-height: 1.5; opacity: 0.85; max-width: 38ch; }
-  .akt-6-twint-applink {
-    padding: 8px 0;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    border-bottom: 1px solid currentColor;
-  }
-  .akt-6-direct {
-    padding-top: var(--sp-1);
-    font-size: 10.5px;
-    opacity: 0.75;
-  }
-  .akt-6-direct a { font-size: 15px; letter-spacing: -0.2px; }
 }
 
 /* ============================================
@@ -1444,11 +1206,10 @@
 }
 
 /* ============================================
-   Akt 5 + 6 · Dark Stone Premium Kitchen Atmosphäre
+   Akt 5 · Dark Stone Premium Kitchen Atmosphäre
    Brace theme liefert --c-bg brace + --c-fg farina via layout.css
-   Hier setzen wir dark-stone texture + farben-overrides
    ============================================ */
-.akt-5, .akt-6 {
+.akt-5 {
   background:
     linear-gradient(to bottom,
       color-mix(in srgb, var(--c-inchiostro) 50%, transparent) 0%,
@@ -1458,9 +1219,9 @@
   position: relative;
   color: var(--c-farina);
 }
-/* Mobile: Stone-Bild 90° rotiert damit es 9:16 abdeckt */
+/* Mobile: identical stone bg */
 @media (max-width: 899px) {
-  .akt-5, .akt-6 {
+  .akt-5 {
     background:
       linear-gradient(to bottom,
         color-mix(in srgb, var(--c-inchiostro) 55%, transparent) 0%,
@@ -1478,15 +1239,14 @@
     url('/bg-stone.jpg') center/cover no-repeat,
     var(--c-inchiostro);
 }
-.akt-5 > *, .akt-6 > * { position: relative; z-index: 1; }
+.akt-5 > * { position: relative; z-index: 1; }
 
 /* Text colors on dark */
-.akt-5 .akt-title, .akt-6 .akt-title,
+.akt-5 .akt-title,
 .akt-5-statement,
-.akt-6-title,
-.akt-5 .kicker, .akt-6 .kicker { color: var(--c-farina); }
-.akt-5 .akt-lede, .akt-6 .akt-lede,
-.akt-5-details, .akt-6-lede { color: color-mix(in srgb, var(--c-farina) 85%, transparent); }
+.akt-5 .kicker { color: var(--c-farina); }
+.akt-5 .akt-lede,
+.akt-5-details { color: color-mix(in srgb, var(--c-farina) 85%, transparent); }
 
 /* Statement em on dark: pane underline statt fuoco */
 .akt-5-statement em {
@@ -1494,49 +1254,13 @@
   border-bottom-color: var(--c-pane);
 }
 
-/* Form inputs on dark */
-.akt-6 .contact-form input,
-.akt-6 .contact-form textarea {
-  background: color-mix(in srgb, var(--c-inchiostro) 40%, transparent);
-  border-color: color-mix(in srgb, var(--c-farina) 25%, transparent);
-  color: var(--c-farina);
-}
-.akt-6 .contact-form input:focus,
-.akt-6 .contact-form textarea:focus { border-color: var(--c-farina); }
-.akt-6 .form-label { color: color-mix(in srgb, var(--c-farina) 70%, transparent); }
-.akt-6 .contact-form input::placeholder,
-.akt-6 .contact-form textarea::placeholder { color: color-mix(in srgb, var(--c-farina) 35%, transparent); }
-.akt-6 .contact-submit {
-  background: var(--c-farina);
-  color: var(--c-inchiostro);
-}
-.akt-6 .contact-submit:hover,
-.akt-6 .contact-submit:focus-visible {
-  background: var(--c-pane);
-  color: var(--c-inchiostro);
-}
-
-/* TWINT-Box on dark */
-.akt-6-twint {
-  background: color-mix(in srgb, var(--c-farina) 5%, transparent);
-  border-color: color-mix(in srgb, var(--c-farina) 20%, transparent);
-}
-.akt-6-twint-kicker { color: var(--c-pane); }
-.akt-6-twint-note { color: color-mix(in srgb, var(--c-farina) 80%, transparent); }
-.akt-6-twint-applink { color: var(--c-farina); }
-.akt-6-direct { color: color-mix(in srgb, var(--c-farina) 60%, transparent); }
-.akt-6-direct a { color: var(--c-farina); }
-
 /* Modal-trigger button on dark bg */
-.akt-5 .site-modal-trigger,
-.akt-6 .site-modal-trigger {
+.akt-5 .site-modal-trigger {
   border-color: color-mix(in srgb, var(--c-farina) 40%, transparent);
   color: var(--c-farina);
 }
 .akt-5 .site-modal-trigger:hover,
-.akt-5 .site-modal-trigger:focus-visible,
-.akt-6 .site-modal-trigger:hover,
-.akt-6 .site-modal-trigger:focus-visible {
+.akt-5 .site-modal-trigger:focus-visible {
   background: var(--c-farina);
   color: var(--c-inchiostro);
   border-color: var(--c-farina);
@@ -1576,15 +1300,9 @@
 .akt-5-info-cta .site-modal-trigger:hover { opacity: 1; }
 
 /* ============================================
-   Desktop-Merge · Akt 5 + Akt 6 (≥ 900px)
-   Zwei separate <section>s bleiben (Nav/SEO),
-   verschränken sich per CSS zu einem Split-View
+   Akt 5 · Desktop Layout (≥ 900px)
    ============================================ */
-/* Akt 6 komplett hidden · Desktop + Mobile (alles in Akt 5) */
-.akt-6 { display: none !important; }
-
 @media (min-width: 900px) {
-
   .akt-5 { min-height: 100dvh; align-content: center; position: relative; }
   .akt-5-inner {
     max-width: 1520px;
@@ -1605,33 +1323,10 @@
     gap: var(--sp-3);
     max-width: 48ch;
   }
-  /* Tighter title + statement for merge column */
   .akt-5 .akt-5-title    { font-size: clamp(34px, 3.4vw, 56px); line-height: 1.02; max-width: 20ch; }
   .akt-5 .akt-5-lede     { font-size: clamp(15px, 1vw, 17px); max-width: 38ch; }
   .akt-5-statement       { font-size: clamp(34px, 3.6vw, 60px); line-height: 1.02; letter-spacing: -1.2px; }
   .akt-5-details         { display: none !important; }
-
-  /* Akt 5 TWINT-Aside · rechts neben Main */
-  .akt-5-twint {
-    display: grid;
-    gap: var(--sp-2);
-    padding: var(--sp-3) var(--sp-3);
-    background: color-mix(in srgb, var(--c-farina) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--c-farina) 18%, transparent);
-    border-radius: 4px;
-    max-width: 380px;
-    justify-self: start;
-  }
-  .akt-5-twint .akt-6-twint-kicker { font-size: 11px; color: var(--c-pane); }
-  .akt-5-twint .akt-6-twint-qr { max-width: 280px; padding: 12px; }
-  .akt-5-twint .akt-6-twint-note { font-size: 13px; line-height: 1.45; max-width: 32ch; }
-  .akt-5-twint .akt-6-twint-applink { font-size: 11px; }
-  .akt-5-twint .akt-6-direct { font-size: 11px; }
-  .akt-5-twint .akt-6-direct a { font-size: 16px; }
-}
-/* Mobile: Akt 5 TWINT hidden (Mobile zeigt es in Akt 6) */
-@media (max-width: 899px) {
-  .akt-5-twint { display: none !important; }
 }
 
 /* ============================================
@@ -1852,6 +1547,45 @@
 .standort-card:hover .standort-link { opacity: 1; }
 .standort-card:hover .standort-link span {
   transform: translateX(4px);
+}
+
+/* Standorte · Host-CTA (eigenen Platz anbieten) */
+.standorte-host-cta {
+  margin-top: var(--sp-4);
+  padding: var(--sp-3);
+  border-top: 1px solid color-mix(in srgb, var(--c-farina) 18%, transparent);
+  display: grid;
+  gap: 10px;
+}
+.standorte-host-cta .kicker {
+  color: color-mix(in srgb, var(--c-farina) 65%, transparent);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.standorte-host-title {
+  font-family: var(--ff-display);
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+  margin: 0;
+  color: var(--c-farina);
+  max-width: 22ch;
+}
+.standorte-host-cta .editorial {
+  color: color-mix(in srgb, var(--c-farina) 80%, transparent);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 58ch;
+}
+.standorte-host-btn {
+  justify-self: start;
+  margin-top: 4px;
+}
+@media (max-width: 720px) {
+  .standorte-host-cta { padding: var(--sp-2) 0 0; margin-top: var(--sp-3); }
+  .standorte-host-btn { width: 100%; justify-self: stretch; justify-content: center; }
 }
 
 .akt-4-gallery-btn:hover,

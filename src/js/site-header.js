@@ -66,12 +66,14 @@ export function initSiteHeader() {
   function openMobileMenu() {
     if (!mobileMenu || !burger) return;
     mobileMenu.setAttribute('aria-hidden', 'false');
+    mobileMenu.removeAttribute('inert');
     burger.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
   function closeMobileMenu() {
     if (!mobileMenu || !burger) return;
     mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenu.setAttribute('inert', '');
     burger.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
