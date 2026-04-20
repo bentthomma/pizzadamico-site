@@ -2,6 +2,7 @@
 // Bilder liegen in public/gallery/ → URLs sind /gallery/<id>.{avif,webp,jpg}
 
 const GALLERY_IMAGES = [
+  'pd-new-01',
   'pd-01','pd-02','pd-03','pd-04','pd-05','pd-06','pd-07','pd-08','pd-09','pd-10',
   'pd-12','pd-14','pd-15','pd-16','pd-18','pd-19',
   '0db7f606-2b81-454e-a2db-4ea42960685c',
