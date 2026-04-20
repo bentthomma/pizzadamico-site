@@ -10,12 +10,78 @@ const VITE_DIST = path.join(DIST, 'vite');
 const BASE = process.env.ASSET_BASE || 'https://cdn.jsdelivr.net/gh/bentthomma/pizzadamico-site@main/dist/static';
 
 async function main() {
-  // 1. Vite production build into dist/vite/
-  await build({ configFile: path.join(ROOT, 'vite.config.js') });
+  // 1. Vite production build into dist/vite/ — mit base='./' (relative).
+  //    Vite's Preload-Helper nutzt dann import.meta.url als base → resolved
+  //    relativ zur Chunk-URL (jsDelivr wenn chunk von dort kommt). Keine "/" prefixes,
+  //    keine Pfad-Sprünge. Funktioniert sowohl auf Vercel als auch auf Hoststar.
+  await build({
+    configFile: path.join(ROOT, 'vite.config.js'),
+    base: './',
+  });
 
-  // 1b. Post-process Vite-chunks: preload-manifest strings ("assets/name.js")
-  //     → absolute jsDelivr URLs. Sonst resolvt der Browser sie relativ zu
-  //     pizzadamico.ch statt zu mount-*.js Modul-URL → 404.
+  // 2. Read built index.html
+  const html = await fs.readFile(path.join(VITE_DIST, 'index.html'), 'utf8');
+
+  // Mit base='./' nutzt Vite Pfade wie "./assets/name.js" (relativ zur HTML-Location).
+  // Wir konvertieren via regex zu local paths für den inline-Read.
+
+  // 3. Collect all bundled CSS files referenced in <link rel="stylesheet">
+  const cssLinkRe = /<link rel="stylesheet"[^>]*href="\.?\/?(assets\/[^"]+\.css)"[^>]*>/g;
+  const cssPaths = [...html.matchAll(cssLinkRe)].map((m) => m[1]);
+  let cssBundle = '';
+  for (const p of cssPaths) {
+    cssBundle += await fs.readFile(path.join(VITE_DIST, p), 'utf8') + '\n';
+  }
+
+  // 4. Collect all bundled JS (entry + any chunks referenced as type=module or modulepreload)
+  const jsRe = /<(?:script[^>]*src|link[^>]*(?:rel="modulepreload"[^>]*href|href[^>]*rel="modulepreload"))="\.?\/?(assets\/[^"]+\.js)"[^>]*>/g;
+  const jsPaths = [...html.matchAll(jsRe)].map((m) => m[1]);
+  const uniqueJsPaths = Array.from(new Set(jsPaths));
+  const entryMatch = [...html.matchAll(/<script[^>]*type="module"[^>]*src="\.?\/?(assets\/[^"]+\.js)"[^>]*>/g)].map((m) => m[1]);
+  const entryJs = entryMatch[entryMatch.length - 1] || null;
+  const orderedJs = [...uniqueJsPaths.filter((p) => p !== entryJs), ...(entryJs ? [entryJs] : [])];
+
+  let jsBundle = '';
+  for (const p of orderedJs) {
+    jsBundle += await fs.readFile(path.join(VITE_DIST, p), 'utf8') + '\n';
+  }
+
+  // 5. Rewrite relative + root-relative asset URLs → jsDelivr absolute.
+  //    Im inline-JS-bundle sind dynamic imports "./name-hash.js" oder
+  //    preload-manifest strings "assets/name.js" — beide zu absolut machen.
+  //    Plus public/ assets mit /-prefix ("/favicon.svg" etc.).
+  //    Vite base='./' generiert "./assets/name" in index.html und "assets/name"
+  //    im JS-bundle (preload-manifest).
+  const assetRewrite = (s) => {
+    let out = s;
+    // "./name-hash.js|css" (dynamic imports) → jsDelivr absolute
+    out = out.replace(
+      /(["'`])\.\/(assets\/[A-Za-z0-9_.-]+\.(?:js|css))(["'`])/g,
+      (_m, q1, file, q2) => `${q1}${BASE}/${file}${q2}`
+    );
+    // "./mount-hash.js" (dynamic import OHNE assets/ prefix — rare)
+    out = out.replace(
+      /(["'`])\.\/([A-Za-z0-9_-]+\.(?:js|css))(["'`])/g,
+      (_m, q1, file, q2) => `${q1}${BASE}/assets/${file}${q2}`
+    );
+    // "assets/name-hash.js|css" (preload-manifest strings in chunks) → jsDelivr
+    out = out.replace(
+      /(["'`])(assets\/[A-Za-z0-9_.-]+\.(?:js|css))(["'`])/g,
+      (_m, q1, file, q2) => `${q1}${BASE}/${file}${q2}`
+    );
+    // "/favicon.svg" etc. (public assets) → jsDelivr
+    out = out.replace(
+      /(["'`(])\/(?!\/)(gallery|zutaten|fonts|api|pietro-hero\.|akt3-bg\.|bg-stone\.|twint-qr\.|og-image\.|favicon\.|favicon-|apple-touch-icon|site\.webmanifest|robots\.txt|sitemap\.xml)([^"'`)]*)/g,
+      (_m, pre, first, rest) => `${pre}${BASE}/${first}${rest}`,
+    );
+    return out;
+  };
+  cssBundle = assetRewrite(cssBundle);
+  jsBundle = assetRewrite(jsBundle);
+
+  // 5b. Post-process Vite-chunks auf disk: preload-manifest + dynamic-imports
+  //     müssen innerhalb der chunk-files auch absolute URLs sein (weil chunks
+  //     von jsDelivr laufen und ihre eigenen preload() helpers ausführen).
   const viteAssetsDir = path.join(VITE_DIST, 'assets');
   try {
     const chunkFiles = await fs.readdir(viteAssetsDir);
@@ -24,9 +90,15 @@ async function main() {
       const p = path.join(viteAssetsDir, f);
       let content = await fs.readFile(p, 'utf8');
       const original = content;
-      // "assets/name-hash.js" oder "assets/name-hash.css" → jsDelivr URL
+      // "assets/name.js|css" → jsDelivr absolute
       content = content.replace(
-        /"assets\/([A-Za-z0-9_-]+\.(?:js|css))"/g,
+        /"assets\/([A-Za-z0-9_.-]+\.(?:js|css))"/g,
+        `"${BASE}/assets/$1"`
+      );
+      // "./name.js|css" dynamic imports → jsDelivr absolute (damit Vite preload
+      // helper nicht auf document-base resolvt wenn chunk von jsDelivr läuft)
+      content = content.replace(
+        /"\.\/([A-Za-z0-9_.-]+\.(?:js|css))"/g,
         `"${BASE}/assets/$1"`
       );
       if (content !== original) await fs.writeFile(p, content, 'utf8');
@@ -35,59 +107,12 @@ async function main() {
     console.warn('[build] chunk post-process warning:', err.message);
   }
 
-  // 2. Read built index.html
-  const html = await fs.readFile(path.join(VITE_DIST, 'index.html'), 'utf8');
-
-  // 3. Collect all bundled CSS files referenced in <link rel="stylesheet">
-  const cssLinkRe = /<link rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/g;
-  const cssPaths = [...html.matchAll(cssLinkRe)].map((m) => m[1]);
-  let cssBundle = '';
-  for (const p of cssPaths) {
-    const abs = path.join(VITE_DIST, p.replace(/^\//, ''));
-    cssBundle += await fs.readFile(abs, 'utf8') + '\n';
-  }
-
-  // 4. Collect all bundled JS (entry + any chunks referenced as type=module or modulepreload)
-  const jsRe = /<(?:script[^>]*src|link[^>]*(?:rel="modulepreload"[^>]*href|href[^>]*rel="modulepreload"))="(\/assets\/[^"]+\.js)"[^>]*>/g;
-  const jsPaths = [...html.matchAll(jsRe)].map((m) => m[1]);
-  const uniqueJsPaths = Array.from(new Set(jsPaths));
-  // Load order matters: modulepreload chunks first, entry last. Vite emits entry last in HTML, but we ensure entry is last by putting the script-src match at the end.
-  // Easier: prefer entry (the one in <script type="module" src="...">) at the end.
-  const entryMatch = [...html.matchAll(/<script[^>]*type="module"[^>]*src="(\/assets\/[^"]+\.js)"[^>]*>/g)].map((m) => m[1]);
-  const entryJs = entryMatch[entryMatch.length - 1] || null;
-  const orderedJs = [...uniqueJsPaths.filter((p) => p !== entryJs), ...(entryJs ? [entryJs] : [])];
-
-  let jsBundle = '';
-  for (const p of orderedJs) {
-    const abs = path.join(VITE_DIST, p.replace(/^\//, ''));
-    jsBundle += await fs.readFile(abs, 'utf8') + '\n';
-  }
-
-  // 5. Rewrite asset URLs inside JS/CSS bundles.
-  //    Hashed /assets/* (Vite-bundled) + public/* top-level files → jsdelivr CDN.
-  //    Match only root-relative URLs that aren't protocol-relative (//) or anchor (#).
-  const assetRewrite = (s) => s.replace(
-    /(["'`(])\/(?!\/)(assets|gallery|zutaten|fonts|media|images|api|pietro-hero\.|akt3-bg\.|bg-stone\.|twint-qr\.|og-image\.|favicon\.|favicon-|apple-touch-icon|site\.webmanifest|robots\.txt|sitemap\.xml)([^"'`)]*)/g,
-    (_m, pre, first, rest) => `${pre}${BASE}/${first}${rest}`,
-  );
-  // Dynamic imports + module preload paths are relative (`./name-hash.js`) nach Vite build.
-  // Inline-Script in body-inject.html hat kein Module-base, also MUSS absolute URL gesetzt werden.
-  // Hash kann Bindestriche enthalten (z.B. "BVLi8-9n"), daher [A-Za-z0-9_-]+ in beiden Teilen.
-  const chunkRewrite = (s) => s.replace(
-    /(["'`])\.\/([A-Za-z0-9_-]+\.(js|css))(["'`])/g,
-    (_m, q1, file, _ext, q2) => `${q1}${BASE}/assets/${file}${q2}`
-  );
-  cssBundle = assetRewrite(cssBundle);
-  jsBundle = chunkRewrite(assetRewrite(jsBundle));
-
   // 6. Extract body markup (main/pill/modal) from built index.html
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   if (!bodyMatch) throw new Error('could not extract <body> from built html');
   let bodyMarkup = bodyMatch[1];
-  // Remove the built <script src=...> and <link rel=stylesheet> (we will inline)
-  bodyMarkup = bodyMarkup.replace(/<script[^>]*type="module"[^>]*src="\/assets\/[^"]+\.js"[^>]*><\/script>/g, '');
+  bodyMarkup = bodyMarkup.replace(/<script[^>]*type="module"[^>]*src="\.?\/?assets\/[^"]+\.js"[^>]*><\/script>/g, '');
   bodyMarkup = bodyMarkup.replace(/<link[^>]*rel="modulepreload"[^>]*>/g, '');
-  // Rewrite asset URLs in markup
   bodyMarkup = assetRewrite(bodyMarkup);
 
   // 7. Extract head fragments we want to keep — SEO + Social + Icon + Preload.
