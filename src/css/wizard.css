@@ -112,9 +112,18 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   width: fit-content;
+  max-width: 100%;
   margin: 0;
   font-family: var(--ff-display);
   font-size: clamp(17px, 1.4vw, 21px);
+}
+@media (max-width: 430px) {
+  .akt-5-price-anchor {
+    padding: 10px 16px;
+    gap: 6px;
+    font-size: 15px;
+  }
+  .akt-5-price-unit { display: block; margin: 0; font-size: 12px; }
 }
 
 .akt-5-price-label {
@@ -327,7 +336,12 @@ body.wizard-open-lock { overflow: hidden; }
   grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto;
   align-items: center;
   gap: clamp(16px, 3vw, 40px);
-  padding: clamp(18px, 2.5vh, 24px) var(--wz-pad-viewport);
+  /* safe-area-aware padding (iPhone Notch Landscape) */
+  padding:
+    max(clamp(18px, 2.5vh, 24px), env(safe-area-inset-top))
+    max(var(--wz-pad-viewport), env(safe-area-inset-right))
+    clamp(18px, 2.5vh, 24px)
+    max(var(--wz-pad-viewport), env(safe-area-inset-left));
   border-bottom: 1px solid var(--wz-line);
   background: transparent;
 }
@@ -545,7 +559,7 @@ body.wizard-open-lock { overflow: hidden; }
   .wz-counter { padding: 10px 12px; gap: 10px; }
   .wz-counter-title { font-size: 15px; }
   .wz-counter-hint { font-size: 9px; }
-  .wz-counter-btn { width: 32px; height: 32px; font-size: 18px; }
+  .wz-counter-btn { width: 44px; height: 44px; font-size: 20px; }
   input.wz-counter-value { font-size: 20px; }
   .step4-summary { margin-top: 10px !important; padding: 12px 14px !important; }
   .step4-summary-total { font-size: 14px !important; }
@@ -570,7 +584,7 @@ body.wizard-open-lock { overflow: hidden; }
     padding: 16px 20px 14px;
   }
   .wizard-brand { grid-column: 1 / 2; grid-row: 1 / 2; min-width: 0; }
-  .wizard-close { grid-column: 2 / 3; grid-row: 1 / 2; width: 36px; height: 36px; }
+  .wizard-close { grid-column: 2 / 3; grid-row: 1 / 2; width: 44px; height: 44px; }
   .wizard-progress { grid-column: 1 / 3; grid-row: 2 / 3; }
   .wizard-brand-mark { font-size: 15px; }
   .wizard-brand-sub { font-size: 10px; }
@@ -669,7 +683,12 @@ body.wizard-open-lock { overflow: hidden; }
   grid-template-columns: auto 1fr auto;
   gap: 16px;
   align-items: center;
-  padding: clamp(14px, 2vh, 20px) var(--wz-pad-viewport);
+  /* safe-area-aware padding (iPhone Home-Indicator) */
+  padding:
+    clamp(14px, 2vh, 20px)
+    max(var(--wz-pad-viewport), env(safe-area-inset-right))
+    max(clamp(14px, 2vh, 20px), env(safe-area-inset-bottom))
+    max(var(--wz-pad-viewport), env(safe-area-inset-left));
   border-top: 1px solid var(--wz-line);
   background: color-mix(in srgb, var(--wz-bg) 96%, transparent);
 }

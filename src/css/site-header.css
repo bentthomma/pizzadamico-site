@@ -9,7 +9,8 @@
 
   justify-content: space-between;
   align-items: center;
-  padding: 16px var(--sp-viewport);
+  /* safe-area-aware padding für iPhone-Notch/Dynamic-Island */
+  padding: max(16px, env(safe-area-inset-top)) max(var(--sp-viewport), env(safe-area-inset-right)) 16px max(var(--sp-viewport), env(safe-area-inset-left));
 
   background: transparent;
   color: var(--c-farina);
@@ -123,8 +124,8 @@
 .site-burger {
   display: none;
   pointer-events: auto;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background: transparent;
   border: 1px solid currentColor;
   border-radius: 50%;
@@ -177,7 +178,12 @@
   color: var(--c-farina);
   display: grid;
   grid-template-rows: 1fr auto;
-  padding: var(--sp-7) var(--sp-viewport) var(--sp-5);
+  /* safe-area-aware padding */
+  padding:
+    max(var(--sp-7), calc(var(--sp-5) + env(safe-area-inset-top)))
+    max(var(--sp-viewport), env(safe-area-inset-right))
+    max(var(--sp-5), env(safe-area-inset-bottom))
+    max(var(--sp-viewport), env(safe-area-inset-left));
   opacity: 0;
   visibility: hidden;
   pointer-events: none;

@@ -59,7 +59,7 @@ body:has(#contact-success[aria-hidden="false"]) {
   padding: var(--sp-6) var(--sp-viewport);
 }
 
-/* Frame-Linien links/rechts (dezente editorial guides) */
+/* Frame-Linien links/rechts (dezente editorial guides) — Desktop only */
 body::before, body::after {
   content: "";
   position: fixed;
@@ -72,3 +72,6 @@ body::before, body::after {
 }
 body::before { left: var(--sp-viewport); }
 body::after  { right: var(--sp-viewport); }
+@media (max-width: 899px) {
+  body::before, body::after { display: none; }
+}
