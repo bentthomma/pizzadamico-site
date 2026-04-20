@@ -572,7 +572,16 @@
 .akt-3-bg {
   position: absolute;
   inset: 0;
-  background: url('/akt3-bg.png') center/cover no-repeat;
+  /* image-set: moderne Browser bekommen AVIF, Fallback WebP, dann JPG */
+  background: url('/akt3-bg.jpg') center/cover no-repeat;
+  background-image: image-set(
+    url('/akt3-bg.avif') type('image/avif'),
+    url('/akt3-bg.webp') type('image/webp'),
+    url('/akt3-bg.jpg') type('image/jpeg')
+  );
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   z-index: 0;
   opacity: 0.55;
   pointer-events: none;
