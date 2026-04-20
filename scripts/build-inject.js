@@ -111,10 +111,15 @@ async function main() {
       content = content.replace(
         new RegExp(`url\\((['"]?)((?:\\.{1,2}\\/|\\/)?(?:assets\\/)?[A-Za-z0-9_.-]+\\.(?:${CHUNK_EXT}))(['"]?)\\)`, 'g'),
         (_m, q1, urlPart, q2) => {
-          // Strip prefix
+          // Strip prefix (./, ../, /)
           const clean = urlPart.replace(/^\.{1,2}\//, '').replace(/^\//, '');
-          // Wenn clean nicht mit assets/ startet → public asset → direkt an BASE hängen
-          const final = clean.startsWith('assets/') ? clean : clean;
+          // Hashed file? (Vite: name-HASH.ext with 8+ char hash)
+          const isHashed = /[A-Za-z0-9_-]+-[A-Za-z0-9_-]{8,}\.[a-z0-9]+$/.test(clean);
+          // Bereits assets/ prefix? → leave. Hashed ohne prefix? → prepend assets/. Public plain name? → keep at root.
+          let final;
+          if (clean.startsWith('assets/')) final = clean;
+          else if (isHashed) final = 'assets/' + clean;
+          else final = clean;
           return `url(${q1}${BASE}/${final}${q2})`;
         }
       );
