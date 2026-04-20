@@ -45,10 +45,13 @@ body > *:not(.skip-link):not(.site-header):not(.site-mobile-menu):not(main):not(
   visibility: hidden !important;
 }
 
-/* Default-Abstände auf Body/Main entfernen */
+/* Default-Abstände auf Body entfernen.
+   WICHTIG: Nur body > main (Hoststar-wrapper), NICHT alle main-Elements —
+   sonst trifft's auch <main id="wizard-stage"> tief im Wizard-Modal und
+   killt dessen padding → Content klebt an Viewport-Edge. */
 html,
 body,
-main,
+body > main,
 #main,
 .page,
 .site,
