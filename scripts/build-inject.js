@@ -122,10 +122,8 @@ async function main() {
   await copyDir(path.join(ROOT, 'public'),      staticDir);
   // Font-Dateien (Vite bundled, aber preload-URLs referenzieren /fonts/ direkt)
   await copyDir(path.join(ROOT, 'src/fonts'),   path.join(staticDir, 'fonts'));
-  // Media (hero videos, aber die werden jetzt auch via assets gebundelt)
-  await copyDir(path.join(ROOT, 'src/media'),   path.join(staticDir, 'media'));
-  // Src images als fallback (sollten durch /assets/ ersetzt sein aber als safety net)
-  await copyDir(path.join(ROOT, 'src/images'),  path.join(staticDir, 'images'));
+  // NOTE: src/media + src/images werden NICHT mehr kopiert — Vite bundled sie
+  // in dist/static/assets/ mit hash. Der duplicate copy verschwendete ~31MB.
   await copyDir(path.join(ROOT, 'api'),          path.join(staticDir, 'api'));
 
   // 13. Report
