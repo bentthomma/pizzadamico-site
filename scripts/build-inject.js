@@ -118,6 +118,19 @@ async function main() {
           return `url(${q1}${BASE}/${final}${q2})`;
         }
       );
+      // PARTIAL public-folder paths: template-literals `/zutaten/${id}.avif`, `/gallery/...` etc.
+      // Matches "/folder/" OR `/folder/` (inkl. backtick für template-literals).
+      // Wird zu "https://cdn.jsdelivr.net/.../folder/" → string-concat tail funktioniert.
+      content = content.replace(
+        /(["'`])\/(gallery|zutaten|fonts|api|media|images)\//g,
+        (_m, q, folder) => `${q}${BASE}/${folder}/`
+      );
+      // Partial public single-file paths: `/twint-qr.png`, `/favicon.svg` in template-literals
+      const PUBLIC_FILES = 'twint-qr\\.[a-z]+|pietro-hero\\.[a-z]+|bg-stone\\.[a-z]+|akt3-bg\\.[a-z]+|og-image\\.[a-z]+|favicon(?:-\\d+)?\\.[a-z]+|apple-touch-icon\\.[a-z]+|site\\.webmanifest|robots\\.txt|sitemap\\.xml';
+      content = content.replace(
+        new RegExp(`(["'\`])\\/(${PUBLIC_FILES})`, 'g'),
+        (_m, q, file) => `${q}${BASE}/${file}`
+      );
       if (content !== original) await fs.writeFile(p, content, 'utf8');
     }
   } catch (err) {
