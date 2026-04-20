@@ -72,8 +72,9 @@ async function main() {
   );
   // Dynamic imports + module preload paths are relative (`./name-hash.js`) nach Vite build.
   // Inline-Script in body-inject.html hat kein Module-base, also MUSS absolute URL gesetzt werden.
+  // Hash kann Bindestriche enthalten (z.B. "BVLi8-9n"), daher [A-Za-z0-9_-]+ in beiden Teilen.
   const chunkRewrite = (s) => s.replace(
-    /(["'`])\.\/([A-Za-z0-9_-]+-[A-Za-z0-9_]{8,}\.(js|css))(["'`])/g,
+    /(["'`])\.\/([A-Za-z0-9_-]+\.(js|css))(["'`])/g,
     (_m, q1, file, _ext, q2) => `${q1}${BASE}/assets/${file}${q2}`
   );
   cssBundle = assetRewrite(cssBundle);
