@@ -3,7 +3,7 @@
 
 const GALLERY_IMAGES = [
   'pd-01','pd-02','pd-03','pd-04','pd-05','pd-06','pd-07','pd-08','pd-09','pd-10',
-  'pd-12','pd-14','pd-15','pd-16','pd-17','pd-18','pd-19',
+  'pd-12','pd-14','pd-15','pd-16','pd-18','pd-19',
   '0db7f606-2b81-454e-a2db-4ea42960685c',
   '14ba48d7-be65-471c-ad8b-98d00f4100db',
   '1b0078c7-0129-4ff5-9f67-30bb34cee20c',
@@ -11,7 +11,7 @@ const GALLERY_IMAGES = [
   '2c8981e0-76ee-4492-9d47-3c1613b5e2b4',
   '407a9b94-858e-4f77-9219-18b278db6479',
   '524be0ec-1116-4f4a-8ebd-5b800d67dc33',
-  '6fdf38c1-55d6-49ee-a85e-db14f21c376a',
+  'pietro-portrait',
   '99a7b5cb-d7ae-4a57-adf8-c287f975d204',
   '9aa03871-2500-41dd-9839-c13044cb221e',
   'a3a7ea0e-68ac-4268-b0f4-c77684f2973b',

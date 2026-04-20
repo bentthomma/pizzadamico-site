@@ -1582,6 +1582,7 @@
 .standorte-host-btn {
   justify-self: start;
   margin-top: 4px;
+  display: inline-flex !important;
 }
 @media (max-width: 720px) {
   .standorte-host-cta { padding: var(--sp-2) 0 0; margin-top: var(--sp-3); }
@@ -1747,7 +1748,8 @@
 
 /* Story-Modal Hilfsklassen */
 .story-hero {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
+  max-height: 320px;
   overflow: hidden;
   border-radius: 6px;
   background: #000;
@@ -1843,6 +1845,6 @@
 }
 .gallery-instagram-cta svg { flex-shrink: 0; }
 @media (max-width: 720px) {
-  .story-hero { aspect-ratio: 4 / 3; }
+  .story-hero { aspect-ratio: 4 / 3; max-height: 260px; }
   .story-lede { font-size: 22px; line-height: 1.25; }
 }

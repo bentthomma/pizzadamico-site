@@ -13,14 +13,54 @@
   width: 100%;
   margin-inline: auto;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   grid-template-areas:
-    "brand socials"
-    "contact socials"
-    "legal legal";
-  gap: var(--sp-2) var(--sp-4);
+    "brand cta socials"
+    "contact contact contact"
+    "legal legal legal";
+  gap: var(--sp-3) var(--sp-4);
   align-items: center;
   min-width: 0;
+}
+
+/* Kontakt-CTA · mittig zwischen Brand und Socials */
+.site-footer-cta {
+  grid-area: cta;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+.site-footer-kontakt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border: 1px solid color-mix(in srgb, var(--c-farina) 35%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--c-farina);
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+.site-footer-kontakt-btn:hover,
+.site-footer-kontakt-btn:focus-visible {
+  background: var(--c-farina);
+  color: var(--c-inchiostro);
+  border-color: var(--c-farina);
+  outline: none;
+  transform: translateY(-1px);
+}
+.site-footer-kontakt-arrow {
+  display: inline-block;
+  transition: transform var(--t-fast);
+}
+.site-footer-kontakt-btn:hover .site-footer-kontakt-arrow,
+.site-footer-kontakt-btn:focus-visible .site-footer-kontakt-arrow {
+  transform: translateX(3px);
 }
 
 .site-footer-brand {
@@ -117,24 +157,6 @@
   transition: opacity var(--t-fast), color var(--t-fast);
 }
 .site-footer-contact a:hover { opacity: 1; }
-.site-footer-contact-write {
-  font-family: var(--ff-mono);
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 6px 12px;
-  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
-  border-radius: 4px;
-  transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
-}
-.site-footer-contact-write:hover,
-.site-footer-contact-write:focus-visible {
-  background: var(--c-farina);
-  color: var(--c-inchiostro);
-  border-color: var(--c-farina);
-  outline: none;
-  opacity: 1;
-}
 
 .site-footer-legal {
   grid-area: legal;
@@ -163,38 +185,61 @@
 }
 
 @media (max-width: 720px) {
-  .site-footer { padding: var(--sp-3) var(--sp-viewport); }
+  .site-footer { padding: var(--sp-4) var(--sp-viewport) var(--sp-3); }
   .site-footer-inner {
     grid-template-columns: 1fr;
     grid-template-areas:
       "brand"
-      "socials"
+      "cta"
       "contact"
+      "socials"
       "legal";
     gap: var(--sp-3);
+    text-align: center;
+    justify-items: center;
   }
-  .site-footer-brand { align-items: flex-start; flex-direction: column; gap: 4px; }
-  .site-footer-socials { justify-self: start; gap: 10px; }
+  .site-footer-brand {
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .site-footer-cta { width: 100%; }
+  .site-footer-kontakt-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+  }
+  .site-footer-socials {
+    justify-self: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .site-footer-contact {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
     font-size: 12px;
     min-width: 0;
+    text-align: center;
   }
   .site-footer-contact a {
     max-width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
+    letter-spacing: 1.5px;
   }
-  .site-footer-contact-write { align-self: flex-start; margin-top: 4px; }
   .site-footer-mark { font-size: 20px; }
+  .site-footer-sub { letter-spacing: 2.5px; }
   .site-footer-legal {
     gap: 14px;
-    font-size: 11px;
-    letter-spacing: 0.8px;
+    font-size: 10px;
+    letter-spacing: 1px;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    width: 100%;
   }
   /* Google-Rating: kompakt auf Mobile — nur 4,4 */
   .site-footer-socials a.site-footer-google { padding: 0 10px; }
@@ -204,8 +249,9 @@
 @media (max-width: 380px) {
   .site-footer-legal {
     gap: 10px;
-    font-size: 10px;
+    font-size: 9px;
     letter-spacing: 0.5px;
   }
   .site-footer-contact { font-size: 11px; }
+  .site-footer-kontakt-btn { font-size: 10px; padding: 12px 16px; }
 }
