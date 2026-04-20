@@ -112,6 +112,96 @@ body > div:has(.site-modal),
   padding: 0 !important;
 }
 
+/* =============================================================
+   Hoststar Button-Font-Leak (KRITISCH)
+   Hoststar hat global: button:not(.bk-cookie):not(.button--pagination):... (20× :not())
+   → specificity ≈ 201 → zwingt ALLE unsere buttons zu:
+     Source Sans Pro, 13.6364px, weight 600, line-height 1, letter-spacing 2px
+   Wir überschreiben mit body-prefixed-Selector (spec 0,2,1 = 21) UND !important.
+   ============================================================= */
+body .akt-1-cta,
+body .akt-2-story-btn,
+body .akt-4-standorte-btn,
+body .akt-4-gallery-btn,
+body .akt-5-price-anchor,
+body .site-footer-kontakt-btn,
+body .site-modal-close,
+body .site-modal-trigger,
+body .standorte-host-btn,
+body .contact-submit,
+body .success-ok,
+body .site-burger,
+body .gallery-thumb,
+body .gallery-lightbox-close,
+body .gallery-lightbox-nav,
+body .gallery-instagram-cta,
+body .site-mobile-tel,
+body .wizard-close,
+body .wizard-btn,
+body .wizard-btn-primary,
+body .wizard-btn-secondary,
+body .wz-card,
+body .wz-counter-btn,
+body .wz-topping,
+body #contact-form button,
+body .wz-check,
+body .wz-check-box,
+body .akt-5 .site-modal-trigger,
+body .akt-5-info-cta .site-modal-trigger,
+body .akt-5-ctas .site-modal-trigger,
+body button.contact-submit,
+body button[data-modal-target],
+body button[data-wizard-open],
+body button[data-wizard-close],
+body button[data-modal-close] {
+  font-family: var(--ff-mono, 'JetBrains Mono', ui-monospace, monospace) !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: 1.55 !important;
+  letter-spacing: inherit !important;
+  text-transform: inherit !important;
+}
+
+/* Button-Text Vererbung — body line-height 1.8 von Hoststar abschneiden */
+body #scroll-root,
+body .site-modal,
+body .wizard-modal,
+body .gallery-lightbox,
+body .site-mobile-menu,
+body .site-header,
+body .site-footer {
+  line-height: 1.55 !important;
+}
+
+/* Buttons die font-family nicht von display/editorial erben sollen —
+   re-assert die korrekten fonts per button-typ */
+body .akt-1-cta,
+body .site-modal-trigger,
+body .site-footer-kontakt-btn,
+body .contact-submit,
+body .standorte-host-btn,
+body .akt-2-story-btn,
+body .akt-4-standorte-btn,
+body .akt-4-gallery-btn,
+body .success-ok,
+body .gallery-instagram-cta,
+body .wizard-btn {
+  font-family: var(--ff-mono, 'JetBrains Mono', ui-monospace, monospace) !important;
+  font-weight: 500 !important;
+}
+body .akt-5-price-anchor {
+  font-family: var(--ff-display, 'Bricolage Grotesque', ui-sans-serif, sans-serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.3px !important;
+  text-transform: none !important;
+}
+body .wz-card {
+  font-family: var(--ff-editorial, 'Newsreader', Georgia, serif) !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
 </style>
 <meta name="description" content="Authentische neapolitanische Pizza aus dem Pferdeanhänger. Catering für Hochzeiten, Firmenfeste und Events in der Schweiz. 30 Jahre Handwerk, Biga-Teig, Gasofen.">
 <meta name="author" content="Pietro D'Amico">
