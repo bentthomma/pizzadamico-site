@@ -1,9 +1,10 @@
 // Apps Script Wrapper für Kalender-Verfügbarkeit + Reservation
 // Mit Retry-Logic bei Netzwerkfehlern
 
-// v15 sender-alias-live Deployment (Pietro live, Ben CC, pietro@pizzadamico.ch als Absender)
+// v15-no-msg-ratelimit Deployment (Pietro primary, Ben CC, Absender pietro@pizzadamico.ch).
+// Google Apps Script vergibt bei jedem Re-Deploy eine neue URL — nach Re-Deploy hier updaten.
 // Ping /exec?action=debug fuer version-check.
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwPh0Bs_Q_I2qlnOPvyCvICE7wrweW_POLoBkSIRe1URADL9fkRBTtipz8wuwv00410Sw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxD0gKUZxwvXk8iKsVUf1GVMEeNM2OWG68GuGsEmznwXZcMBpTAXWrxCYi64CGdKweRuw/exec';
 
 async function callWithRetry(url, opts = {}, maxRetries = 3) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {

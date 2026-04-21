@@ -80,13 +80,7 @@ function sendContactMessage(data) {
     return json({ success: false, error: 'Name zu lang.' });
   }
 
-  var rate = checkMessageRateLimit(email, phone);
-  if (rate.blocked) {
-    return json({
-      success: false,
-      error: 'Zu viele Anfragen in den letzten 24 Stunden. Bitte kontaktiere uns direkt: ' + OWNER_PHONE
-    });
-  }
+  // Rate-Limit deaktiviert — Kunden sollen unbegrenzt Nachrichten senden koennen.
 
   try {
     sendMessageOwnerMail({ name: name, email: email, phone: phone, message: message });
@@ -682,7 +676,7 @@ function debugInfo() {
   var fut = new Date(now.getTime() + 60 * 86400 * 1000);
   var events = cal.getEvents(now, fut);
   return json({
-    version: 'v15-sender-alias-live',
+    version: 'v15-no-msg-ratelimit',
     testMode: TEST_MODE,
     templateCustomerSet: !!TEMPLATE_CUSTOMER_ID,
     templateOwnerSet: !!TEMPLATE_OWNER_ID,
