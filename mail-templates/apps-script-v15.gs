@@ -10,6 +10,9 @@ var OWNER_NAME = "Pietro D'Amico";
 var OWNER_PHONE = '076 331 32 59';
 var OWNER_EMAIL = 'damicopietro69@hotmail.it';
 var NOTIFY_BENEDIKT = 'benedikt@thomma.ch';
+// Absender-Alias: wird in Gmail-Einstellungen als "Senden als" eingerichtet.
+// GmailApp.sendEmail kann dann von dieser Adresse senden (statt vom deployenden Gmail-Account).
+var SENDER_ALIAS = 'pietro@pizzadamico.ch';
 var RATE_ADULT = 25;
 var RATE_CHILD = 12;
 var RATE_KM = 1.50;
@@ -19,7 +22,8 @@ var RATE_LIMIT_MAX = 2;
 var RATE_LIMIT_HOURS = 24;
 
 // TEST_MODE true = nur Ben bekommt Mails, Pietro NICHT im CC
-var TEST_MODE = true;
+// false = Pietro ist primary Empfaenger, Ben als CC zum Mitlesen
+var TEST_MODE = false;
 
 // Drive-File-IDs der HTML-Templates (Catering-Mails — bleiben)
 var TEMPLATE_CUSTOMER_ID = '1xMJmkxupsK7jMlvHiz7pOvAW0AS4oAw9';
@@ -121,16 +125,16 @@ function sendMessageOwnerMail(d) {
   var textBody = buildMessageOwnerText(d);
   var htmlBody = buildMessageOwnerHtml(d);
 
+  // Primary: Pietro, CC: Ben (fuer Monitoring). Im TEST_MODE umgekehrt.
+  var recipient = TEST_MODE ? NOTIFY_BENEDIKT : OWNER_EMAIL;
   var opts = {
-    to: NOTIFY_BENEDIKT,
-    subject: subject,
-    body: textBody,
     htmlBody: htmlBody,
     name: "Pizza D'Amico Bot",
-    replyTo: d.email
+    replyTo: d.email,
+    from: SENDER_ALIAS
   };
-  if (!TEST_MODE) opts.cc = OWNER_EMAIL;
-  MailApp.sendEmail(opts);
+  if (!TEST_MODE) opts.cc = NOTIFY_BENEDIKT;
+  GmailApp.sendEmail(recipient, subject, textBody, opts);
 }
 
 function sendMessageCustomerMail(d) {
@@ -138,13 +142,11 @@ function sendMessageCustomerMail(d) {
   var textBody = buildMessageCustomerText(d);
   var htmlBody = buildMessageCustomerHtml(d);
 
-  MailApp.sendEmail({
-    to: d.email,
-    subject: subject,
-    body: textBody,
+  GmailApp.sendEmail(d.email, subject, textBody, {
     htmlBody: htmlBody,
     name: "Pizza D'Amico",
-    replyTo: OWNER_EMAIL
+    replyTo: OWNER_EMAIL,
+    from: SENDER_ALIAS
   });
 }
 
@@ -603,14 +605,12 @@ function sendCustomerMail(d, reference) {
     } catch (err) { console.error('customer template:', err); }
   }
   var opts = {
-    to: d.email,
-    subject: 'Ihre Catering-Anfrage bei Pizza DAmico - ' + reference,
-    body: textBody,
     name: "Pizza D'Amico",
-    replyTo: OWNER_EMAIL
+    replyTo: OWNER_EMAIL,
+    from: SENDER_ALIAS
   };
   if (htmlBody) opts.htmlBody = htmlBody;
-  MailApp.sendEmail(opts);
+  GmailApp.sendEmail(d.email, 'Ihre Catering-Anfrage bei Pizza DAmico - ' + reference, textBody, opts);
 }
 
 function sendOwnerMail(d, reference, eventId) {
@@ -622,15 +622,15 @@ function sendOwnerMail(d, reference, eventId) {
       htmlBody = renderTemplate(TEMPLATE_OWNER_ID, vars);
     } catch (err) { console.error('owner template:', err); }
   }
+  // Primary: Pietro, CC: Ben (fuer Monitoring). Im TEST_MODE umgekehrt.
+  var recipient = TEST_MODE ? NOTIFY_BENEDIKT : OWNER_EMAIL;
   var opts = {
-    to: NOTIFY_BENEDIKT,
-    subject: 'Neue Anfrage ' + reference + ' - ' + (d.name || ''),
-    body: textBody,
-    name: "Pizza D'Amico Bot"
+    name: "Pizza D'Amico Bot",
+    from: SENDER_ALIAS
   };
-  if (!TEST_MODE) opts.cc = OWNER_EMAIL;
+  if (!TEST_MODE) opts.cc = NOTIFY_BENEDIKT;
   if (htmlBody) opts.htmlBody = htmlBody;
-  MailApp.sendEmail(opts);
+  GmailApp.sendEmail(recipient, 'Neue Anfrage ' + reference + ' - ' + (d.name || ''), textBody, opts);
 }
 
 function customerText(d, reference, b) {
@@ -682,7 +682,7 @@ function debugInfo() {
   var fut = new Date(now.getTime() + 60 * 86400 * 1000);
   var events = cal.getEvents(now, fut);
   return json({
-    version: 'v15-with-html-contact-mail',
+    version: 'v15-sender-alias-live',
     testMode: TEST_MODE,
     templateCustomerSet: !!TEMPLATE_CUSTOMER_ID,
     templateOwnerSet: !!TEMPLATE_OWNER_ID,

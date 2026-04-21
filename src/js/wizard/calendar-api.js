@@ -1,8 +1,9 @@
 // Apps Script Wrapper für Kalender-Verfügbarkeit + Reservation
 // Mit Retry-Logic bei Netzwerkfehlern
 
-// v15 Deployment mit HTML-Contact-Mails (ping ?action=debug fuer version-check)
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFQm2H0fHSO3XSttyfsQg6lDOHwKzNeeP-MPO0fq8U_AZ2TT6JYHn2ZBaZ9oCZV-CE-g/exec';
+// v15 sender-alias-live Deployment (Pietro live, Ben CC, pietro@pizzadamico.ch als Absender)
+// Ping /exec?action=debug fuer version-check.
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwPh0Bs_Q_I2qlnOPvyCvICE7wrweW_POLoBkSIRe1URADL9fkRBTtipz8wuwv00410Sw/exec';
 
 async function callWithRetry(url, opts = {}, maxRetries = 3) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
