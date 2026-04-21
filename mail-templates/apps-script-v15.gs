@@ -85,8 +85,12 @@ function sendContactMessage(data) {
   try {
     sendMessageOwnerMail({ name: name, email: email, phone: phone, message: message });
   } catch (err) {
-    console.error('owner message mail:', err);
-    return json({ success: false, error: 'Die Nachricht konnte nicht gesendet werden. Bitte ruf uns direkt an: ' + OWNER_PHONE });
+    console.error('owner message mail:', err, err.stack);
+    // Debug-Info temporaer im Error-String (fuer Ben beim Live-Test). Nach Go-Live wieder generisch.
+    return json({
+      success: false,
+      error: 'Mail-Fehler: ' + (err.message || String(err)) + ' | Bitte telefonisch: ' + OWNER_PHONE
+    });
   }
 
   try {
@@ -676,7 +680,7 @@ function debugInfo() {
   var fut = new Date(now.getTime() + 60 * 86400 * 1000);
   var events = cal.getEvents(now, fut);
   return json({
-    version: 'v15-no-msg-ratelimit',
+    version: 'v15-debug-errors',
     testMode: TEST_MODE,
     templateCustomerSet: !!TEMPLATE_CUSTOMER_ID,
     templateOwnerSet: !!TEMPLATE_OWNER_ID,

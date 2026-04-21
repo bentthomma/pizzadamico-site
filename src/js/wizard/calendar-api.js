@@ -4,7 +4,7 @@
 // v15-no-msg-ratelimit Deployment (Pietro primary, Ben CC, Absender pietro@pizzadamico.ch).
 // Google Apps Script vergibt bei jedem Re-Deploy eine neue URL — nach Re-Deploy hier updaten.
 // Ping /exec?action=debug fuer version-check.
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxD0gKUZxwvXk8iKsVUf1GVMEeNM2OWG68GuGsEmznwXZcMBpTAXWrxCYi64CGdKweRuw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzC8Ox_7i-sOk1tJ4X8R7DSMADPlq1Ek7-Vc652ixdaQQPbR5Fg9434C47bK1AogD5RNg/exec';
 
 async function callWithRetry(url, opts = {}, maxRetries = 3) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
