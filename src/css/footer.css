@@ -198,7 +198,9 @@
   border-radius: 2px;
 }
 
-@media (max-width: 720px) {
+/* Stack ab 899 (iPad mini portrait = 744, iPad 820) — sonst ist
+   "Kontaktieren Sie uns" gequetscht zwischen Brand und Socials */
+@media (max-width: 899px) {
   .site-footer { padding: var(--sp-4) var(--sp-viewport) var(--sp-3); }
   .site-footer-inner {
     grid-template-columns: 1fr;

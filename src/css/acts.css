@@ -483,8 +483,15 @@
   flex-wrap: wrap;
   gap: 0;
   color: var(--c-pane);
+  /* Explicit mono family — sonst leakt Hoststar's body-default (Source Sans) */
+  font-family: var(--ff-mono) !important;
+  font-size: 11px;
   letter-spacing: 2.5px;
+  text-transform: uppercase;
   font-variant-numeric: tabular-nums;
+}
+.akt-4-specs li {
+  font-family: var(--ff-mono) !important;
 }
 .akt-4-specs li {
   padding: 0 var(--sp-3);
@@ -660,9 +667,10 @@
   .akt-3 .kicker { font-size: 10px; letter-spacing: 2.5px; }
 
   .akt-3-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* 20 items in 4 cols × 5 rows — perfekt passend */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-auto-rows: min-content;
-    gap: clamp(10px, 2vw, 18px);
+    gap: clamp(10px, 2vw, 16px);
     max-height: none;
     flex: 0 0 auto;
     align-content: start;
@@ -674,30 +682,43 @@
   }
   .akt-3-card-img {
     width: 100%;
-    max-width: clamp(72px, 22vw, 108px);
+    max-width: clamp(60px, 19vw, 88px);
     aspect-ratio: 1;
     height: auto;
     max-height: none;
   }
   .akt-3-card-name {
-    font-size: clamp(10px, 2.6vw, 12px);
+    font-size: clamp(9px, 2.4vw, 11px);
     letter-spacing: 0.3px;
     line-height: 1.2;
     white-space: normal;
     text-align: center;
   }
 }
-/* Ultra-schmal (≤380): leichter verkleinern */
-@media (max-width: 380px) {
+/* Kleine Phones (iPhone SE 375×667, iPhone mini, etc.)
+   Ben: "da soll nichts snappen alles in dieser region" →
+   scroll-snap komplett aus, natürlicher Flow-Scroll.
+   Gilt für ≤400px Breite UND flache Landscape. */
+@media (max-width: 400px) {
+  html { scroll-snap-type: none !important; }
+  .akt, .site-footer {
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
+  }
   .akt-3 .akt-title { font-size: 20px; }
   .akt-3 .akt-lede { display: none; }
   .akt-3 .kicker { font-size: 9px; }
-  .akt-3-card-img { max-width: 68px; }
+  .akt-3-card-img { max-width: clamp(58px, 18vw, 72px); }
   .akt-3-card-name { font-size: 10px; }
-  .akt-3-grid { gap: 8px 10px; }
+  .akt-3-grid { gap: 8px 6px; }
 }
-/* Sehr flache Viewports (landscape, iPhone SE): komplett scrollable + kleinere cards */
-@media (max-width: 899px) and (max-height: 640px) {
+/* Sehr flache Viewports (landscape, alte Androids <640h) — auch scroll-frei */
+@media (max-width: 899px) and (max-height: 700px) {
+  html { scroll-snap-type: none !important; }
+  .akt, .site-footer {
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
+  }
   .akt-3 {
     height: auto;
     min-height: 100dvh;
@@ -707,7 +728,7 @@
   .akt-3 .akt-lede { display: none; }
   .akt-3 .akt-title { font-size: 19px; }
   .akt-3-grid { gap: 8px 10px; }
-  .akt-3-card-img { max-width: clamp(56px, 16vw, 80px); }
+  .akt-3-card-img { max-width: clamp(52px, 14vw, 72px); }
   .akt-3-card-name { font-size: 10px; }
 }
 
@@ -789,8 +810,10 @@
     opacity: 1;
     letter-spacing: 1.5px;
   }
-  /* Geschwister leicht abdunkeln damit fokus auf gehoverte card liegt */
-  .akt-3-grid:hover .akt-3-card:not(:hover) .akt-3-card-img { opacity: 0.75; }
+  /* Geschwister leicht abdunkeln — NUR wenn tatsächlich eine card gehovert wird.
+     :has() statt :hover auf grid — sonst triggert der leere Raum zwischen cards
+     (cards sind fit-content) einen fake-hover und dimmt alle cards grundlos. */
+  .akt-3-grid:has(.akt-3-card:hover) .akt-3-card:not(:hover) .akt-3-card-img { opacity: 0.75; }
   .akt-3-grid .akt-3-card-img { transition-property: transform, border-color, box-shadow, opacity; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1672,6 +1695,10 @@
   appearance: none;
   -webkit-appearance: none;
   position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-family: var(--ff-mono) !important;
   background: color-mix(in srgb, var(--c-farina) 12%, transparent);
   color: var(--c-farina);
   border: 1px solid color-mix(in srgb, var(--c-farina) 35%, transparent);
@@ -1704,6 +1731,7 @@
   transform: translateY(-50%);
   width: 48px;
   height: 48px;
+  font-size: 22px;
   font-size: 18px;
   line-height: 1;
 }
