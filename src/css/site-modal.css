@@ -94,7 +94,7 @@
   border: 1px solid color-mix(in srgb, var(--c-farina) 14%, transparent);
   /* min(92vw, 1120px) statt clamp(540px,...) — 540px-min sprengt kleine Viewports */
   width: min(92vw, 1120px);
-  max-height: 92dvh;
+  max-height: 92svh;
   overflow-y: auto;
   overflow-x: hidden;
   transform: translateY(12px);
@@ -295,7 +295,7 @@
     padding: var(--sp-4) var(--sp-3) var(--sp-3);
     border-radius: 12px;
     width: min(92vw, 540px);
-    max-height: 92dvh;
+    max-height: 92svh;
     overflow-y: auto;
     box-shadow: 0 24px 60px -20px color-mix(in srgb, var(--c-inchiostro) 55%, transparent);
     transform: translateY(12px);

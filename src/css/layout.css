@@ -4,13 +4,17 @@ html {
   scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }
-/* Mobile: native mandatory snap — erzwingt 1 Section pro Geste ohne JS-Konflikt */
-@media (max-width: 899px) {
-  html { scroll-snap-type: y mandatory; }
-}
-/* Disable mandatory snap on reduced-motion + when a modal is open (content inside scrolls) */
+/* Mobile: PROXIMITY (soft snap) — keine "stuck in middle" wie bei mandatory.
+   Sections die länger als viewport sind werden via data-overflows="true"
+   aus dem snap rausgenommen (JS setzt das dynamisch in scroll.js). */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-snap-type: none; scroll-behavior: auto; }
+}
+/* Overflow-Sections: kein Snap → User scrollt normal durch */
+.akt[data-overflows="true"],
+.site-footer[data-overflows="true"] {
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
 }
 body:has(.site-modal[aria-hidden="false"]),
 body:has(.site-mobile-menu[aria-hidden="false"]) {
@@ -25,7 +29,7 @@ body:has(.site-mobile-menu[aria-hidden="false"]) {
   background: var(--c-bg);
   color: var(--c-fg);
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
   display: grid;
   align-content: center;
   scroll-snap-align: start;

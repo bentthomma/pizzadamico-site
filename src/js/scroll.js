@@ -36,6 +36,29 @@ function collectSections() {
   sections = [...document.querySelectorAll('.akt'), document.querySelector('.site-footer')].filter(Boolean);
 }
 
+// Markiere sections die länger als viewport sind → CSS entfernt scroll-snap dort.
+// Das ist der Unterschied zwischen "flüssiger section-feel wenn's passt" und
+// "normales scrolling wenn content übersteigt". Ruft in requestAnimationFrame,
+// damit layout settled ist.
+function updateOverflowFlags() {
+  const vh = window.innerHeight;
+  const tolerance = 4; // round-off bei subpixel-heights ignorieren
+  sections.forEach(s => {
+    const overflows = s.scrollHeight > vh + tolerance;
+    const flag = overflows ? 'true' : 'false';
+    if (s.dataset.overflows !== flag) s.dataset.overflows = flag;
+  });
+}
+
+let resizeObserver = null;
+function observeOverflow() {
+  if (resizeObserver) resizeObserver.disconnect();
+  resizeObserver = new ResizeObserver(() => {
+    requestAnimationFrame(updateOverflowFlags);
+  });
+  sections.forEach(s => resizeObserver.observe(s));
+}
+
 function currentFromScrollY() {
   const y = window.scrollY + 60;
   for (let i = 0; i < sections.length; i++) {
@@ -161,11 +184,18 @@ export function initScroll() {
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => {
     collectSections();
+    observeOverflow();
+    requestAnimationFrame(updateOverflowFlags);
     ScrollTrigger.refresh();
   });
+  // Auch bei orientation-change + URL-bar-show/hide re-evaluieren
+  window.addEventListener('orientationchange', () => {
+    requestAnimationFrame(updateOverflowFlags);
+  });
 
-  // Initial: announce Akt 1 (for header state only, reveal skips akt-1)
   requestAnimationFrame(() => {
+    updateOverflowFlags();
+    observeOverflow();
     dispatchSettled(currentFromScrollY());
   });
 }

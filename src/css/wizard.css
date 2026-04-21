@@ -40,7 +40,7 @@
 
 .akt-5 {
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
   display: grid;
   place-items: center;
   position: relative;
