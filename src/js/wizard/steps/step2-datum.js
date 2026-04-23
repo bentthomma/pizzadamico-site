@@ -277,11 +277,26 @@ export function renderStep2(stage) {
     min: todayISO(),
     value: getState().date ?? '',
   });
+  // Inline-Hint für sofortige Fehlermeldungen (nicht erst am Schritt-Ende).
+  const dateHint = createEl('div', { class: 'wz-helper', 'data-state': 'warn', style: 'display:none;min-height:0;' });
   dateInput.addEventListener('change', (e) => {
-    setField('date', e.target.value || null);
+    const val = e.target.value || '';
+    // Browser-Validation laesst sich umgehen (iOS Safari akzeptiert manchmal keine min).
+    // JS-seitig hart pruefen + sofort zuruecksetzen wenn in Vergangenheit.
+    if (val && val < todayISO()) {
+      dateHint.textContent = 'Datum darf nicht in der Vergangenheit liegen.';
+      dateHint.style.display = '';
+      dateInput.value = '';
+      setField('date', null);
+      resetAvailability();
+      return;
+    }
+    dateHint.style.display = 'none';
+    setField('date', val || null);
     resetAvailability();
   });
   dateField.appendChild(dateInput);
+  dateField.appendChild(dateHint);
   gridRow.appendChild(dateField);
 
   // Uhrzeit

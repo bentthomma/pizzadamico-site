@@ -32,6 +32,18 @@ var TEMPLATE_OWNER_ID = '1LNN3da3t8LakgHccR5624m8hjdANQpmi';
 // TWINT-QR-URL
 var TWINT_QR_URL = 'https://pizzadamico-site.vercel.app/twint-qr.png';
 
+// === Test-Funktion: direkt im Editor ausfuehren um Alias-Send zu verifizieren ===
+// Play-Button mit dieser Funktion ausgewaehlt → Auth-Dialog mit allen benoetigten
+// Gmail-Scopes erscheint. Nach Zulassen kommt eine Test-Mail an NOTIFY_BENEDIKT.
+function testAliasSend() {
+  GmailApp.sendEmail(NOTIFY_BENEDIKT, 'TEST von Apps Script v15', 'Alias-Test erfolgreich.', {
+    from: SENDER_ALIAS,
+    name: "Pizza D'Amico Test",
+    htmlBody: '<p style="font-family:sans-serif">Alias-Test erfolgreich. Absender sollte <b>' + SENDER_ALIAS + '</b> sein.</p>'
+  });
+  console.log('testAliasSend OK — pruefe inbox von ' + NOTIFY_BENEDIKT);
+}
+
 // === Entrypoint ===
 function doGet(e) {
   var action = (e.parameter.action || '').toLowerCase();
@@ -123,13 +135,13 @@ function sendMessageOwnerMail(d) {
   var textBody = buildMessageOwnerText(d);
   var htmlBody = buildMessageOwnerHtml(d);
 
-  // Primary: Pietro, CC: Ben (fuer Monitoring). Im TEST_MODE umgekehrt.
+  // Owner-Mail OHNE from:alias → geht ueber Gmail-SMTP direkt, kein Hoststar-Filter.
+  // Intern egal welcher Absender, Hauptsache kommt an.
   var recipient = TEST_MODE ? NOTIFY_BENEDIKT : OWNER_EMAIL;
   var opts = {
     htmlBody: htmlBody,
     name: "Pizza D'Amico Bot",
-    replyTo: d.email,
-    from: SENDER_ALIAS
+    replyTo: d.email
   };
   if (!TEST_MODE) opts.cc = NOTIFY_BENEDIKT;
   GmailApp.sendEmail(recipient, subject, textBody, opts);
@@ -620,11 +632,10 @@ function sendOwnerMail(d, reference, eventId) {
       htmlBody = renderTemplate(TEMPLATE_OWNER_ID, vars);
     } catch (err) { console.error('owner template:', err); }
   }
-  // Primary: Pietro, CC: Ben (fuer Monitoring). Im TEST_MODE umgekehrt.
+  // Owner-Mail OHNE from:alias → geht ueber Gmail-SMTP, kein Hoststar-Spam-Filter.
   var recipient = TEST_MODE ? NOTIFY_BENEDIKT : OWNER_EMAIL;
   var opts = {
-    name: "Pizza D'Amico Bot",
-    from: SENDER_ALIAS
+    name: "Pizza D'Amico Bot"
   };
   if (!TEST_MODE) opts.cc = NOTIFY_BENEDIKT;
   if (htmlBody) opts.htmlBody = htmlBody;
@@ -680,7 +691,7 @@ function debugInfo() {
   var fut = new Date(now.getTime() + 60 * 86400 * 1000);
   var events = cal.getEvents(now, fut);
   return json({
-    version: 'v15-debug-errors',
+    version: 'v15-hybrid-alias',
     testMode: TEST_MODE,
     templateCustomerSet: !!TEMPLATE_CUSTOMER_ID,
     templateOwnerSet: !!TEMPLATE_OWNER_ID,

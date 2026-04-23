@@ -150,9 +150,9 @@ function ensureStyle() {
 }
 
 const MIN_ADULTS = 0;
-const MAX_ADULTS = 200;
+const MAX_ADULTS = 500;
 const MIN_CHILDREN = 0;
-const MAX_CHILDREN = 50;
+const MAX_CHILDREN = 500;
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
